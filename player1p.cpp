@@ -62,6 +62,8 @@ void Player1P::loadResource()
 
 void Player1P::keyBoardListener()
 {
+    if(m_state == PUNCH)
+        return;
     if(GetAsyncKeyState(65))
     {
         m_state = RUN;

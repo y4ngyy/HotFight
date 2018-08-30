@@ -8,7 +8,7 @@ class Player1P : public PlayerItem
 public:
     Player1P();
 protected:
-    // 继承父类纯虚函数 加载资源
+    // 继承父类虚函数 加载资源
     void loadResource();
 
     // 重写1P键盘操作

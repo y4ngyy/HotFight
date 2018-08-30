@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     //    m_scene->addItem(&item);
     //    m_scene->addItem(&item2);
 
-        setScene(&m_gamescene);
+    setScene(&m_gamescene);
 }
 
 MainWindow::~MainWindow()

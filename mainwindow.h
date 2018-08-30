@@ -24,7 +24,7 @@ private:
     //    Player1P item;
     //    Player2P item2;
 
-          GameScene m_gamescene;   //测试需要
+    GameScene m_gamescene;   //测试需要
 };
 
 #endif // MAINWINDOW_H

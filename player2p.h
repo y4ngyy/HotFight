@@ -14,7 +14,8 @@ protected:
    // 无冲型键盘监听方案
     void keyBoardListener();
 
-    virtual void loadResource();  //重载基类的资源加载函数
+    //重载基类的资源加载函数
+    void loadResource();
 };
 
 #endif // PLAYERITEM2_H

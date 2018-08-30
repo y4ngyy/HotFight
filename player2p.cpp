@@ -3,7 +3,7 @@
 
 Player2P::Player2P()
 {
-  loadResource();
+    loadResource();
 }
 
 //void Player2P::keyPressEvent(QKeyEvent *event)
@@ -46,6 +46,8 @@ Player2P::Player2P()
 
 void Player2P::keyBoardListener()
 {
+    if(m_state == PUNCH)
+        return;
     if(GetAsyncKeyState(VK_LEFT))
     {
         m_state = RUN;

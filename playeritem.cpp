@@ -7,15 +7,6 @@
 PlayerItem::PlayerItem()
 {
     // 加载图片资源
-    // 调试时再使用， 资源加载在子类中
-//    p_running.append(QPixmap(":/images/running_1.png"));
-//    p_running.append(QPixmap(":/images/running_2.png"));
-//    p_running.append(QPixmap(":/images/running_3.png"));
-//    p_running.append(QPixmap(":/images/running_2.png"));
-//    p_punch.append(QPixmap(":/images/punch_1.png"));
-//    p_punch.append(QPixmap(":/images/punch_2.png"));
-//    p_punch.append(QPixmap(":/images/punch_3.png"));
-//    p_punch.append(QPixmap(":/images/punch_4.png"));
 
     // 初始化变量
     m_state =  STAND;
@@ -197,6 +188,11 @@ void PlayerItem::run()
 }
 
 void PlayerItem::keyBoardListener()
+{
+
+}
+
+void PlayerItem::loadResource()
 {
 
 }
