@@ -52,6 +52,8 @@ protected:
     STATE m_state;
     DIRECTION m_direction;
 
+    // 尝试键盘无冲操作 子类重载 并在timeEvent中执行
+    virtual void keyBoardListener();
 private:
     // 绘制函数
     void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);

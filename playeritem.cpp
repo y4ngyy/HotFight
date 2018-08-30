@@ -170,7 +170,7 @@ void PlayerItem::timerEvent(QTimerEvent *event)
     // 定时刷新视图，实现动画效果
     if(event->timerId() == timerId)
     {
-
+        keyBoardListener();
         // 同步信息
         setInfo();
         run();
@@ -194,4 +194,9 @@ void PlayerItem::run()
     {
         m_x += m_speed;
     }
+}
+
+void PlayerItem::keyBoardListener()
+{
+
 }
