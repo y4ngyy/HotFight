@@ -1,47 +1,69 @@
 #include "player2p.h"
+#include <windows.h>
 
 Player2P::Player2P()
 {
   loadResource();
 }
 
-void Player2P::keyPressEvent(QKeyEvent *event)
-{
-    switch (event->key())
-    {
-        case Qt::Key_Left:
-            m_direction = LEFT;
-            m_state = RUN;
-        break;
-        case Qt::Key_Up:
-        case Qt::Key_Right:
-            m_direction =  RIGHT;
-            m_state = RUN;
-        break;
-        case Qt::Key_Down:
-        default:
-            break;
-    }
+//void Player2P::keyPressEvent(QKeyEvent *event)
+//{
+//    switch (event->key())
+//    {
+//        case Qt::Key_Left:
+//            m_direction = LEFT;
+//            m_state = RUN;
+//        break;
+//        case Qt::Key_Up:
+//        case Qt::Key_Right:
+//            m_direction =  RIGHT;
+//            m_state = RUN;
+//        break;
+//        case Qt::Key_Down:
+//        default:
+//            break;
+//    }
 
-}
-void Player2P::keyReleaseEvent(QKeyEvent *event)
-{
+//}
+//void Player2P::keyReleaseEvent(QKeyEvent *event)
+//{
 
-    switch (event->key())
+//    switch (event->key())
+//    {
+//        case Qt::Key_Left:
+//            m_state = STAND;
+//        break;
+//        case Qt::Key_Right:
+//            m_state = STAND;
+//        break;
+//        case Qt::Key_1:
+//            m_state = PUNCH;
+//            break;
+//        default:
+//            break;
+//    }
+//}
+
+void Player2P::keyBoardListener()
+{
+    if(GetAsyncKeyState(VK_LEFT))
     {
-        case Qt::Key_Left:
-            m_state = STAND;
-        break;
-        case Qt::Key_Right:
-            m_state = STAND;
-        break;
-        case Qt::Key_1:
-            m_state = PUNCH;
-            break;
-        default:
-            break;
+        m_state = RUN;
+        m_direction = LEFT;
+    }
+    else if(GetAsyncKeyState(VK_RIGHT))
+    {
+        m_state = RUN;
+        m_direction = RIGHT;
+    }
+    else
+        m_state = STAND;
+    if(GetAsyncKeyState(VK_NUMPAD1))
+    {
+        m_state = PUNCH;
     }
 }
+
  void Player2P::loadResource()
 {
        p_standing.load(":/images/player2/standing.png");

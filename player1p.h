@@ -12,8 +12,11 @@ protected:
     void loadResource();
 
     // 重写1P键盘操作
-    void keyPressEvent(QKeyEvent *);
-    void keyReleaseEvent(QKeyEvent *);
+//    void keyPressEvent(QKeyEvent *);
+//    void keyReleaseEvent(QKeyEvent *);
+
+    // 无冲键盘操作
+    void keyBoardListener();
 private:
 
 };
