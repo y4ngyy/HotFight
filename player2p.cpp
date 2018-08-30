@@ -48,6 +48,8 @@ void Player2P::keyBoardListener()
 {
     if(m_state == PUNCH)
         return;
+    if(m_state==ISATTCAKED)     //改动
+        return;
     if(GetAsyncKeyState(VK_LEFT))
     {
         m_state = RUN;
@@ -76,5 +78,8 @@ void Player2P::keyBoardListener()
         p_punch.append(QPixmap(":/images/player2/punching_1.png"));
         p_punch.append(QPixmap(":/images/player2/punching_2.png"));
         p_punch.append(QPixmap(":/images/player2/punching_3.png"));
+        p_shitting.append(QPixmap(":/images/player2/ishitting_1.png"));
+        p_shitting.append(QPixmap(":/images/player2/ishitting_2.png"));
+        p_shitting.append(QPixmap(":/images/player2/ishitting_3.png"));
 
 }

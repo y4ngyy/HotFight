@@ -12,6 +12,7 @@ PlayerItem::PlayerItem()
     m_state =  STAND;
     runIndex = 0;
     punchIndex = 0;
+    shittingIndex=0;
     m_x = 0;
     m_y = 0;
     m_width = p_standing.width();
@@ -83,7 +84,29 @@ void PlayerItem::paint(QPainter *painter,
             {
                 painter->drawImage(m_x,m_y, p_punch.at(punchIndex).toImage().mirrored(true,false));
             }
-        break;
+            break;
+        case ISATTCAKED:
+             //被攻击视图
+            if(shittingIndex == p_shitting.size()-1)
+            {
+                shittingIndex = 0;
+                setState(PlayerItem::STAND);
+            }
+            else
+            shittingIndex++;
+            qDebug()<< shittingIndex ; //测试用
+            if(m_direction == LEFT)
+            {
+                // drawPixmap 改为 drawImage 尝试修复图片拉长
+                painter->drawImage(m_x, m_y, p_shitting.at(shittingIndex).toImage());
+                qDebug()<<"画画" ; //测试用
+            }
+        else
+            {
+                painter->drawImage(m_x,m_y, p_shitting.at(shittingIndex).toImage().mirrored(true,false));
+                qDebug()<<"画画" ; //测试用
+            }
+            break;
         default:
             break;
     }
@@ -149,6 +172,10 @@ void PlayerItem::setInfo()
             m_width = p_punch.at(punchIndex).width();
             m_height = p_punch.at(punchIndex).height();
             break;
+        case ISATTCAKED:
+            m_width = p_shitting.at(shittingIndex).width();
+            m_height = p_shitting.at(shittingIndex).height();
+            break;
         default:
             break;
     }
@@ -195,4 +222,46 @@ void PlayerItem::keyBoardListener()
 void PlayerItem::loadResource()
 {
 
+}
+
+PlayerItem::STATE PlayerItem::getState()
+{
+    return m_state;
+}
+
+void PlayerItem::setState(STATE state)
+{
+    m_state=state;
+    qDebug()<<"状态改变" ; //测试用
+}
+
+PlayerItem:: DIRECTION PlayerItem::getDirection()
+{
+     return m_direction;
+}
+
+void PlayerItem::setDirection(DIRECTION direction)
+{
+    m_direction=direction;
+}
+
+
+qreal PlayerItem::getX()const
+{
+    return m_x;
+}
+
+void  PlayerItem::setX(qreal x)
+{
+    m_x=x;
+}
+
+qreal  PlayerItem::getY()const
+{
+    return m_y;
+}
+
+void  PlayerItem::setY(qreal y)
+{
+    m_y=y;
 }

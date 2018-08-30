@@ -3,16 +3,19 @@
 
 
 #include <QGraphicsScene>
+#include"playeritem.h"
 #include "player1p.h"
 #include "player2p.h"
 #include <QEvent>
 #include <QKeyEvent>
 #include <QTimerEvent>
+#include<QDebug>
 
 class GameScene: public QGraphicsScene
 {
 public:
     GameScene();
+    bool IsAttacked( PlayerItem &AttackItem, PlayerItem &AttcekedItem);
 protected:
 //   bool event(QEvent *event); //重载事件分发器
 
