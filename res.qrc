@@ -1,12 +1,20 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/running_1.png</file>
-        <file>images/running_2.png</file>
-        <file>images/running_3.png</file>
-        <file>images/standing.png</file>
-        <file>images/punch_1.png</file>
-        <file>images/punch_2.png</file>
-        <file>images/punch_3.png</file>
-        <file>images/punch_4.png</file>
+        <file>images/player1/running_1.png</file>
+        <file>images/player1/running_2.png</file>
+        <file>images/player1/running_3.png</file>
+        <file>images/player1/standing.png</file>
+        <file>images/player2/punching_1.png</file>
+        <file>images/player2/punching_2.png</file>
+        <file>images/player2/punching_3.png</file>
+        <file>images/player2/running_1.png</file>
+        <file>images/player2/running_2.png</file>
+        <file>images/player2/running_3.png</file>
+        <file>images/player2/running_4.png</file>
+        <file>images/player2/standing.png</file>
+        <file>images/player1/punching_1.png</file>
+        <file>images/player1/punching_2.png</file>
+        <file>images/player1/punching_3.png</file>
+        <file>images/player1/punching_4.png</file>
     </qresource>
 </RCC>

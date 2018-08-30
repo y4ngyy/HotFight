@@ -9,15 +9,15 @@ Player1P::Player1P()
 
 void Player1P::loadResource()
 {
-    p_standing = QPixmap(":/images/standing.png");
-    p_running.append(QPixmap(":/images/running_1.png"));
-    p_running.append(QPixmap(":/images/running_2.png"));
-    p_running.append(QPixmap(":/images/running_3.png"));
-    p_running.append(QPixmap(":/images/running_2.png"));
-    p_punch.append(QPixmap(":/images/punch_1.png"));
-    p_punch.append(QPixmap(":/images/punch_2.png"));
-    p_punch.append(QPixmap(":/images/punch_3.png"));
-    p_punch.append(QPixmap(":/images/punch_4.png"));
+    p_standing.load(":/images/player1/standing.png");
+     p_running.append(QPixmap(":/images/player1/running_1.png"));
+     p_running.append(QPixmap(":/images/player1/running_2.png"));
+     p_running.append(QPixmap(":/images/player1/running_3.png"));
+     p_running.append(QPixmap(":/images/player1/running_2.png"));
+     p_punch.append(QPixmap(":/images/player1/punching_1.png"));
+     p_punch.append(QPixmap(":/images/player1/punching_2.png"));
+     p_punch.append(QPixmap(":/images/player1/punching_3.png"));
+     p_punch.append(QPixmap(":/images/player1/punching_4.png"));
 }
 /*
  * 1p控制方法 W D左右行走
