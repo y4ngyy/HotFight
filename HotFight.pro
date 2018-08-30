@@ -27,13 +27,15 @@ SOURCES += \
         mainwindow.cpp \
     playeritem.cpp \
     player1p.cpp \
-    player2p.cpp
+    player2p.cpp \
+    gamescene.cpp
 
 HEADERS += \
         mainwindow.h \
     playeritem.h \
     player1p.h \
-    player2p.h
+    player2p.h \
+    gamescene.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
