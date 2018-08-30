@@ -7,11 +7,12 @@ MainWindow::MainWindow(QWidget *parent)
     //初始化QGraphicsView对象
 
     // 初始化QGraphicsScene对象
-//    m_scene = new QGraphicsScene(this);
-//    m_scene->addItem(&item);
-//    m_scene->addItem(&item2);
-
-    setScene(&m_fightscene);
+    m_scene = new QGraphicsScene(this);
+    m_scene->addItem(&item);
+    m_scene->addItem(&item2);
+    item.setFocus();
+    item2.setFocus();
+    setScene(m_scene);
 }
 
 MainWindow::~MainWindow()
