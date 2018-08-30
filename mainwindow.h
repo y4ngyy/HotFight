@@ -6,9 +6,7 @@
 #include "player2p.h"
 #include <QGraphicsView>
 #include <QWidget>
-#include<QEvent>
-#include<QKeyEvent>
-#include"FightScene.h"
+
 
 class MainWindow : public QGraphicsView
 {
@@ -19,12 +17,9 @@ public:
     ~MainWindow();
 protected:
 private:
-//    QGraphicsScene *m_scene;    //测试注释掉了
-
-//    Player1P item;
-//    Player2P item2;
-
-      FightScene m_fightscene;   //测试需要
+    QGraphicsScene *m_scene;
+    Player1P item;
+    Player2P item2;
 };
 
 #endif // MAINWINDOW_H
