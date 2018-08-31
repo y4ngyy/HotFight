@@ -10,8 +10,7 @@
 #include <QGraphicsObject>
 #include <QTimerEvent>
 
-enum STATE{JUMP, PUNCH, KICK, RUN, STAND};
-enum DIRECTION{LEFT, RIGHT};
+
 
 /*
  *  角色基类
@@ -21,6 +20,8 @@ enum DIRECTION{LEFT, RIGHT};
 class PlayerItem : public QGraphicsObject
 {
 public:
+    enum STATE{JUMP, PUNCH, KICK, RUN, STAND};
+    enum DIRECTION{LEFT, RIGHT};
     PlayerItem();
     ~PlayerItem();
 

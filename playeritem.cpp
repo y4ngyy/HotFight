@@ -108,7 +108,7 @@ void PlayerItem::setState(STATE t_state)
     m_state = t_state;
 }
 
-STATE PlayerItem::getState()const
+PlayerItem::STATE PlayerItem::getState()const
 {
     return m_state;
 }
@@ -118,7 +118,7 @@ void PlayerItem::setDirection(DIRECTION t_direction)
     m_direction = t_direction;
 }
 
-DIRECTION PlayerItem::getDirection()const
+PlayerItem::DIRECTION PlayerItem::getDirection()const
 {
     return m_direction;
 }
