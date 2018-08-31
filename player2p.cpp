@@ -8,7 +8,7 @@ Player2P::Player2P()
 
 void Player2P::init()
 {
-       p_standing.load(":/images/player2/standing.png");
+        p_standing.load(":/images/player2/standing.png");
         p_running.append(QPixmap(":/images/player2/running_1.png"));
         p_running.append(QPixmap(":/images/player2/running_2.png"));
         p_running.append(QPixmap(":/images/player2/running_3.png"));

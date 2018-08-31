@@ -19,10 +19,6 @@ public:
     ~MainWindow();
 protected:
 private:
-    //    QGraphicsScene *m_scene;    //测试注释掉了
-
-    //    Player1P item;
-    //    Player2P item2;
 
     GameScene m_gamescene;   //测试需要
 };

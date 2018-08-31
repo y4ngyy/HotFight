@@ -34,6 +34,24 @@ public:
     // 刷新设置人物位置
     void updatePos();
 
+    //所有的get和set函数
+    void setState(STATE);
+    STATE getState()const;
+    void setDirection(DIRECTION);
+    DIRECTION getDirection()const;
+    void setX(qreal);
+    qreal getX()const;
+    void setY(qreal);
+    qreal getY()const;
+    void setHeight(int);
+    int getHeight()const;
+    void setWidth(int);
+    int getWidth()const;
+    void setSpeed(int);
+    int getSpeed()const;
+    void setBlood(int);
+    int  getBlood()const;
+
 protected:
 
     //人物状态变量 子类重载暂时需直接修改 变为保护型

@@ -102,6 +102,86 @@ void PlayerItem::setPixmapInfo()
     // 同步速度变量
     m_speed = m_width/2;
 }
+    //所有的set/get函数的实现
+void PlayerItem::setState(STATE t_state)
+{
+    m_state = t_state;
+}
+
+STATE PlayerItem::getState()const
+{
+    return m_state;
+}
+
+void PlayerItem::setDirection(DIRECTION t_direction)
+{
+    m_direction = t_direction;
+}
+
+DIRECTION PlayerItem::getDirection()const
+{
+    return m_direction;
+}
+
+void PlayerItem::setX(qreal x)
+{
+    m_x = x;
+}
+
+qreal PlayerItem::getX()const
+{
+    return m_x;
+}
+
+void PlayerItem::setY(qreal y)
+{
+    m_y = y;
+}
+
+qreal PlayerItem::getY()const
+{
+    return m_y;
+}
+
+void PlayerItem::setHeight(int t_height)
+{
+    m_height = t_height;
+}
+
+int PlayerItem::getHeight()const
+{
+    return m_height;
+}
+
+void PlayerItem::setWidth(int t_width)
+{
+    m_width = t_width;
+}
+
+int PlayerItem::getWidth()const
+{
+    return m_width;
+}
+
+void PlayerItem::setSpeed(int t_speed)
+{
+    m_speed = t_speed;
+}
+
+int PlayerItem::getSpeed()const
+{
+    return m_speed;
+}
+
+void PlayerItem::setBlood(int t_blood)
+{
+    m_blood = t_blood;
+}
+
+int  PlayerItem::getBlood()const
+{
+    return m_blood;
+}
 
 void PlayerItem::run()
 {
