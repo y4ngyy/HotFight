@@ -25,6 +25,9 @@ private:
 
     // 游戏线程ID
     int timerId;
+
+    // scene大小
+    QRectF size;
 };
 
 
