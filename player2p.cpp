@@ -16,6 +16,9 @@ void Player2P::init()
         p_punch.append(QPixmap(":/images/player2/punching_1.png"));
         p_punch.append(QPixmap(":/images/player2/punching_2.png"));
         p_punch.append(QPixmap(":/images/player2/punching_3.png"));
+        p_ishitting.append(QPixmap(":/images/player2/ishitting_1.png"));
+        p_ishitting.append(QPixmap(":/images/player2/ishitting_2.png"));
+        p_ishitting.append(QPixmap(":/images/player2/ishitting_3.png"));
 }
 
 /*
@@ -24,22 +27,27 @@ void Player2P::init()
 */
 void Player2P::keyBoardListener()
 {
-    if(m_state == PUNCH)
-        return;
-    if(GetAsyncKeyState(VK_LEFT))
+  if(m_collidedState != ISATTACKED)    //只有不是被攻击(处于硬直状态键盘的操作才是有效的）
     {
-        m_state = RUN;
-        m_direction = LEFT;
+        if(m_state == PUNCH)
+            return;
+        if(GetAsyncKeyState(VK_LEFT))
+        {
+            m_state = RUN;
+            m_direction = LEFT;
+        }
+        else if(GetAsyncKeyState(VK_RIGHT))
+        {
+            m_state = RUN;
+            m_direction = RIGHT;
+        }
+        else
+            m_state = STAND;
+        if(GetAsyncKeyState(VK_NUMPAD1))
+        {
+            m_state = PUNCH;
+        }
     }
-    else if(GetAsyncKeyState(VK_RIGHT))
-    {
-        m_state = RUN;
-        m_direction = RIGHT;
-    }
-    else
-        m_state = STAND;
-    if(GetAsyncKeyState(VK_NUMPAD1))
-    {
-        m_state = PUNCH;
-    }
+  else
+      return;
 }

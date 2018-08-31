@@ -19,6 +19,8 @@ protected:
     // 游戏机制线程
     void timerEvent(QTimerEvent *);
 
+    //与游戏规则有关的函数
+    bool isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2); //判断攻击的函数
 private:
     Player1P item1;
     Player2P item2;

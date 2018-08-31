@@ -8,8 +8,11 @@ PlayerItem::PlayerItem()
 {
     // 初始化变量
     m_state =  STAND;
+    m_collidedState=NORMAL;
+
     runIndex = 0;
     punchIndex = 0;
+    ishittingIndex=0;
 }
 
 PlayerItem::~PlayerItem()
@@ -68,7 +71,27 @@ void PlayerItem::paint(QPainter *painter,
             {
                 painter->drawImage(0, 0, p_punch.at(punchIndex).toImage().mirrored(true,false));
             }
-        break;
+            break;
+        case ISHITTING:
+            //受攻击视图
+            if(ishittingIndex == p_ishitting.size()-1)
+            {
+                punchIndex = 0;
+                m_state = STAND;       //被攻击的最后一帧应该停下来
+                m_collidedState=NORMAL;
+            }
+            else
+                ishittingIndex++;
+            if(m_direction == LEFT)
+            {
+                // drawPixmap 改为 drawImage 尝试修复图片拉长
+                painter->drawImage(0, 0, p_ishitting.at(ishittingIndex).toImage());
+            }
+            else
+            {
+                painter->drawImage(0, 0, p_ishitting.at(ishittingIndex).toImage().mirrored(true,false));
+            }
+            break;
         default:
             break;
     }
@@ -96,6 +119,10 @@ void PlayerItem::setPixmapInfo()
             m_width = p_punch.at(punchIndex).width();
             m_height = p_punch.at(punchIndex).height();
             break;
+        case ISHITTING:
+            m_width = p_ishitting.at(ishittingIndex).width();
+            m_width = p_ishitting.at(ishittingIndex).height();
+            break;
         default:
             break;
     }
@@ -121,6 +148,16 @@ void PlayerItem::setDirection(DIRECTION t_direction)
 PlayerItem::DIRECTION PlayerItem::getDirection()const
 {
     return m_direction;
+}
+
+void PlayerItem::setCollidedState(COLLIDEDSTATE t_collidedState)
+{
+    m_collidedState=t_collidedState;
+}
+
+PlayerItem::COLLIDEDSTATE PlayerItem::getCollidedState()const
+{
+    return m_collidedState;
 }
 
 void PlayerItem::setX(qreal x)
@@ -186,7 +223,7 @@ int  PlayerItem::getBlood()const
 void PlayerItem::run()
 {
     // 人物奔跑功能 m_x控制
-    if(m_state != RUN)
+    if(m_state != RUN || m_collidedState!= NORMAL)  //如果碰撞状态不正常也不能移动
         return;
     if(runIndex == 1|| runIndex == 3)
         return;
