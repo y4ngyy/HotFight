@@ -16,5 +16,11 @@
         <file>images/player1/punching_2.png</file>
         <file>images/player1/punching_3.png</file>
         <file>images/player1/punching_4.png</file>
+        <file>images/player1/ishitting_1.png</file>
+        <file>images/player1/ishitting_2.png</file>
+        <file>images/player1/ishitting_3.png</file>
+        <file>images/player2/ishitting_1.png</file>
+        <file>images/player2/ishitting_2.png</file>
+        <file>images/player2/ishitting_3.png</file>
     </qresource>
 </RCC>
