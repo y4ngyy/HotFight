@@ -10,19 +10,36 @@
 #include <QGraphicsObject>
 #include <QTimerEvent>
 
-enum STATE{JUMP, PUNCH, KICK, RUN, STAND};
-enum DIRECTION{LEFT, RIGHT};
+
 
 /*
  *  角色基类
  *  1P 2P需重载键盘操作事件
  *  子类需重载加载资源函数
 */
+
 class PlayerItem : public QGraphicsObject
 {
 public:
+   enum STATE{JUMP, PUNCH, KICK, RUN, STAND,ISATTCAKED};
+   enum DIRECTION{LEFT, RIGHT};
     PlayerItem();
     ~PlayerItem();
+    //把枚举常量放在类里
+
+    //set 和 get函数
+    PlayerItem:: STATE getState();
+    void setState(STATE);
+
+    PlayerItem:: DIRECTION getDirection();
+    void setDirection(DIRECTION);
+
+    qreal getX()const;
+    void setX(qreal);
+
+    qreal getY()const;               //为什么不能加const?
+    void setY(qreal);
+
 
 protected:
     //设置item碰撞边缘
@@ -38,7 +55,7 @@ protected:
 
     // 子类需继承的加载资源函数
     // 调试时注释掉
-    virtual void loadResource() = 0;
+    virtual void loadResource() ;
 
 
     // 加载图片资源
@@ -46,6 +63,7 @@ protected:
     QPixmap p_standing;
     QList<QPixmap> p_running;
     QList<QPixmap> p_punch;
+    QList<QPixmap> p_shitting;
 
 
     //人物状态变量 子类重载暂时需直接修改 变为保护型
@@ -59,16 +77,17 @@ private:
     void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
 
     // 图像属性变量
-    int m_x;
-    int m_y;
-    int m_height;
-    int m_width;
+    qreal m_x;
+    qreal m_y;
+    qreal m_height;
+    qreal m_width;
     void setInfo();  //根据状态设置属性
 
     //动画控制变量
     int runIndex;
     int punchIndex;
     int timerId;
+    int shittingIndex;
 
     // 功能函数
     void run();
