@@ -223,17 +223,21 @@ int  PlayerItem::getBlood()const
 void PlayerItem::run()
 {
     // 人物奔跑功能 m_x控制
-    if(m_state != RUN || m_collidedState!= NORMAL)  //如果碰撞状态不正常也不能移动
+    if(m_state != RUN || m_collidedState == ISATTACKED)  //如果人物僵直（ISATTACKED）也不能移动 （把原先的NORMAL更改为ISATTACKED）
         return;
     if(runIndex == 1|| runIndex == 3)
         return;
-    if(m_direction == LEFT)
+    if( m_direction == LEFT && m_collidedState != ISCOLLIDEDLEFT)  //左边不能被挡住
     {
         m_x -= m_speed;
     }
-    else
+    else if( m_direction == RIGHT && m_collidedState !=ISCOLLIDEDRIGHT)       //修改注释进行了更改
     {
         m_x += m_speed;
+    }
+    else
+    {
+        return;
     }
 }
 
