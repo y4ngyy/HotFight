@@ -8,11 +8,12 @@ PlayerItem::PlayerItem()
 {
     // 初始化变量
     m_state =  STAND;
-    m_collidedState=NORMAL;
+    m_collidedState = NORMAL;
 
     runIndex = 0;
     punchIndex = 0;
-    ishittingIndex=0;
+    ishittingIndex = 0;
+    kickIndex = 0;
 }
 
 PlayerItem::~PlayerItem()
@@ -70,6 +71,25 @@ void PlayerItem::paint(QPainter *painter,
             else
             {
                 painter->drawImage(0, 0, p_punch.at(punchIndex).toImage().mirrored(true,false));
+            }
+            break;
+        case KICK:
+            if(kickIndex == p_kicking.size()-1)
+            {
+                kickIndex = 0;
+                m_state = STAND;
+            }
+            else
+                kickIndex++;
+
+            // 左右方向显示
+            if(m_direction == LEFT)
+            {
+                painter->drawImage(0, 0, p_kicking.at(kickIndex).toImage());
+            }
+            else
+            {
+                painter->drawImage(0, 0, p_kicking.at(kickIndex).toImage().mirrored(true,false));
             }
             break;
         case ISHITTING:
@@ -245,7 +265,8 @@ void PlayerItem::setPositonInfo(qreal x, qreal y)
 
 void PlayerItem::updatePos()
 {
+    // 存在bug 改变图像大小的时候会导致view中残留未重绘部分
+    prepareGeometryChange();
     setPixmapInfo();
     setPos(m_x, m_y);
-    prepareGeometryChange();
 }

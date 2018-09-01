@@ -70,6 +70,7 @@ protected:
     QList<QPixmap> p_running;
     QList<QPixmap> p_punch;
     QList<QPixmap> p_ishitting;
+    QList<QPixmap> p_kicking;
 
     //设置item碰撞边缘
     QRectF boundingRect()const;
@@ -97,6 +98,7 @@ private:
     int runIndex;
     int punchIndex;
     int ishittingIndex;
+    int kickIndex;
 
     // 人物属性
     int m_speed; //奔跑速度 在 setinfo中初始化
