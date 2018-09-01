@@ -19,6 +19,7 @@ PlayerItem::PlayerItem()
 PlayerItem::~PlayerItem()
 {
 }
+
 void PlayerItem::paint(QPainter *painter,
                        const QStyleOptionGraphicsItem *option,
                        QWidget *widget)
@@ -74,6 +75,7 @@ void PlayerItem::paint(QPainter *painter,
             }
             break;
         case KICK:
+            // 出脚视图 存在bug 图片显示不完全，且会留下边角图像
             if(kickIndex == p_kicking.size()-1)
             {
                 kickIndex = 0;
@@ -119,7 +121,9 @@ void PlayerItem::paint(QPainter *painter,
 
 QRectF PlayerItem::boundingRect() const
 {
-    return QRectF(0, 0, m_width, m_height);
+    // 将boundingRect改为较大定值区域 去除重绘bug
+    // 要重写shape函数来作为碰撞检测的根据
+    return QRectF(0, 0, 100, 100);
 }
 
 void PlayerItem::setPixmapInfo()
@@ -245,8 +249,6 @@ void PlayerItem::run()
     // 人物奔跑功能 m_x控制
     if(m_state != RUN || m_collidedState == ISATTACKED)  //如果人物僵直（ISATTACKED）也不能移动 （把原先的NORMAL更改为ISATTACKED）
         return;
-    if(runIndex == 1|| runIndex == 3)
-        return;
     if( m_direction == LEFT && m_collidedState != ISCOLLIDEDLEFT)  //左边不能被挡住
     {
         m_x -= m_speed;
@@ -272,5 +274,6 @@ void PlayerItem::updatePos()
     // 存在bug 改变图像大小的时候会导致view中残留未重绘部分
     prepareGeometryChange();
     setPixmapInfo();
+    // 设置item在scene上的位置
     setPos(m_x, m_y);
 }

@@ -29,5 +29,7 @@
         <file>images/player2/kicking_1.png</file>
         <file>images/player2/kicking_2.png</file>
         <file>images/player2/kicking_3.png</file>
+        <file>images/player2/punching_4.png</file>
+        <file>images/player2/kicking_4.png</file>
     </qresource>
 </RCC>

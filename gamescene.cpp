@@ -43,7 +43,8 @@ void GameScene::timerEvent(QTimerEvent *event)
 bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2) //判断攻击的函数判断item1对item2的攻击判定,并且设定item2的状态
 {
      //如果不是出拳的话，这里预留接口，还要加上其他的动作，或者考虑把所有的与攻击相关的状态重新声明一个枚举常量
-     if( attackingitem.getState()!=PlayerItem::PUNCH )
+     // 增加kick
+     if( attackingitem.getState()!=PlayerItem::PUNCH && attackingitem.getState()!=PlayerItem::KICK)
      {
          return false;
      }
