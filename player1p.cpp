@@ -22,6 +22,10 @@ void Player1P::init()
      p_ishitting.append(QPixmap(":/images/player1/ishitting_1.png"));
      p_ishitting.append(QPixmap(":/images/player1/ishitting_2.png"));
      p_ishitting.append(QPixmap(":/images/player1/ishitting_3.png"));
+     p_kicking.append(QPixmap(":/images/player1/kicking_1.png"));
+     p_kicking.append(QPixmap(":/images/player1/kicking_2.png"));
+     p_kicking.append(QPixmap(":/images/player1/kicking_3.png"));
+     p_kicking.append(QPixmap(":/images/player1/kicking_4.png"));
 }
 
 /*
@@ -32,7 +36,7 @@ void Player1P::keyBoardListener()
 {
     if(m_collidedState != ISATTACKED)    //只有不是被攻击(处于硬直状态键盘的操作才是有效的）
       {
-        if(m_state == PUNCH)
+        if(m_state == PUNCH || m_state == KICK)
             return;
         if(GetAsyncKeyState(65))
         {
@@ -46,9 +50,14 @@ void Player1P::keyBoardListener()
         }
         if(!GetAsyncKeyState(65)&&!GetAsyncKeyState(68))
             m_state = STAND;
+        // 出拳出腿判定 两者不能状态重叠 出腿优先
         if(GetAsyncKeyState(74))
         {
             m_state = PUNCH;
+        }
+        if(GetAsyncKeyState(75))
+        {
+            m_state = KICK;
         }
     }
     else
