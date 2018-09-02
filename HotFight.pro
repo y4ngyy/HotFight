@@ -24,18 +24,22 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
     playeritem.cpp \
     player1p.cpp \
     player2p.cpp \
-    gamescene.cpp
+    gamescene.cpp \
+    startwindow.cpp \
+    netconnectdialog.cpp \
+    localgamewindow.cpp
 
 HEADERS += \
-        mainwindow.h \
     playeritem.h \
     player1p.h \
     player2p.h \
-    gamescene.h
+    gamescene.h \
+    startwindow.h \
+    netconnectdialog.h \
+    localgamewindow.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -44,3 +48,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     res.qrc
+
+FORMS += \
+    startwindow.ui \
+    netconnectdialog.ui

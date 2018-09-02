@@ -4,19 +4,20 @@
 #include "playeritem.h"
 #include "player1p.h"
 #include "player2p.h"
+#include"gamescene.h"
 #include <QGraphicsView>
 #include <QWidget>
 #include<QEvent>
 #include<QKeyEvent>
-#include"gamescene.h"
 
-class MainWindow : public QGraphicsView
+
+class LocalGameWindow : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    LocalGameWindow(QWidget *parent = nullptr);
+    ~LocalGameWindow();
 protected:
 private:
 

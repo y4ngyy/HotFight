@@ -1,7 +1,7 @@
-#include "mainwindow.h"
+#include "localgamewindow.h"
 #include <QPixmap>
 
-MainWindow::MainWindow(QWidget *parent)
+LocalGameWindow::LocalGameWindow(QWidget *parent)
     : QGraphicsView(parent)
 {
     //初始化QGraphicsView对象
@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     setScene(&m_gamescene);
 }
 
-MainWindow::~MainWindow()
+LocalGameWindow::~LocalGameWindow()
 {
 
 }

@@ -1,10 +1,13 @@
-#include "mainwindow.h"
+#include "localgamewindow.h"
+#include "startwindow.h"
+#include "netconnectdialog.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    // 开始界面
+    StartWindow s;
+    s.show();
     return a.exec();
 }

@@ -31,5 +31,8 @@
         <file>images/player2/kicking_3.png</file>
         <file>images/player2/punching_4.png</file>
         <file>images/player2/kicking_4.png</file>
+        <file>images/startui_btn.png</file>
+        <file>images/startui_btn_hover.png</file>
+        <file>images/startui_background.gif</file>
     </qresource>
 </RCC>
