@@ -2,6 +2,7 @@
 #define STARTWINDOW_H
 
 #include "localgamewindow.h"
+#include "netgamewindow.h"
 #include <QWidget>
 
 namespace Ui {
@@ -28,6 +29,8 @@ private:
 
     // 单机游戏界面
     LocalGameWindow *m_localGame;
+    NetGameWindow *m_netGame;
+
 };
 
 #endif // STARTWINDOW_H

@@ -7,7 +7,10 @@ NetGameScene::NetGameScene()
     m_netType = CLIENT;
     m_netItem1 = new NetPlayerItem(NetPlayerItem::C1);
     m_netItem2 = new NetPlayerItem(NetPlayerItem::C2);
-
+    addItem(m_netItem1);
+    addItem(m_netItem2);
+    m_netItem1->setPos(50, 400);
+    m_netItem2->setPos(400,400);
     timerId = startTimer(100);
 
     //槽函数连接
