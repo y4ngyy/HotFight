@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets
+QT       += core gui widgets network
 
 TARGET = HotFight
 TEMPLATE = app
@@ -27,19 +27,25 @@ SOURCES += \
     playeritem.cpp \
     player1p.cpp \
     player2p.cpp \
-    gamescene.cpp \
     startwindow.cpp \
     netconnectdialog.cpp \
-    localgamewindow.cpp
+    localgamewindow.cpp \
+    gamescene.cpp \
+    localgamescene.cpp \
+    netplayeritem.cpp \
+    netgamescene.cpp
 
 HEADERS += \
     playeritem.h \
     player1p.h \
     player2p.h \
-    gamescene.h \
     startwindow.h \
     netconnectdialog.h \
-    localgamewindow.h
+    localgamewindow.h \
+    gamescene.h \
+    localgamescene.h \
+    netplayeritem.h \
+    netgamescene.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

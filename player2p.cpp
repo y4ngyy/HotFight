@@ -3,27 +3,7 @@
 
 Player2P::Player2P()
 {
-    init();
-}
-
-void Player2P::init()
-{
-        p_standing.load(":/images/player2/standing.png");
-        p_running.append(QPixmap(":/images/player2/running_1.png"));
-        p_running.append(QPixmap(":/images/player2/running_2.png"));
-        p_running.append(QPixmap(":/images/player2/running_3.png"));
-        p_running.append(QPixmap(":/images/player2/running_4.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_1.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_2.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_3.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_3.png"));
-        p_ishitting.append(QPixmap(":/images/player2/ishitting_1.png"));
-        p_ishitting.append(QPixmap(":/images/player2/ishitting_2.png"));
-        p_ishitting.append(QPixmap(":/images/player2/ishitting_3.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_1.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_2.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_3.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_4.png"));
+    init_2();
 }
 
 /*

@@ -11,11 +11,6 @@ public:
     // 无冲键盘操作
     void keyBoardListener();
 
-protected:
-
-    // 继承父类虚函数 加载资源
-    void init();
-
 };
 
 #endif // PLAYER1P_H

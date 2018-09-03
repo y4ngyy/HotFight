@@ -75,8 +75,9 @@ protected:
     //设置item碰撞边缘
     QRectF boundingRect()const;
 
-    // 子类需继承的初始化函数，初始化坐标变量 资源加载 基础属性等
-    virtual void init() = 0;
+    // 资源加载函数，子类选择
+    void init_1();
+    void init_2();
 
     // 尝试键盘无冲操作 子类重载 并在timeEvent中执行
     virtual void keyBoardListener() = 0;

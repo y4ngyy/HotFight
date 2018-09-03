@@ -4,7 +4,7 @@
 #include "playeritem.h"
 #include "player1p.h"
 #include "player2p.h"
-#include"gamescene.h"
+#include"localgamescene.h"
 #include <QGraphicsView>
 #include <QWidget>
 #include<QEvent>
@@ -21,7 +21,7 @@ public:
 protected:
 private:
 
-    GameScene m_gamescene;   //测试需要
+    LocalGameScene m_localgamescene;   //测试需要
 };
 
 #endif // MAINWINDOW_H
