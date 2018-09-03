@@ -1,4 +1,6 @@
 #include "netgamescene.h"
+#include <QtDebug>
+#include <QJsonDocument>
 
 NetGameScene::NetGameScene()
 {
@@ -7,10 +9,10 @@ NetGameScene::NetGameScene()
     m_netType = CLIENT;
     m_netItem1 = new NetPlayerItem(NetPlayerItem::C1);
     m_netItem2 = new NetPlayerItem(NetPlayerItem::C2);
+    m_netItem1->setPositonInfo(50, 400);
+    m_netItem2->setPositonInfo(400,400);
     addItem(m_netItem1);
     addItem(m_netItem2);
-    m_netItem1->setPos(50, 400);
-    m_netItem2->setPos(400,400);
     timerId = startTimer(100);
 
     //槽函数连接
@@ -34,6 +36,7 @@ NetGameScene::~NetGameScene()
 void NetGameScene::timerEvent(QTimerEvent *event)
 {    if(event->timerId() == timerId)
     {
+
         isCollided(*m_netItem1,*m_netItem2);   //1P 和2P的 碰撞检测，必须放在攻击检测的前面，否则ISATTACKED会被替换成 ISCOLLIDEDLEFT，以后可以考虑整合成一个大函数
         //人物的攻击判定  测试
         if(isAttacked(*m_netItem1,*m_netItem2))
@@ -46,18 +49,17 @@ void NetGameScene::timerEvent(QTimerEvent *event)
         m_netItem2->run();
 
         // 根据netType来设置控制的是item1还是itme2
+
         if(m_netType == SERVER)
         {
             m_netItem1->keyBoardListener();
-            m_netItem2->NetKeyBoardListener();
-            m_udpSocket->writeDatagram(m_netItem1->getKey().toUtf8().data(),
+            m_udpSocket->writeDatagram(m_netItem1->sendJSInfo().data(),
                                        QHostAddress("127.0.0.1"),6666);
         }
         else
         {
-            m_netItem1->NetKeyBoardListener();
             m_netItem2->keyBoardListener();
-            m_udpSocket->writeDatagram(m_netItem2->getKey().toUtf8().data(),
+            m_udpSocket->writeDatagram(m_netItem2->sendJSInfo().data(),
                                        QHostAddress("127.0.0.1"),6666);
         }
         m_netItem1->updatePos();
@@ -81,13 +83,16 @@ void NetGameScene::onReceiveUdp()
     qint64 size=m_udpSocket->pendingDatagramSize();
     QByteArray array;
     array.resize(size);
+    qDebug() <<"收到消息";
     m_udpSocket->readDatagram(array.data(),size);
+    qDebug() <<array.data();
+    QJsonDocument doc = QJsonDocument::fromJson(array);
     if(m_netType==SERVER)
     {
-        m_netItem2->setKey(array.data());
+        m_netItem2->setNetWorkInfo(doc.object());
     }
     else
     {
-        m_netItem1->setKey(array.data());
+        m_netItem1->setNetWorkInfo(doc.object());
     }
 }

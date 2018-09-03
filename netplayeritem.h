@@ -2,6 +2,7 @@
 #define NETPLAYERITEM_H
 
 #include "playeritem.h"
+#include <QJsonObject>
 
 class NetPlayerItem : public PlayerItem
 {
@@ -10,17 +11,15 @@ public:
     enum CHARACTOR{C1, C2};
     NetPlayerItem(CHARACTOR = C1);
 
-    void NetKeyBoardListener();
+
     void keyBoardListener();
 
-    // Scene中调用获取键盘参数
-    QString getKey()const;
-    void setKey(const QString);
+    // 数据传输与解析
+    QByteArray sendJSInfo();
+    void setNetWorkInfo(QJsonObject);
 private:
     ITEMTYPE type;
 
-    //客户端和服务器的key的用途不同
-    QString key;
 };
 
 #endif // NETPLAYERITEM_H
