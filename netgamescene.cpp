@@ -54,13 +54,13 @@ void NetGameScene::timerEvent(QTimerEvent *event)
         {
             m_netItem1->keyBoardListener();
             m_udpSocket->writeDatagram(m_netItem1->sendJSInfo().data(),
-                                       QHostAddress("127.0.0.1"),6666);
+                                       QHostAddress("192.168.43.13"),6666);
         }
         else
         {
             m_netItem2->keyBoardListener();
             m_udpSocket->writeDatagram(m_netItem2->sendJSInfo().data(),
-                                       QHostAddress("127.0.0.1"),6666);
+                                       QHostAddress("192.168.43.13"),6666);
         }
         m_netItem1->updatePos();
         m_netItem2->updatePos();
