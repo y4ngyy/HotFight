@@ -9,7 +9,5 @@ int main(int argc, char *argv[])
     // 开始界面
     StartWindow s;
     s.show();
-    NetConnectDialog d;
-    d.show();
     return a.exec();
 }

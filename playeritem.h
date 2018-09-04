@@ -66,7 +66,8 @@ protected:
 
     // 加载图片资源
     // 子类需直接加载资源 将私有变成保护型  在子类的资源加载函数中进行初始化
-    QPixmap p_standing;
+    // 调试： standing设为动态 改为QList
+    QList<QPixmap> p_standing;
     QList<QPixmap> p_running;
     QList<QPixmap> p_punch;
     QList<QPixmap> p_ishitting;
@@ -78,6 +79,8 @@ protected:
     // 资源加载函数，子类选择
     void init_1();
     void init_2();
+    void init_3();
+    void init_4();
 
     // 尝试键盘无冲操作 子类重载 并在timeEvent中执行
     virtual void keyBoardListener() = 0;
@@ -96,6 +99,7 @@ private:
     void setPixmapInfo();
 
     //动画控制变量 如果要添加新变量到该类的构造函数去初始化
+    int standIndex;
     int runIndex;
     int punchIndex;
     int ishittingIndex;

@@ -3,7 +3,7 @@
 
 Player2P::Player2P()
 {
-    init_2();
+    init_4();
 }
 
 /*

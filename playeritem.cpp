@@ -10,6 +10,7 @@ PlayerItem::PlayerItem()
     m_state =  STAND;
     m_collidedState = NORMAL;
 
+    standIndex = 0;
     runIndex = 0;
     punchIndex = 0;
     ishittingIndex = 0;
@@ -22,7 +23,7 @@ PlayerItem::~PlayerItem()
 
 void PlayerItem::init_1()
 {
-     p_standing.load(":/images/player1/standing.png");
+     p_standing.append(QPixmap(":/images/player1/standing.png"));
      p_running.append(QPixmap(":/images/player1/running_1.png"));
      p_running.append(QPixmap(":/images/player1/running_2.png"));
      p_running.append(QPixmap(":/images/player1/running_3.png"));
@@ -43,7 +44,7 @@ void PlayerItem::init_1()
 
 void PlayerItem::init_2()
 {
-        p_standing.load(":/images/player2/standing.png");
+        p_standing.append(QPixmap(":/images/player2/standing.png"));
         p_running.append(QPixmap(":/images/player2/running_1.png"));
         p_running.append(QPixmap(":/images/player2/running_2.png"));
         p_running.append(QPixmap(":/images/player2/running_3.png"));
@@ -59,6 +60,73 @@ void PlayerItem::init_2()
         p_kicking.append(QPixmap(":/images/player2/kicking_2.png"));
         p_kicking.append(QPixmap(":/images/player2/kicking_3.png"));
         p_kicking.append(QPixmap(":/images/player2/kicking_4.png"));
+}
+
+void PlayerItem::init_3()
+{
+    p_standing.append(QPixmap(":/images/player3/standing_1.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_2.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_3.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_4.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_5.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_6.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_7.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_8.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_9.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_10.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_11.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_12.png"));
+    p_standing.append(QPixmap(":/images/player3/standing_13.png"));
+    p_running.append(QPixmap(":/images/player3/running_1.png"));
+    p_running.append(QPixmap(":/images/player3/running_2.png"));
+    p_running.append(QPixmap(":/images/player3/running_3.png"));
+    p_running.append(QPixmap(":/images/player3/running_4.png"));
+    p_running.append(QPixmap(":/images/player3/running_5.png"));
+    p_running.append(QPixmap(":/images/player3/running_6.png"));
+    p_running.append(QPixmap(":/images/player3/running_7.png"));
+    p_punch.append(QPixmap(":/images/player3/punching_1.png"));
+    p_punch.append(QPixmap(":/images/player3/punching_2.png"));
+    p_punch.append(QPixmap(":/images/player3/punching_3.png"));
+    p_punch.append(QPixmap(":/images/player3/punching_4.png"));
+    p_punch.append(QPixmap(":/images/player3/punching_5.png"));
+    p_punch.append(QPixmap(":/images/player3/punching_6.png"));
+    p_punch.append(QPixmap(":/images/player3/punching_7.png"));
+    p_punch.append(QPixmap(":/images/player3/punching_8.png"));
+    p_punch.append(QPixmap(":/images/player3/punching_9.png"));
+    p_kicking.append(QPixmap(":/images/player3/kicking_1.png"));
+    p_kicking.append(QPixmap(":/images/player3/kicking_2.png"));
+    p_kicking.append(QPixmap(":/images/player3/kicking_3.png"));
+    p_kicking.append(QPixmap(":/images/player3/kicking_4.png"));
+    p_kicking.append(QPixmap(":/images/player3/kicking_5.png"));
+    p_kicking.append(QPixmap(":/images/player3/kicking_6.png"));
+    p_kicking.append(QPixmap(":/images/player3/kicking_7.png"));
+}
+
+void PlayerItem::init_4()
+{
+    p_standing.append(QPixmap(":/images/player4/standing_1.png"));
+    p_standing.append(QPixmap(":/images/player4/standing_2.png"));
+    p_standing.append(QPixmap(":/images/player4/standing_3.png"));
+    p_standing.append(QPixmap(":/images/player4/standing_4.png"));
+    p_standing.append(QPixmap(":/images/player4/standing_5.png"));
+    p_standing.append(QPixmap(":/images/player4/standing_6.png"));
+    p_standing.append(QPixmap(":/images/player4/standing_7.png"));
+    p_standing.append(QPixmap(":/images/player4/standing_8.png"));
+    p_running.append(QPixmap(":/images/player4/running_1.png"));
+    p_running.append(QPixmap(":/images/player4/running_2.png"));
+    p_running.append(QPixmap(":/images/player4/running_3.png"));
+    p_running.append(QPixmap(":/images/player4/running_4.png"));
+    p_running.append(QPixmap(":/images/player4/running_5.png"));
+    p_running.append(QPixmap(":/images/player4/running_6.png"));
+    p_punch.append(QPixmap(":/images/player4/punching_1.png"));
+    p_punch.append(QPixmap(":/images/player4/punching_2.png"));
+    p_punch.append(QPixmap(":/images/player4/punching_3.png"));
+    p_punch.append(QPixmap(":/images/player4/punching_4.png"));
+    p_punch.append(QPixmap(":/images/player4/punching_5.png"));
+    p_punch.append(QPixmap(":/images/player4/punching_6.png"));
+    p_punch.append(QPixmap(":/images/player4/punching_7.png"));
+    p_punch.append(QPixmap(":/images/player4/punching_8.png"));
+
 }
 
 void PlayerItem::paint(QPainter *painter,
@@ -78,7 +146,7 @@ void PlayerItem::paint(QPainter *painter,
                 runIndex++;
 
             // 左右方向显示
-            if(m_direction == LEFT)
+            if(m_direction == RIGHT)
             {
                 painter->drawPixmap(0, 0, m_width, m_height, p_running.at(runIndex));
             }
@@ -89,12 +157,18 @@ void PlayerItem::paint(QPainter *painter,
                 break;
         case STAND:
             // 站立状态视图
-            if(m_direction == LEFT)
+            if(standIndex == p_standing.size()-1)
             {
-                painter->drawImage(0, 0, p_standing.toImage());
+                standIndex = 0;
             }
             else
-                painter->drawImage(0, 0, p_standing.toImage().mirrored(true,false));
+                standIndex++;
+            if(m_direction == RIGHT)
+            {
+                painter->drawImage(0, 0, p_standing.at(standIndex).toImage());
+            }
+            else
+                painter->drawImage(0, 0, p_standing.at(standIndex).toImage().mirrored(true,false));
             break;
         case PUNCH:
             // 出拳视图
@@ -105,7 +179,7 @@ void PlayerItem::paint(QPainter *painter,
             }
             else
                 punchIndex++;
-            if(m_direction == LEFT)
+            if(m_direction == RIGHT)
             {
                 // drawPixmap 改为 drawImage 尝试修复图片拉长
                 painter->drawImage(0, 0, p_punch.at(punchIndex).toImage());
@@ -126,7 +200,7 @@ void PlayerItem::paint(QPainter *painter,
                 kickIndex++;
 
             // 左右方向显示
-            if(m_direction == LEFT)
+            if(m_direction == RIGHT)
             {
                 painter->drawImage(0, 0, p_kicking.at(kickIndex).toImage());
             }
@@ -145,7 +219,7 @@ void PlayerItem::paint(QPainter *painter,
             }
             else
                 ishittingIndex++;
-            if(m_direction == LEFT)
+            if(m_direction == RIGHT)
             {
                 // drawPixmap 改为 drawImage 尝试修复图片拉长
                 painter->drawImage(0, 0, p_ishitting.at(ishittingIndex).toImage());
@@ -164,7 +238,7 @@ QRectF PlayerItem::boundingRect() const
 {
     // 将boundingRect改为较大定值区域 去除重绘bug
     // 要重写shape函数来作为碰撞检测的根据
-    return QRectF(0, 0, 100, 100);
+    return QRectF(0, 0, 200, 200);
 }
 
 void PlayerItem::setPixmapInfo()
@@ -177,8 +251,8 @@ void PlayerItem::setPixmapInfo()
             m_height = p_running.at(runIndex).height();
             break;
         case STAND:
-            m_width = p_standing.width();
-            m_height = p_standing.height();
+            m_width = p_standing.at(standIndex).width();
+            m_height = p_standing.at(standIndex).height();
             break;
         case PUNCH:
             m_width = p_punch.at(punchIndex).width();

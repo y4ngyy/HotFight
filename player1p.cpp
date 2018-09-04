@@ -5,7 +5,7 @@
 
 Player1P::Player1P()
 {
-    init_1();
+    init_3();
 }
 
 /*

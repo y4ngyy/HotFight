@@ -34,5 +34,64 @@
         <file>images/startui_btn.png</file>
         <file>images/startui_btn_hover.png</file>
         <file>images/startui_background.gif</file>
+        <file>images/player3/kicking_1.png</file>
+        <file>images/player3/kicking_2.png</file>
+        <file>images/player3/kicking_3.png</file>
+        <file>images/player3/kicking_4.png</file>
+        <file>images/player3/kicking_5.png</file>
+        <file>images/player3/kicking_6.png</file>
+        <file>images/player3/kicking_7.png</file>
+        <file>images/player3/punching_1.png</file>
+        <file>images/player3/punching_2.png</file>
+        <file>images/player3/punching_3.png</file>
+        <file>images/player3/punching_4.png</file>
+        <file>images/player3/punching_5.png</file>
+        <file>images/player3/punching_6.png</file>
+        <file>images/player3/punching_7.png</file>
+        <file>images/player3/punching_8.png</file>
+        <file>images/player3/punching_9.png</file>
+        <file>images/player3/running_1.png</file>
+        <file>images/player3/running_2.png</file>
+        <file>images/player3/running_3.png</file>
+        <file>images/player3/running_4.png</file>
+        <file>images/player3/running_5.png</file>
+        <file>images/player3/running_6.png</file>
+        <file>images/player3/running_7.png</file>
+        <file>images/player3/standing_1.png</file>
+        <file>images/player3/standing_2.png</file>
+        <file>images/player3/standing_3.png</file>
+        <file>images/player3/standing_4.png</file>
+        <file>images/player3/standing_5.png</file>
+        <file>images/player3/standing_6.png</file>
+        <file>images/player3/standing_7.png</file>
+        <file>images/player3/standing_8.png</file>
+        <file>images/player3/standing_9.png</file>
+        <file>images/player3/standing_10.png</file>
+        <file>images/player3/standing_11.png</file>
+        <file>images/player3/standing_12.png</file>
+        <file>images/player3/standing_13.png</file>
+        <file>images/background/background_1.png</file>
+        <file>images/player4/punching_1.png</file>
+        <file>images/player4/punching_2.png</file>
+        <file>images/player4/punching_3.png</file>
+        <file>images/player4/punching_4.png</file>
+        <file>images/player4/punching_5.png</file>
+        <file>images/player4/punching_6.png</file>
+        <file>images/player4/punching_7.png</file>
+        <file>images/player4/punching_8.png</file>
+        <file>images/player4/running_1.png</file>
+        <file>images/player4/running_2.png</file>
+        <file>images/player4/running_3.png</file>
+        <file>images/player4/running_4.png</file>
+        <file>images/player4/running_5.png</file>
+        <file>images/player4/running_6.png</file>
+        <file>images/player4/standing_1.png</file>
+        <file>images/player4/standing_2.png</file>
+        <file>images/player4/standing_3.png</file>
+        <file>images/player4/standing_4.png</file>
+        <file>images/player4/standing_5.png</file>
+        <file>images/player4/standing_6.png</file>
+        <file>images/player4/standing_7.png</file>
+        <file>images/player4/standing_8.png</file>
     </qresource>
 </RCC>
