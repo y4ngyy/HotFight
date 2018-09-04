@@ -11,6 +11,8 @@ public:
     NetGameScene();
     ~NetGameScene();
     enum NETTYPE{SERVER,CLIENT};
+    //关闭套接字的函数
+    void closeUdpSocket();
 
     //set 和 get的函数
 

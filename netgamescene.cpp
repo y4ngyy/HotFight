@@ -5,7 +5,7 @@
 NetGameScene::NetGameScene()
 {
     m_udpSocket = new QUdpSocket(this);
-    m_udpSocket->bind(6666);
+    m_udpSocket->bind(8888);
     m_netType = CLIENT;
     m_netItem1 = new NetPlayerItem(NetPlayerItem::C1);
     m_netItem2 = new NetPlayerItem(NetPlayerItem::C2);
@@ -54,13 +54,13 @@ void NetGameScene::timerEvent(QTimerEvent *event)
         {
             m_netItem1->keyBoardListener();
             m_udpSocket->writeDatagram(m_netItem1->sendJSInfo().data(),
-                                       QHostAddress("192.168.43.13"),6666);
+                                       QHostAddress("127.0.0.1"),8888);
         }
         else
         {
             m_netItem2->keyBoardListener();
             m_udpSocket->writeDatagram(m_netItem2->sendJSInfo().data(),
-                                       QHostAddress("192.168.43.13"),6666);
+                                       QHostAddress("127.0.0.1"),8888);
         }
         m_netItem1->updatePos();
         m_netItem2->updatePos();
@@ -96,3 +96,13 @@ void NetGameScene::onReceiveUdp()
         m_netItem1->setNetWorkInfo(doc.object());
     }
 }
+//关闭套接字的函数
+void NetGameScene::closeUdpSocket()
+{
+    killTimer(timerId);
+    if(m_udpSocket!=NULL)
+    {
+            m_udpSocket->abort();
+    }
+}
+

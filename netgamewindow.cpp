@@ -5,3 +5,8 @@ NetGameWindow::NetGameWindow(QWidget *parent)
 {
     setScene(&m_netGameScene);
 }
+
+void NetGameWindow::closeEvent(QCloseEvent *e)
+{
+    m_netGameScene.closeUdpSocket();
+}
