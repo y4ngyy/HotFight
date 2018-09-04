@@ -7,8 +7,11 @@
 
 class NetGameScene : public GameScene
 {
+
 public:
-    NetGameScene();
+//    bool isSceneUdpConnected;
+    //构造函数需要ip 和 port作为参数， 并且默认的Ip是127.0.0.1 默认端口是8888
+    NetGameScene(QString ip="127.0.0.1", int port=8888);
     ~NetGameScene();
     enum NETTYPE{SERVER,CLIENT};
     //关闭套接字的函数
@@ -18,6 +21,12 @@ public:
 
     void setNetType( NETTYPE);
     NETTYPE getNetType(void)const;
+    void setObjectIp(const QString);
+    QString getObjectIp(void)const;
+    void setObjectPort(const int);
+    int getObjectPort(void)const;
+
+
 
 protected:
     //游戏线程
@@ -25,6 +34,8 @@ protected:
 private slots:
     void onReceiveUdp();
 private:
+    QString m_objectIp;
+    int m_objectPort;
     // 传输数据套接字
     QUdpSocket *m_udpSocket;
     NetPlayerItem *m_netItem1;

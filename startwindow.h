@@ -3,6 +3,7 @@
 
 #include "localgamewindow.h"
 #include "netgamewindow.h"
+#include"netconnectdialog.h"
 #include <QWidget>
 
 namespace Ui {
@@ -29,7 +30,9 @@ private:
 
     // 单机游戏界面
     LocalGameWindow *m_localGame;
-    NetGameWindow *m_netGame;
+
+    //必须先进入联网的客户段的窗口
+    NetConnectDialog *m_netConnectDialog;
 
 };
 

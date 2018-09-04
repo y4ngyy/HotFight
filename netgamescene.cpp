@@ -2,11 +2,15 @@
 #include <QtDebug>
 #include <QJsonDocument>
 
-NetGameScene::NetGameScene()
+NetGameScene::NetGameScene(QString ip, int port)
 {
-    m_udpSocket = new QUdpSocket(this);
-    m_udpSocket->bind(8888);
+    //设置初始的ip 和 端口
+    setObjectIp(ip);
+    setObjectPort(port);
     m_netType = CLIENT;
+//    isSceneUdpConnected=false;
+    m_udpSocket = new QUdpSocket(this);
+    m_udpSocket->bind(m_objectPort);
     m_netItem1 = new NetPlayerItem(NetPlayerItem::C1);
     m_netItem2 = new NetPlayerItem(NetPlayerItem::C2);
     m_netItem1->setPositonInfo(50, 400);
@@ -15,12 +19,24 @@ NetGameScene::NetGameScene()
     addItem(m_netItem2);
     timerId = startTimer(100);
 
-    //槽函数连接
+//    //槽函数连接
+//    connect(m_udpSocket,&QUdpSocket::connected,[=]()
+//    {
+//        qDebug()<<"连接成功！";
+//        isSceneUdpConnected=true;
+//    });
     connect(m_udpSocket,&QUdpSocket::readyRead,this,&NetGameScene::onReceiveUdp);
+
 }
 
 NetGameScene::~NetGameScene()
 {
+   if(m_udpSocket!=NULL)
+   {
+       m_udpSocket->disconnectFromHost();
+       delete m_udpSocket;
+       m_udpSocket=NULL;
+   }
    if(m_netItem1!=NULL)
    {
        delete  m_netItem1;
@@ -54,20 +70,20 @@ void NetGameScene::timerEvent(QTimerEvent *event)
         {
             m_netItem1->keyBoardListener();
             m_udpSocket->writeDatagram(m_netItem1->sendJSInfo().data(),
-                                       QHostAddress("127.0.0.1"),8888);
+                                       QHostAddress(m_objectIp),m_objectPort);
         }
         else
         {
             m_netItem2->keyBoardListener();
             m_udpSocket->writeDatagram(m_netItem2->sendJSInfo().data(),
-                                       QHostAddress("127.0.0.1"),8888);
+                                       QHostAddress(m_objectIp),m_objectPort);
         }
         m_netItem1->updatePos();
         m_netItem2->updatePos();
     }
 }
 
-//
+//set和get函数
 void NetGameScene::setNetType( NETTYPE t_netType)
 {
     m_netType=t_netType;
@@ -75,6 +91,25 @@ void NetGameScene::setNetType( NETTYPE t_netType)
 NetGameScene::NETTYPE  NetGameScene::getNetType(void)const
 {
     return m_netType;
+}
+
+void NetGameScene::setObjectIp(const QString ip)
+{
+    m_objectIp=ip;
+}
+
+QString NetGameScene::getObjectIp(void)const
+{
+    return m_objectIp;
+}
+void NetGameScene::setObjectPort(const int port)
+{
+    m_objectPort=port;
+}
+
+int NetGameScene::getObjectPort(void)const
+{
+    return m_objectPort;
 }
 
 //接受键盘输入的槽函数

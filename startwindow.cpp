@@ -27,8 +27,8 @@ StartWindow::~StartWindow()
     delete ui;
     if(m_localGame != nullptr)
         delete m_localGame;
-    if(m_netGame != nullptr)
-        delete m_netGame;
+    if(m_netConnectDialog != nullptr)
+        delete m_netConnectDialog;
 }
 
 void StartWindow::on_btnLocalGame_clicked()
@@ -41,8 +41,8 @@ void StartWindow::on_btnLocalGame_clicked()
 
 void StartWindow::on_btnNetGame_clicked()
 {
-    m_netGame = new NetGameWindow();
-    m_netGame->show();
+   m_netConnectDialog= new NetConnectDialog;
+   m_netConnectDialog->show();;
 }
 
 void StartWindow::on_btnHelp_clicked()
