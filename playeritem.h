@@ -31,6 +31,9 @@ public:
     PlayerItem();
     ~PlayerItem();
 
+    //重载shape函数
+    virtual QPainterPath shape()const;
+
     // 功能函数
     // 调试：需在scene中调用
     void run();

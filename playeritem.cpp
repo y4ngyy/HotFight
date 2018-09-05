@@ -188,6 +188,59 @@ void PlayerItem::init_4()
         for(int i=1;i<=7 ;i++)
             skillList.append(QPixmap(QString(":/images/player4/skill_6/%1.png").arg(i)));
         p_skill.append(skillList);
+
+        //加载路径
+        //stand
+        m_standPath.lineTo(p_standing.at(1).width(),0);
+        m_standPath.lineTo(p_standing.at(1).width()*3/4,-p_standing.at(1).height());
+        m_standPath.lineTo(p_standing.at(1).width()*1/4,-p_standing.at(1).height());
+        m_standPath.lineTo(0,0);
+
+        //punch
+        m_punchPath.addEllipse(0,-p_punch.at(7).height(),p_punch.at(7).width(),p_punch.at(7).height());
+
+        //run
+        m_runPath.addEllipse(p_punch.at(3).width()/4,-p_punch.at(3).height()*5/4,p_punch.at(3).width(),p_punch.at(3).height());
+
+        //kick
+        m_kickPath.moveTo(0 , -p_kicking.at(2).height());
+        m_kickPath.lineTo( p_kicking.at(2).width()*1/4 , 0 );
+        m_kickPath.lineTo( p_kicking.at(2).width()*3/4 , 0 );
+        m_kickPath.lineTo( p_kicking.at(2).width() , -p_kicking.at(2).height());
+        m_kickPath.lineTo( 0 , -p_kicking.at(2).height());
+
+        //Ishitting
+        m_isHitPath.addRect(0,-p_ishitting.at(1).height() , p_ishitting.at(1).width() , p_ishitting.at(1).height());
+
+        //skill_1
+        m_skillPath_1.moveTo(0 , -p_skill.at(0).at(2).height());
+        m_skillPath_1.lineTo( p_skill.at(0).at(2).width()*1/4 , 0 );
+        m_skillPath_1.lineTo( p_skill.at(0).at(2).width()*3/4 , 0 );
+        m_skillPath_1.lineTo( p_skill.at(0).at(2).width() , -p_skill.at(0).at(2).height());
+        m_skillPath_1.lineTo( 0 , -p_skill.at(0).at(2).height());
+
+        //skill_2
+        m_skillPath_2.addEllipse(0,-p_skill.at(1).at(4).height() , p_skill.at(1).at(4).width() , p_skill.at(1).at(4).height());
+
+        //skill_3
+        m_skillPath_3.moveTo(0 , -p_skill.at(2).at(2).height());
+        m_skillPath_3.lineTo( p_skill.at(2).at(2).width()*1/4 , 0 );
+        m_skillPath_3.lineTo( p_skill.at(2).at(2).width()*3/4 , 0 );
+        m_skillPath_3.lineTo( p_skill.at(2).at(2).width() , -p_skill.at(2).at(2).height());
+        m_skillPath_3.lineTo( 0 , -p_skill.at(2).at(2).height());
+
+        //skill_4
+        m_skillPath_4.addEllipse(0,-p_skill.at(3).at(3).height() , p_skill.at(3).at(3).width() , p_skill.at(3).at(3).height());
+
+        //skill_5
+        m_skillPath_5.moveTo(0 , -p_skill.at(4).at(1).height());
+        m_skillPath_5.lineTo( p_skill.at(4).at(1).width()*1/4 , 0 );
+        m_skillPath_5.lineTo( p_skill.at(4).at(1).width()*3/4 , 0 );
+        m_skillPath_5.lineTo( p_skill.at(4).at(1).width() , -p_skill.at(4).at(1).height());
+        m_skillPath_5.lineTo( 0 , -p_skill.at(4).at(1).height());
+
+        //skill_6
+        m_skillPath_6.addEllipse(0,-p_skill.at(5).at(3).height() , p_skill.at(5).at(3).width() , p_skill.at(5).at(3).height());
 }
 
 void PlayerItem::paint(QPainter *painter,
@@ -340,6 +393,49 @@ void PlayerItem::paint(QPainter *painter,
             break;
     }
 }
+
+//重载shape()函数
+QPainterPath PlayerItem::shape()const
+{
+     switch(m_state)
+     {
+        case STAND:
+            return m_standPath;
+        case RUN:
+            return m_runPath;
+        case PUNCH:
+            return m_punchPath;
+        case KICK:
+            return m_kickPath;
+        case ISHITTING:
+            return m_isHitPath;
+        case SKILL:
+         //根据技能具体判断
+            switch(m_skillType)
+            {
+                case NONESKILL:
+                    return m_standPath; //如果没技能返回站立的shape()
+                case SKILLONE:
+                    return m_skillPath_1;
+                case SKILLTWO:
+                    return m_skillPath_2;
+                case SKILLTHREE:
+                    return m_skillPath_3;
+                case SKILLFOUR:
+                    return m_skillPath_4;
+                case SKILLFIVE:
+                    return m_skillPath_5;
+                case SKILLSIX:
+                    return m_skillPath_6;
+                default:
+                    return m_standPath;
+            }
+
+          default:
+                return m_standPath;
+       }
+}
+
 
 QRectF PlayerItem::boundingRect() const
 {
