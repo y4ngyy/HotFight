@@ -1,6 +1,7 @@
 #ifndef PLAYERITEM_H
 #define PLAYERITEM_H
 
+#include "keyboardbuffer.h"
 #include <QGraphicsItem>
 #include <QPixmap>
 #include <QList>
@@ -19,9 +20,14 @@
 class PlayerItem : public QGraphicsObject
 {
 public:
-    enum STATE{JUMP, PUNCH, KICK, RUN, STAND,ISHITTING};      //与运动(角色动画）有关的状态
-    enum DIRECTION{LEFT, RIGHT};                                   // ISHITTING 和ISATTACKED所表示的意义相同，但是用在不同的函数上
-    enum COLLIDEDSTATE{NORMAL,ISCOLLIDEDLEFT,ISCOLLIDEDRIGHT,ISATTACKED};  //与战斗时碰撞有关的状态 目前ISATTACKED表示格斗游戏中的硬直状态
+    //与运动(角色动画）有关的状态
+    enum STATE{JUMP, PUNCH, KICK, RUN, STAND,ISHITTING, SKILL};
+    //判断招式种类的枚举常量
+    enum SKILLTYPE{SKILLONE,SKILLTWO,SKILLTHREE,SKILLFOUR,SKILLFIVE,SKILLSIX,NONESKILL};
+    enum DIRECTION{LEFT, RIGHT};
+    //与战斗时碰撞有关的状态 目前ISATTACKED表示格斗游戏中的硬直状态
+    // ISHITTING 和ISATTACKED所表示的意义相同，但是用在不同的函数上
+    enum COLLIDEDSTATE{NORMAL,ISCOLLIDEDLEFT,ISCOLLIDEDRIGHT,ISATTACKED};
     PlayerItem();
     ~PlayerItem();
 
@@ -42,6 +48,8 @@ public:
     DIRECTION getDirection()const;
     void setCollidedState(COLLIDEDSTATE);
     COLLIDEDSTATE getCollidedState()const;
+    void setSkillType(SKILLTYPE);
+    SKILLTYPE getSkillType()const;
 
     void setX(qreal);
     qreal getX()const;
@@ -62,6 +70,7 @@ protected:
     STATE m_state;
     DIRECTION m_direction;
     COLLIDEDSTATE m_collidedState;
+    SKILLTYPE m_skillType;
 
     // 加载图片资源
     // 子类需直接加载资源 将私有变成保护型  在子类的资源加载函数中进行初始化
@@ -71,6 +80,7 @@ protected:
     QList<QPixmap> p_punch;
     QList<QPixmap> p_ishitting;
     QList<QPixmap> p_kicking;
+    QList<QList<QPixmap>> p_skill;
 
     //设置item碰撞边缘
     QRectF boundingRect()const;
@@ -88,6 +98,8 @@ protected:
     bool m_rightFlag;
     bool m_attackClickFlag;
 
+    // 键盘缓冲区，技能释放使用
+    KeyBoardBuffer m_buffer;
 private:
     // 绘制函数
     void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
@@ -107,10 +119,14 @@ private:
     int punchIndex;
     int ishittingIndex;
     int kickIndex;
+    int skillIndex;
 
     // 人物属性
     int m_speed; //奔跑速度 在 setinfo中初始化
     int m_blood; //生命值   暂未初始化
+
+    //根据键盘缓冲区判断出招种类的函数
+    void setSkillType();
 };
 
 #endif // PLAYERITEM_H

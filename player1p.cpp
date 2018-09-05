@@ -31,6 +31,8 @@ void Player1P::keyPressEvent(QKeyEvent *event)
             {
                 m_state = PUNCH;
                 m_attackClickFlag = false;
+                // 添加进缓冲区
+                m_buffer.addKey('J');
             }
             break;
         case Qt::Key_K:
@@ -38,7 +40,12 @@ void Player1P::keyPressEvent(QKeyEvent *event)
             {
                 m_state = KICK;
                 m_attackClickFlag = false;
+                // 添加进缓冲区
+                m_buffer.addKey('K');
             }
+            break;
+        case Qt::Key_I:
+            m_state = SKILL;
             break;
         default:
             break;

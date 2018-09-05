@@ -9,6 +9,7 @@ PlayerItem::PlayerItem()
     // 初始化变量
     m_state =  STAND;
     m_collidedState = NORMAL;
+    m_skillType=NONESKILL;
 
     // 动画轮播下标初始化
     standIndex = 0;
@@ -70,69 +71,31 @@ void PlayerItem::init_2()
 
 void PlayerItem::init_3()
 {
-    p_standing.append(QPixmap(":/images/player3/standing_1.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_2.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_3.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_4.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_5.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_6.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_7.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_8.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_9.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_10.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_11.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_12.png"));
-    p_standing.append(QPixmap(":/images/player3/standing_13.png"));
-    p_running.append(QPixmap(":/images/player3/running_1.png"));
-    p_running.append(QPixmap(":/images/player3/running_2.png"));
-    p_running.append(QPixmap(":/images/player3/running_3.png"));
-    p_running.append(QPixmap(":/images/player3/running_4.png"));
-    p_running.append(QPixmap(":/images/player3/running_5.png"));
-    p_running.append(QPixmap(":/images/player3/running_6.png"));
-    p_running.append(QPixmap(":/images/player3/running_7.png"));
-    p_punch.append(QPixmap(":/images/player3/punching_1.png"));
-    p_punch.append(QPixmap(":/images/player3/punching_2.png"));
-    p_punch.append(QPixmap(":/images/player3/punching_3.png"));
-    p_punch.append(QPixmap(":/images/player3/punching_4.png"));
-    p_punch.append(QPixmap(":/images/player3/punching_5.png"));
-    p_punch.append(QPixmap(":/images/player3/punching_6.png"));
-    p_punch.append(QPixmap(":/images/player3/punching_7.png"));
-    p_punch.append(QPixmap(":/images/player3/punching_8.png"));
-    p_punch.append(QPixmap(":/images/player3/punching_9.png"));
-    p_kicking.append(QPixmap(":/images/player3/kicking_1.png"));
-    p_kicking.append(QPixmap(":/images/player3/kicking_2.png"));
-    p_kicking.append(QPixmap(":/images/player3/kicking_3.png"));
-    p_kicking.append(QPixmap(":/images/player3/kicking_4.png"));
-    p_kicking.append(QPixmap(":/images/player3/kicking_5.png"));
-    p_kicking.append(QPixmap(":/images/player3/kicking_6.png"));
-    p_kicking.append(QPixmap(":/images/player3/kicking_7.png"));
+    // 重写成for循环
+    for(int i=1; i<=13;i++)
+        p_standing.append(QPixmap(QString(":/images/player3/standing_%1.png").arg(i)));
+    for(int i=1; i<=7;i++)
+        p_running.append(QPixmap(QString(":/images/player3/running_%1.png").arg(i)));
+    for(int i=1; i<=9;i++)
+        p_punch.append(QPixmap(QString(":/images/player3/punching_%1.png").arg(i)));
+    for(int i=1; i<=7;i++)
+        p_kicking.append(QPixmap(QString(":/images/player3/kicking_%1.png").arg(i)));
+    QList<QPixmap> skillList;
+    for(int i=1;i<=18;i++)
+        skillList.append(QPixmap(QString(":/images/player3/skill_1/%1.png").arg(i)));
+    p_skill.append(skillList);
 }
 
 void PlayerItem::init_4()
 {
-    p_standing.append(QPixmap(":/images/player4/standing_1.png"));
-    p_standing.append(QPixmap(":/images/player4/standing_2.png"));
-    p_standing.append(QPixmap(":/images/player4/standing_3.png"));
-    p_standing.append(QPixmap(":/images/player4/standing_4.png"));
-    p_standing.append(QPixmap(":/images/player4/standing_5.png"));
-    p_standing.append(QPixmap(":/images/player4/standing_6.png"));
-    p_standing.append(QPixmap(":/images/player4/standing_7.png"));
-    p_standing.append(QPixmap(":/images/player4/standing_8.png"));
-    p_running.append(QPixmap(":/images/player4/running_1.png"));
-    p_running.append(QPixmap(":/images/player4/running_2.png"));
-    p_running.append(QPixmap(":/images/player4/running_3.png"));
-    p_running.append(QPixmap(":/images/player4/running_4.png"));
-    p_running.append(QPixmap(":/images/player4/running_5.png"));
-    p_running.append(QPixmap(":/images/player4/running_6.png"));
-    p_punch.append(QPixmap(":/images/player4/punching_1.png"));
-    p_punch.append(QPixmap(":/images/player4/punching_2.png"));
-    p_punch.append(QPixmap(":/images/player4/punching_3.png"));
-    p_punch.append(QPixmap(":/images/player4/punching_4.png"));
-    p_punch.append(QPixmap(":/images/player4/punching_5.png"));
-    p_punch.append(QPixmap(":/images/player4/punching_6.png"));
-    p_punch.append(QPixmap(":/images/player4/punching_7.png"));
-    p_punch.append(QPixmap(":/images/player4/punching_8.png"));
-
+    for(int i=1; i<=8;i++)
+        p_standing.append(QPixmap(QString(":/images/player4/standing_%1.png").arg(i)));
+    for(int i=1; i<=6;i++)
+        p_running.append(QPixmap(QString(":/images/player4/running_%1.png").arg(i)));
+    for(int i=1; i<=8;i++)
+        p_punch.append(QPixmap(QString(":/images/player4/punching_%1.png").arg(i)));
+    for(int i=1; i<=1;i++)
+        p_kicking.append(QPixmap(QString(":/images/player4/kicking_%1.png").arg(i)));
 }
 
 void PlayerItem::paint(QPainter *painter,
@@ -235,6 +198,36 @@ void PlayerItem::paint(QPainter *painter,
                 painter->drawImage(0, 0, p_ishitting.at(ishittingIndex).toImage().mirrored(true,false));
             }
             break;
+        case SKILL:
+            // 释放技能
+            setSkillType();
+            if(m_skillType==NONESKILL)
+            {
+                m_buffer.clear();
+                m_state=STAND;
+            }
+            else
+            {
+                qDebug()<<"技能轮播";
+                if(skillIndex == p_skill.at(m_skillType).size()-1)
+                {
+                    skillIndex = 0;
+                    m_state = STAND;
+                }
+                else
+                    skillIndex++;
+
+                // 左右方向显示
+                if(m_direction == RIGHT)
+                {
+                    painter->drawImage(0, 0, p_skill.at(m_skillType).at(skillIndex).toImage());
+                }
+                else
+                {
+                    painter->drawImage(0, 0, p_skill.at(m_skillType).at(skillIndex).toImage().mirrored(true,false));
+                }
+            }
+            break;
         default:
             break;
     }
@@ -303,6 +296,16 @@ void PlayerItem::setCollidedState(COLLIDEDSTATE t_collidedState)
 PlayerItem::COLLIDEDSTATE PlayerItem::getCollidedState()const
 {
     return m_collidedState;
+}
+
+void PlayerItem::setSkillType(SKILLTYPE skillType)
+{
+    m_skillType=skillType;
+}
+
+PlayerItem::SKILLTYPE PlayerItem::getSkillType()const
+{
+    return m_skillType;
 }
 
 void PlayerItem::setX(qreal x)
@@ -397,4 +400,41 @@ void PlayerItem::updatePos()
     setPixmapInfo();
     // 设置item在scene上的位置
     setPos(m_x, m_y);
+}
+
+//根据缓冲区来设定出招的种类
+void PlayerItem::setSkillType()
+{
+    if(m_buffer.getCurrentSize()<KeyBoardBuffer::SIZE)
+    {
+        m_skillType = NONESKILL;
+    }
+    else
+    {
+       if(m_buffer.getBuffer()=="JJK")
+       {
+           m_skillType=SKILLONE;
+       }
+       else if(m_buffer.getBuffer()=="JKJ")
+       {
+            m_skillType=SKILLTWO;
+       }
+       else if(m_buffer.getBuffer()=="JKK")
+       {
+            m_skillType=SKILLTHREE;
+       }
+       else if(m_buffer.getBuffer()=="KJJ")
+       {
+            m_skillType=SKILLFOUR;
+       }
+       else if(m_buffer.getBuffer()=="KJK")
+       {
+            m_skillType=SKILLFIVE;
+       }
+       else if(m_buffer.getBuffer()=="KKJ")
+       {
+            m_skillType=SKILLSIX;
+       }
+    }
+
 }

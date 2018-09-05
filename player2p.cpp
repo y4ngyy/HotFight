@@ -29,6 +29,7 @@ void Player2P::keyPressEvent(QKeyEvent *event)
             {
                 m_state = PUNCH;
                 m_attackClickFlag = false;
+                m_buffer.addKey('J');
             }
             break;
         case Qt::Key_2:
@@ -36,7 +37,10 @@ void Player2P::keyPressEvent(QKeyEvent *event)
             {
                 m_state = KICK;
                 m_attackClickFlag = false;
+                m_buffer.addKey('K');
             }
+            break;
+        case Qt::Key_5:
             break;
         default:
             break;

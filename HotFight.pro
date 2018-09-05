@@ -34,7 +34,8 @@ SOURCES += \
     localgamescene.cpp \
     netplayeritem.cpp \
     netgamescene.cpp \
-    netgamewindow.cpp
+    netgamewindow.cpp \
+    keyboardbuffer.cpp
 
 HEADERS += \
     playeritem.h \
@@ -47,7 +48,8 @@ HEADERS += \
     localgamescene.h \
     netplayeritem.h \
     netgamescene.h \
-    netgamewindow.h
+    netgamewindow.h \
+    keyboardbuffer.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
