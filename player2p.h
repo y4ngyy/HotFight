@@ -1,14 +1,18 @@
 #ifndef PLAYERITEM2_H
 #define PLAYERITEM2_H
-#include<playeritem.h>
+
+#include <playeritem.h>
+#include <QKeyEvent>
+
 
 class Player2P:public PlayerItem    //继承基类
 {
 public:
    Player2P();
 
-    // 无冲型键盘监听方案
-    void keyBoardListener();
+protected:
+   void keyPressEvent(QKeyEvent *);
+   void keyReleaseEvent(QKeyEvent *);
 };
 
 #endif // PLAYERITEM2_H

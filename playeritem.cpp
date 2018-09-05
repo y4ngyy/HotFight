@@ -10,11 +10,17 @@ PlayerItem::PlayerItem()
     m_state =  STAND;
     m_collidedState = NORMAL;
 
+    // 动画轮播下标初始化
     standIndex = 0;
     runIndex = 0;
     punchIndex = 0;
     ishittingIndex = 0;
     kickIndex = 0;
+
+    // 键盘flag初始化
+    m_leftFlag = false;
+    m_rightFlag = false;
+    m_attackClickFlag = true;
 }
 
 PlayerItem::~PlayerItem()

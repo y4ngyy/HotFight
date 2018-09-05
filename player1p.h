@@ -2,14 +2,15 @@
 #define PLAYER1P_H
 
 #include "playeritem.h"
+#include <QKeyEvent>
 
 class Player1P : public PlayerItem
 {
 public:
     Player1P();
-
-    // 无冲键盘操作
-    void keyBoardListener();
+protected:
+    void keyPressEvent(QKeyEvent *);
+    void keyReleaseEvent(QKeyEvent *);
 
 };
 

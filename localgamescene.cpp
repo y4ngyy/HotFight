@@ -35,9 +35,25 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
         item1.run();
         item2.run();
         // 碰撞
-        item1.keyBoardListener();
-        item2.keyBoardListener();
         item1.updatePos();
         item2.updatePos();
+    }
+}
+
+// 事件分发函数，同时控制两个item人物
+bool LocalGameScene::event(QEvent *event)
+{
+    switch(event->type())
+    {
+        case QEvent::KeyPress:
+            sendEvent(&item1, event);
+            sendEvent(&item2, event);
+            return true;
+        case QEvent::KeyRelease:
+            sendEvent(&item1, event);
+            sendEvent(&item2, event);
+            return true;
+        default:
+            return GameScene::event(event);
     }
 }

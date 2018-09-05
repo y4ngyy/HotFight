@@ -4,7 +4,6 @@
 #include <QGraphicsItem>
 #include <QPixmap>
 #include <QList>
-#include <QKeyEvent>
 #include <QWidget>
 #include <QObject>
 #include <QGraphicsObject>
@@ -82,8 +81,12 @@ protected:
     void init_3();
     void init_4();
 
-    // 尝试键盘无冲操作 子类重载 并在timeEvent中执行
-    virtual void keyBoardListener() = 0;
+    /*
+     *  键盘操作需要的flag 子类直接调用
+     */
+    bool m_leftFlag;
+    bool m_rightFlag;
+    bool m_attackClickFlag;
 
 private:
     // 绘制函数

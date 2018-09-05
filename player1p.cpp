@@ -12,35 +12,58 @@ Player1P::Player1P()
  * 1p控制方法 W D左右行走
  * J K分别为出拳和出腿
 */
-void Player1P::keyBoardListener()
+void Player1P::keyPressEvent(QKeyEvent *event)
 {
-    if(m_collidedState != ISATTACKED)    //只有不是被攻击(处于硬直状态键盘的操作才是有效的）
-      {
-        if(m_state == PUNCH || m_state == KICK)
-            return;
-        if(GetAsyncKeyState(65))
-        {
+    switch (event->key())
+    {
+        case Qt::Key_A:
             m_state = RUN;
             m_direction = LEFT;
-        }
-        if(GetAsyncKeyState(68))
-        {
+            m_leftFlag = true;
+            break;
+        case Qt::Key_D:
             m_state = RUN;
             m_direction = RIGHT;
-        }
-        if(!GetAsyncKeyState(65)&&!GetAsyncKeyState(68))
-            m_state = STAND;
-        // 出拳出腿判定 两者不能状态重叠 出腿优先
-        if(GetAsyncKeyState(74))
-        {
-            m_state = PUNCH;
-        }
-        if(GetAsyncKeyState(75))
-        {
-            m_state = KICK;
-        }
+            m_rightFlag = true;
+            break;
+        case Qt::Key_J:
+            if(m_attackClickFlag)
+            {
+                m_state = PUNCH;
+                m_attackClickFlag = false;
+            }
+            break;
+        case Qt::Key_K:
+            if(m_attackClickFlag)
+            {
+                m_state = KICK;
+                m_attackClickFlag = false;
+            }
+            break;
+        default:
+            break;
     }
-    else
-      return;
 }
 
+void Player1P::keyReleaseEvent(QKeyEvent *event)
+{
+    switch (event->key())
+    {
+        case Qt::Key_A:
+            m_leftFlag = false;
+            if(!m_leftFlag && !m_rightFlag)
+                m_state = STAND;
+            break;
+        case Qt::Key_D:
+            m_rightFlag = false;
+            if(!m_leftFlag && !m_rightFlag)
+                m_state = STAND;
+            break;
+        case Qt::Key_J:
+        case Qt::Key_K:
+            m_attackClickFlag = true;
+            break;
+        default:
+            break;
+    }
+}
