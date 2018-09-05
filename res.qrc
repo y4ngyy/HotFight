@@ -183,22 +183,6 @@
         <file>images/player4/skill_2/4.png</file>
         <file>images/player4/skill_2/5.png</file>
         <file>images/player4/skill_2/6.png</file>
-        <file>images/player4/skill_3/1.png</file>
-        <file>images/player4/skill_3/2.png</file>
-        <file>images/player4/skill_3/3.png</file>
-        <file>images/player4/skill_3/4.png</file>
-        <file>images/player4/skill_3/5.png</file>
-        <file>images/player4/skill_3/6.png</file>
-        <file>images/player4/skill_3/7.png</file>
-        <file>images/player4/skill_3/8.png</file>
-        <file>images/player4/skill_4/2.png</file>
-        <file>images/player4/skill_4/3.png</file>
-        <file>images/player4/skill_4/4.png</file>
-        <file>images/player4/skill_4/5.png</file>
-        <file>images/player4/skill_4/6.png</file>
-        <file>images/player4/skill_4/7.png</file>
-        <file>images/player4/skill_4/8.png</file>
-        <file>images/player4/skill_4/9.png</file>
         <file>images/player4/skill_5/1.png</file>
         <file>images/player4/skill_5/2.png</file>
         <file>images/player4/skill_5/3.png</file>
@@ -222,5 +206,22 @@
         <file>images/player4/skill_6/5.png</file>
         <file>images/player4/skill_6/6.png</file>
         <file>images/player4/skill_6/7.png</file>
+        <file>images/player4/skill_3/1.png</file>
+        <file>images/player4/skill_3/2.png</file>
+        <file>images/player4/skill_3/3.png</file>
+        <file>images/player4/skill_3/4.png</file>
+        <file>images/player4/skill_3/5.png</file>
+        <file>images/player4/skill_3/6.png</file>
+        <file>images/player4/skill_3/7.png</file>
+        <file>images/player4/skill_3/8.png</file>
+        <file>images/player4/skill_3/9.png</file>
+        <file>images/player4/skill_4/1.png</file>
+        <file>images/player4/skill_4/2.png</file>
+        <file>images/player4/skill_4/3.png</file>
+        <file>images/player4/skill_4/4.png</file>
+        <file>images/player4/skill_4/5.png</file>
+        <file>images/player4/skill_4/6.png</file>
+        <file>images/player4/skill_4/7.png</file>
+        <file>images/player4/skill_4/8.png</file>
     </qresource>
 </RCC>

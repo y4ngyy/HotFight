@@ -169,13 +169,13 @@ void PlayerItem::init_4()
         p_skill.append(skillList);
         skillList.clear();
         //技能3
-        for(int i=1;i<=8 ;i++)
+        for(int i=1;i<=9 ;i++)
             skillList.append(QPixmap(QString(":/images/player4/skill_3/%1.png").arg(i)));
         p_skill.append(skillList);
         skillList.clear();
 
         //技能4
-        for(int i=1;i<=9 ;i++)
+        for(int i=1;i<=8 ;i++)
             skillList.append(QPixmap(QString(":/images/player4/skill_4/%1.png").arg(i)));
         p_skill.append(skillList);
         skillList.clear();
