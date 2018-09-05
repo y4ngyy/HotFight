@@ -6,7 +6,7 @@ LocalGameScene::LocalGameScene()
     // 设置Scene大小
     setSceneRect(0,0,600,442);
     // 初始化人物位置
-    item1.setPositonInfo(50, 300);
+    item1.setPositonInfo(200, 300);
     item2.setPositonInfo(500, 300);
     addItem(&item1);
     addItem(&item2);

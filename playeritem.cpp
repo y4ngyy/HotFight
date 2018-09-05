@@ -17,6 +17,7 @@ PlayerItem::PlayerItem()
     punchIndex = 0;
     ishittingIndex = 0;
     kickIndex = 0;
+    skillIndex = 0;
 
     // 键盘flag初始化
     m_leftFlag = false;
@@ -73,29 +74,99 @@ void PlayerItem::init_3()
 {
     // 重写成for循环
     for(int i=1; i<=13;i++)
-        p_standing.append(QPixmap(QString(":/images/player3/standing_%1.png").arg(i)));
+        p_standing.append(QPixmap(QString(":/images/player3/standing/standing_%1.png").arg(i)));
     for(int i=1; i<=7;i++)
-        p_running.append(QPixmap(QString(":/images/player3/running_%1.png").arg(i)));
+        p_running.append(QPixmap(QString(":/images/player3/running/running_%1.png").arg(i)));
     for(int i=1; i<=9;i++)
-        p_punch.append(QPixmap(QString(":/images/player3/punching_%1.png").arg(i)));
-    for(int i=1; i<=7;i++)
-        p_kicking.append(QPixmap(QString(":/images/player3/kicking_%1.png").arg(i)));
+        p_punch.append(QPixmap(QString(":/images/player3/punching/punching_%1.png").arg(i)));
+    for(int i=1; i<=11;i++)
+        p_kicking.append(QPixmap(QString(":/images/player3/kicking/kicking_%1.png").arg(i)));
+    for(int i=1; i<=4; i++)
+        p_ishitting.append(QPixmap(QString(":/images/player3/ishitting/isattacked_%1.png").arg(i)));
+    // 技能添加
     QList<QPixmap> skillList;
-    for(int i=1;i<=18;i++)
+    // 技能1
+    for(int i=1;i<=12;i++)
         skillList.append(QPixmap(QString(":/images/player3/skill_1/%1.png").arg(i)));
     p_skill.append(skillList);
+    skillList.clear();
+    // 技能2
+    for(int i=1;i<=6;i++)
+        skillList.append(QPixmap(QString(":/images/player3/skill_2/%1.png").arg(i)));
+    p_skill.append(skillList);
+    skillList.clear();
+    // 技能3
+    for(int i=1;i<=7;i++)
+        skillList.append(QPixmap(QString(":/images/player3/skill_3/%1.png").arg(i)));
+    p_skill.append(skillList);
+    skillList.clear();
+    // 技能4
+    for(int i=1;i<=7;i++)
+        skillList.append(QPixmap(QString(":/images/player3/skill_4/%1.png").arg(i)));
+    p_skill.append(skillList);
+    skillList.clear();
+    // 技能5
+    for(int i=1;i<=6;i++)
+        skillList.append(QPixmap(QString(":/images/player3/skill_5/%1.png").arg(i)));
+    p_skill.append(skillList);
+    skillList.clear();
+    // 技能6
+    for(int i=1;i<=18;i++)
+        skillList.append(QPixmap(QString(":/images/player3/skill_6/%1.png").arg(i)));
+    p_skill.append(skillList);
+
 }
 
 void PlayerItem::init_4()
 {
     for(int i=1; i<=8;i++)
-        p_standing.append(QPixmap(QString(":/images/player4/standing_%1.png").arg(i)));
-    for(int i=1; i<=6;i++)
-        p_running.append(QPixmap(QString(":/images/player4/running_%1.png").arg(i)));
-    for(int i=1; i<=8;i++)
-        p_punch.append(QPixmap(QString(":/images/player4/punching_%1.png").arg(i)));
-    for(int i=1; i<=1;i++)
-        p_kicking.append(QPixmap(QString(":/images/player4/kicking_%1.png").arg(i)));
+            p_standing.append(QPixmap(QString(":/images/player4/standing/standing_%1.png").arg(i)));
+        for(int i=1; i<=7;i++)
+            p_running.append(QPixmap(QString(":/images/player4/running/running_%1.png").arg(i)));
+        for(int i=1; i<=8;i++)
+            p_punch.append(QPixmap(QString(":/images/player4/punching/punching_%1.png").arg(i)));
+        for(int i=1; i<=9;i++)
+            p_kicking.append(QPixmap(QString(":/images/player4/kicking/kicking_%1.png").arg(i)));
+        for(int i=1;i<=2;i++)
+            p_ishitting.append(QPixmap(QString(":/images/player4/ishitting/ishitting_%1.png").arg(i)));
+        //添加技能
+        QList<QPixmap> skillList;
+        //技能1
+        for(int i=1;i<=8 ;i++)
+            skillList.append(QPixmap(QString(":/images/player4/skill_1/%1.png").arg(i)));
+        p_skill.append(skillList);
+        skillList.clear(); //清空
+
+        //技能2
+        for(int i=1;i<=6 ;i++)
+            skillList.append(QPixmap(QString(":/images/player4/skill_2/%1.png").arg(i)));
+        p_skill.append(skillList);
+        skillList.clear(); //清空
+
+        //技能3
+        for(int i=1;i<=8 ;i++)
+            skillList.append(QPixmap(QString(":/images/player4/skill_3/%1.png").arg(i)));
+        p_skill.append(skillList);
+        skillList.clear(); //清空
+
+        //技能4
+        for(int i=1;i<=9 ;i++)
+            skillList.append(QPixmap(QString(":/images/player4/skill_4/%1.png").arg(i)));
+        p_skill.append(skillList);
+        skillList.clear(); //清空
+
+        //技能5
+        for(int i=1;i<=16 ;i++)
+            skillList.append(QPixmap(QString(":/images/player4/skill_5/%1.png").arg(i)));
+        p_skill.append(skillList);
+        skillList.clear(); //清空
+
+        //技能6
+
+        for(int i=1;i<=7 ;i++)
+            skillList.append(QPixmap(QString(":/images/player4/skill_6/%1.png").arg(i)));
+        p_skill.append(skillList);
+        skillList.clear(); //清空
 }
 
 void PlayerItem::paint(QPainter *painter,
@@ -107,7 +178,7 @@ void PlayerItem::paint(QPainter *painter,
         case RUN:
             // 奔跑视图
             // 轮播下标增加
-            if(runIndex == p_running.size()-1)
+            if(runIndex >= p_running.size()-1)
             {
                 runIndex = 0;
             }
@@ -117,16 +188,16 @@ void PlayerItem::paint(QPainter *painter,
             // 左右方向显示
             if(m_direction == RIGHT)
             {
-                painter->drawPixmap(0, 0, m_width, m_height, p_running.at(runIndex));
+                painter->drawPixmap(0, -m_height, m_width, m_height, p_running.at(runIndex));
             }
             else
             {
-                painter->drawImage(0, 0, p_running.at(runIndex).toImage().mirrored(true,false));
+                painter->drawImage(0, -m_height, p_running.at(runIndex).toImage().mirrored(true,false));
             }
                 break;
         case STAND:
             // 站立状态视图
-            if(standIndex == p_standing.size()-1)
+            if(standIndex >= p_standing.size()-1)
             {
                 standIndex = 0;
             }
@@ -134,14 +205,14 @@ void PlayerItem::paint(QPainter *painter,
                 standIndex++;
             if(m_direction == RIGHT)
             {
-                painter->drawImage(0, 0, p_standing.at(standIndex).toImage());
+                painter->drawImage(0, -m_height, p_standing.at(standIndex).toImage());
             }
             else
-                painter->drawImage(0, 0, p_standing.at(standIndex).toImage().mirrored(true,false));
+                painter->drawImage(0, -m_height, p_standing.at(standIndex).toImage().mirrored(true,false));
             break;
         case PUNCH:
             // 出拳视图
-            if(punchIndex == p_punch.size()-1)
+            if(punchIndex >= p_punch.size()-1)
             {
                 punchIndex = 0;
                 m_state = STAND;
@@ -151,16 +222,16 @@ void PlayerItem::paint(QPainter *painter,
             if(m_direction == RIGHT)
             {
                 // drawPixmap 改为 drawImage 尝试修复图片拉长
-                painter->drawImage(0, 0, p_punch.at(punchIndex).toImage());
+                painter->drawImage(0, -m_height, p_punch.at(punchIndex).toImage());
             }
             else
             {
-                painter->drawImage(0, 0, p_punch.at(punchIndex).toImage().mirrored(true,false));
+                painter->drawImage(0, -m_height, p_punch.at(punchIndex).toImage().mirrored(true,false));
             }
             break;
         case KICK:
             // 出脚视图 存在bug 图片显示不完全，且会留下边角图像
-            if(kickIndex == p_kicking.size()-1)
+            if(kickIndex >= p_kicking.size()-1)
             {
                 kickIndex = 0;
                 m_state = STAND;
@@ -171,16 +242,16 @@ void PlayerItem::paint(QPainter *painter,
             // 左右方向显示
             if(m_direction == RIGHT)
             {
-                painter->drawImage(0, 0, p_kicking.at(kickIndex).toImage());
+                painter->drawImage(0, -m_height, p_kicking.at(kickIndex).toImage());
             }
             else
             {
-                painter->drawImage(0, 0, p_kicking.at(kickIndex).toImage().mirrored(true,false));
+                painter->drawImage(0, -m_height, p_kicking.at(kickIndex).toImage().mirrored(true,false));
             }
             break;
         case ISHITTING:
             //受攻击视图
-            if(ishittingIndex == p_ishitting.size()-1)
+            if(ishittingIndex >= p_ishitting.size()-1)
             {
                 punchIndex = 0;
                 m_state = STAND;       //被攻击的最后一帧应该停下来
@@ -191,11 +262,11 @@ void PlayerItem::paint(QPainter *painter,
             if(m_direction == RIGHT)
             {
                 // drawPixmap 改为 drawImage 尝试修复图片拉长
-                painter->drawImage(0, 0, p_ishitting.at(ishittingIndex).toImage());
+                painter->drawImage(0, -m_height, p_ishitting.at(ishittingIndex).toImage());
             }
             else
             {
-                painter->drawImage(0, 0, p_ishitting.at(ishittingIndex).toImage().mirrored(true,false));
+                painter->drawImage(0, -m_height, p_ishitting.at(ishittingIndex).toImage().mirrored(true,false));
             }
             break;
         case SKILL:
@@ -205,14 +276,30 @@ void PlayerItem::paint(QPainter *painter,
             {
                 m_buffer.clear();
                 m_state=STAND;
+                skillIndex = 0;
+                // 轮播stand状态，去除点击技能键闪烁
+                if(standIndex >= p_standing.size()-1)
+                {
+                    standIndex = 0;
+                }
+                else
+                    standIndex++;
+                if(m_direction == RIGHT)
+                {
+                    painter->drawImage(0, -m_height, p_standing.at(standIndex).toImage());
+                }
+                else
+                    painter->drawImage(0, -m_height, p_standing.at(standIndex).toImage().mirrored(true,false));
             }
             else
             {
                 qDebug()<<"技能轮播";
-                if(skillIndex == p_skill.at(m_skillType).size()-1)
+                if(skillIndex >= p_skill.at(m_skillType).size()-1)
                 {
                     skillIndex = 0;
                     m_state = STAND;
+                    // 轮播完缓冲区清空
+                    m_buffer.clear();
                 }
                 else
                     skillIndex++;
@@ -220,11 +307,11 @@ void PlayerItem::paint(QPainter *painter,
                 // 左右方向显示
                 if(m_direction == RIGHT)
                 {
-                    painter->drawImage(0, 0, p_skill.at(m_skillType).at(skillIndex).toImage());
+                    painter->drawImage(0, -m_height, p_skill.at(m_skillType).at(skillIndex).toImage());
                 }
                 else
                 {
-                    painter->drawImage(0, 0, p_skill.at(m_skillType).at(skillIndex).toImage().mirrored(true,false));
+                    painter->drawImage(0, -m_height, p_skill.at(m_skillType).at(skillIndex).toImage().mirrored(true,false));
                 }
             }
             break;
@@ -237,7 +324,7 @@ QRectF PlayerItem::boundingRect() const
 {
     // 将boundingRect改为较大定值区域 去除重绘bug
     // 要重写shape函数来作为碰撞检测的根据
-    return QRectF(0, 0, 200, 200);
+    return QRectF(0, -200, 200, 200);
 }
 
 void PlayerItem::setPixmapInfo()
@@ -434,6 +521,10 @@ void PlayerItem::setSkillType()
        else if(m_buffer.getBuffer()=="KKJ")
        {
             m_skillType=SKILLSIX;
+       }
+       else
+       {
+           m_skillType= NONESKILL;
        }
     }
 

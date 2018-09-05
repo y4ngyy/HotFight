@@ -6,6 +6,7 @@
 Player1P::Player1P()
 {
     init_3();
+    setHeight(p_standing.at(0).height());
 }
 
 /*
@@ -14,63 +15,71 @@ Player1P::Player1P()
 */
 void Player1P::keyPressEvent(QKeyEvent *event)
 {
-    switch (event->key())
+    // 技能释放中不处理键盘事件
+    if(m_state != SKILL)
     {
-        case Qt::Key_A:
-            m_state = RUN;
-            m_direction = LEFT;
-            m_leftFlag = true;
-            break;
-        case Qt::Key_D:
-            m_state = RUN;
-            m_direction = RIGHT;
-            m_rightFlag = true;
-            break;
-        case Qt::Key_J:
-            if(m_attackClickFlag)
-            {
-                m_state = PUNCH;
-                m_attackClickFlag = false;
-                // 添加进缓冲区
-                m_buffer.addKey('J');
-            }
-            break;
-        case Qt::Key_K:
-            if(m_attackClickFlag)
-            {
-                m_state = KICK;
-                m_attackClickFlag = false;
-                // 添加进缓冲区
-                m_buffer.addKey('K');
-            }
-            break;
-        case Qt::Key_I:
-            m_state = SKILL;
-            break;
-        default:
-            break;
+        switch (event->key())
+        {
+            case Qt::Key_A:
+                m_state = RUN;
+                m_direction = LEFT;
+                m_leftFlag = true;
+                break;
+            case Qt::Key_D:
+                m_state = RUN;
+                m_direction = RIGHT;
+                m_rightFlag = true;
+                break;
+            case Qt::Key_J:
+                if(m_attackClickFlag)
+                {
+                    m_state = PUNCH;
+                    m_attackClickFlag = false;
+                    // 添加进缓冲区
+                    m_buffer.addKey('J');
+                }
+                break;
+            case Qt::Key_K:
+                if(m_attackClickFlag)
+                {
+                    m_state = KICK;
+                    m_attackClickFlag = false;
+                    // 添加进缓冲区
+                    m_buffer.addKey('K');
+                }
+                break;
+            case Qt::Key_I:
+                m_state = SKILL;
+                break;
+            default:
+                break;
+        }
     }
 }
 
 void Player1P::keyReleaseEvent(QKeyEvent *event)
 {
-    switch (event->key())
+    // 技能释放中不处理键盘事件
+    if(m_state != SKILL)
     {
-        case Qt::Key_A:
-            m_leftFlag = false;
-            if(!m_leftFlag && !m_rightFlag)
-                m_state = STAND;
-            break;
-        case Qt::Key_D:
-            m_rightFlag = false;
-            if(!m_leftFlag && !m_rightFlag)
-                m_state = STAND;
-            break;
-        case Qt::Key_J:
-        case Qt::Key_K:
-            m_attackClickFlag = true;
-            break;
-        default:
-            break;
+        switch (event->key())
+        {
+            case Qt::Key_A:
+                m_leftFlag = false;
+                if(!m_leftFlag && !m_rightFlag)
+                    m_state = STAND;
+                break;
+            case Qt::Key_D:
+                m_rightFlag = false;
+                if(!m_leftFlag && !m_rightFlag)
+                    m_state = STAND;
+                break;
+            case Qt::Key_J:
+            case Qt::Key_K:
+                m_attackClickFlag = true;
+                break;
+            default:
+                break;
+        }
     }
 }
