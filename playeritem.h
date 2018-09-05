@@ -9,7 +9,7 @@
 #include <QObject>
 #include <QGraphicsObject>
 #include <QTimerEvent>
-
+#include <QPainterPath>
 
 
 /*
@@ -81,6 +81,19 @@ protected:
     QList<QPixmap> p_ishitting;
     QList<QPixmap> p_kicking;
     QList<QList<QPixmap>> p_skill;
+
+    // 图片的path 在shape()中返回
+    QPainterPath m_standPath;
+    QPainterPath m_runPath;
+    QPainterPath m_punchPath;
+    QPainterPath m_kickPath;
+    QPainterPath m_isHitPath;
+    QPainterPath m_skillPath_1;
+    QPainterPath m_skillPath_2;
+    QPainterPath m_skillPath_3;
+    QPainterPath m_skillPath_4;
+    QPainterPath m_skillPath_5;
+    QPainterPath m_skillPath_6;
 
     //设置item碰撞边缘
     QRectF boundingRect()const;

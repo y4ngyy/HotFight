@@ -115,6 +115,33 @@ void PlayerItem::init_3()
         skillList.append(QPixmap(QString(":/images/player3/skill_6/%1.png").arg(i)));
     p_skill.append(skillList);
 
+    // 加载路径
+    // stand
+    m_standPath.lineTo(p_standing.at(0).width(), 0);
+    m_standPath.lineTo(p_standing.at(0).width()/2+20, -p_standing.at(0).height());
+    m_standPath.lineTo(p_standing.at(0).width()/2-20, -p_standing.at(0).height());
+    m_standPath.closeSubpath();
+    // punch
+    m_punchPath.addEllipse(0,0, p_punch.at(4).width(), -p_punch.at(4).height());
+    // run
+    m_runPath.addEllipse(0, -p_running.at(6).height()/2, p_running.at(6).width(), -p_running.at(6).height()/2);
+    // kick
+    m_kickPath.addEllipse(0, 0, p_kicking.at(7).width(), -p_kicking.at(7).height());
+    // is hit
+    m_isHitPath.addEllipse(0, 0, p_ishitting.at(3).width(), -p_ishitting.at(3).height());
+    // skill 1
+    m_skillPath_1.addEllipse(0, 0, p_skill.at(0).at(8).width(), -p_skill.at(0).at(8).height());
+    // skill 2
+    m_skillPath_2.addEllipse(0, 0, p_skill.at(1).at(2).width(), -p_skill.at(1).at(2).height());
+    // skill 3
+    m_skillPath_3.addEllipse(0, 0, p_skill.at(2).at(1).width(), -p_skill.at(2).at(1).height());
+    // skill 4
+    m_skillPath_4.addEllipse(0, 0, p_skill.at(3).at(2).width(), -p_skill.at(3).at(2).height());
+    // skill 5
+    m_skillPath_5.addEllipse(0, 0, p_skill.at(4).at(2).width(), -p_skill.at(4).at(2).height());
+    // skill 6
+    m_skillPath_6.addEllipse(0, 0, p_skill.at(5).at(5).width(), -p_skill.at(5).at(5).height());
+
 }
 
 void PlayerItem::init_4()
@@ -135,38 +162,32 @@ void PlayerItem::init_4()
         for(int i=1;i<=8 ;i++)
             skillList.append(QPixmap(QString(":/images/player4/skill_1/%1.png").arg(i)));
         p_skill.append(skillList);
-        skillList.clear(); //清空
-
+        skillList.clear();
         //技能2
         for(int i=1;i<=6 ;i++)
             skillList.append(QPixmap(QString(":/images/player4/skill_2/%1.png").arg(i)));
         p_skill.append(skillList);
-        skillList.clear(); //清空
-
+        skillList.clear();
         //技能3
         for(int i=1;i<=8 ;i++)
             skillList.append(QPixmap(QString(":/images/player4/skill_3/%1.png").arg(i)));
         p_skill.append(skillList);
-        skillList.clear(); //清空
+        skillList.clear();
 
         //技能4
         for(int i=1;i<=9 ;i++)
             skillList.append(QPixmap(QString(":/images/player4/skill_4/%1.png").arg(i)));
         p_skill.append(skillList);
-        skillList.clear(); //清空
-
+        skillList.clear();
         //技能5
         for(int i=1;i<=16 ;i++)
             skillList.append(QPixmap(QString(":/images/player4/skill_5/%1.png").arg(i)));
         p_skill.append(skillList);
-        skillList.clear(); //清空
-
+        skillList.clear();
         //技能6
-
         for(int i=1;i<=7 ;i++)
             skillList.append(QPixmap(QString(":/images/player4/skill_6/%1.png").arg(i)));
         p_skill.append(skillList);
-        skillList.clear(); //清空
 }
 
 void PlayerItem::paint(QPainter *painter,
