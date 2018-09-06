@@ -35,6 +35,7 @@ public:
     PlayerItem();
     ~PlayerItem();
 
+
     //重载shape函数
     virtual QPainterPath shape()const;
 
@@ -47,6 +48,9 @@ public:
 
     // 刷新设置人物位置
     void updatePos();
+
+    //攻击的时候根据特定攻击动作的判定帧来决定attackingflag的值
+    virtual void JudgeingAttack();
 
     //所有的get和set函数
     void setState(STATE);
@@ -77,6 +81,9 @@ public:
     int getEnergy()const;
     void setTenacity(int);
     int getTenacity()const;
+
+    void setAttackingFlag(bool);
+    bool getAttackedFlag()const;
 
 protected:
 
@@ -177,6 +184,9 @@ private:
 
     //根据键盘缓冲区判断出招种类的函数
     void setSkillType();
+
+    //判定帧的flag
+    bool m_attackingFlag;
 };
 
 #endif // PLAYERITEM_H

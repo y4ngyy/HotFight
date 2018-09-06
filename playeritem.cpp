@@ -12,6 +12,7 @@ PlayerItem::PlayerItem()
     m_collidedState = NOCOLLIDED;
     m_skillType=NONESKILL;
     m_attackedState=NOATTACKED;
+    m_attackingFlag=false;
     // 动画轮播下标初始化
     standIndex = 0;
     runIndex = 0;
@@ -520,6 +521,45 @@ QPainterPath PlayerItem::shape()const
        }
 }
 
+void PlayerItem::JudgeingAttack()
+{
+   switch(m_state)
+   {
+      case PUNCH:
+           if(punchIndex==3)   //第四帧
+           {
+               m_attackingFlag=true;
+           }
+           else
+           {
+                m_attackingFlag=false;
+           }
+           break;
+      case KICK:
+           if(kickIndex==3)   //第四帧
+           {
+               m_attackingFlag=true;
+           }
+           else
+           {
+                m_attackingFlag=false;
+           }
+           break;
+      case SKILL:
+           if(skillIndex==3)   //第四帧  //到时候扩展在子类中重写，找到具体哪一帧，再把条件里的Index改一下就可以了
+           {
+               m_attackingFlag=true;
+           }
+           else
+           {
+                m_attackingFlag=false;
+           }
+           break;
+      default:
+           m_attackingFlag=false;
+           break;
+   }
+}
 
 QRectF PlayerItem::boundingRect() const
 {
@@ -684,6 +724,16 @@ void PlayerItem::setTenacity(int tenacity)
 int PlayerItem::getTenacity()const
 {
     return m_tenacity;
+}
+
+void PlayerItem::setAttackingFlag(bool flag)
+{
+    m_attackingFlag=flag;
+}
+
+bool PlayerItem::getAttackedFlag()const
+{
+    return m_attackingFlag;
 }
 
 void PlayerItem::run()

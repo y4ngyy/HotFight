@@ -38,8 +38,16 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
         }
         isCollided(item1,item2);   //1P 和2P的 碰撞检测，必须放在攻击检测的前面，否则ISATTACKED会被替换成 ISCOLLIDEDLEFT，以后可以考虑整合成一个大函数
         //人物的攻击判定  测试
-        isAttacked(item1,item2);
-        isAttacked(item2, item1);
+        item1.JudgeingAttack();
+        if(item1.getAttackedFlag())
+        {
+            isAttacked(item1,item2);
+        }
+        item2.JudgeingAttack();
+        if(item2.getAttackedFlag())
+        {
+            isAttacked(item2,item1);
+        }
         // 游戏线程 刷新视图和人物跑动 碰撞
         item1.run();
         item2.run();
