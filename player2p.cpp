@@ -30,16 +30,21 @@ void Player2P::keyPressEvent(QKeyEvent *event)
             case Qt::Key_1:
                 if(m_attackClickFlag)
                 {
-                    m_state = PUNCH;
                     m_attackClickFlag = false;
+                    if(getEnergy() < m_punchEnReduce)
+                        return;
+                    m_state = PUNCH;
                     m_buffer.addKey('J');
                 }
                 break;
             case Qt::Key_2:
                 if(m_attackClickFlag)
                 {
-                    m_state = KICK;
+
                     m_attackClickFlag = false;
+                    if(getEnergy() < m_kickEnReduce)
+                        return;
+                    m_state = KICK;
                     m_buffer.addKey('K');
                 }
                 break;

@@ -34,6 +34,9 @@ void Player1P::keyPressEvent(QKeyEvent *event)
                 if(m_attackClickFlag)
                 {
                     m_attackClickFlag = false;
+                    // 精力过低时无法出招
+                    if(getEnergy() < m_punchEnReduce)
+                        return;
                     m_state = PUNCH;
                     // 添加进缓冲区
                     m_buffer.addKey('J');
@@ -42,9 +45,13 @@ void Player1P::keyPressEvent(QKeyEvent *event)
             case Qt::Key_K:
                 if(m_attackClickFlag)
                 {
-                    m_state = KICK;
+
                     m_attackClickFlag = false;
+                    if(getEnergy() < m_kickEnReduce)
+                        return;
+                    m_state = KICK;
                     // 添加进缓冲区
+
                     m_buffer.addKey('K');
                 }
                 break;

@@ -128,6 +128,26 @@ protected:
 
     // 键盘缓冲区，技能释放使用
     KeyBoardBuffer m_buffer;
+
+    // 攻击力属性
+    int m_basicATK; // 基础攻击力 在init中初始
+    int m_punchATK;
+    int m_kickATK;
+    QList<int> m_skillATK;
+
+    // 防御力属性
+    int m_basicDEF;
+
+    // 精力消耗值
+    int m_punchEnReduce;
+    int m_jumpEnReduce;
+    int m_kickEnReduce;
+    QList<int> m_skillEnReduce;
+
+    // 招式的削韧
+    int m_punchTeReduce;
+    int m_kickTeReduce;
+    QList<int> m_skillTeReduce;
 private:
     // 绘制函数
     void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
@@ -155,25 +175,7 @@ private:
     int m_energy;  // 精力值
     int m_tenacity;  // 韧性值
 
-    // 攻击力属性
-    int m_basicATK; // 基础攻击力 在init中初始
-    int m_punchATK;
-    int m_kickATK;
-    QList<int> m_skillATK;
 
-    // 防御力属性
-    int m_basicDEF;
-
-    // 精力消耗值
-    int m_punchEnReduce;
-    int m_jumpEnReduce;
-    int m_kickEnReduce;
-    QList<int> m_skillEnReduce;
-
-    // 招式的削韧
-    int m_punchTeReduce;
-    int m_kickTeReduce;
-    QList<int> m_skillTeReduce;
 
     //根据键盘缓冲区判断出招种类的函数
     void setSkillType();

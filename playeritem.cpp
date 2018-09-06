@@ -757,6 +757,13 @@ void PlayerItem::setSkillType()
        {
            m_skillType= NONESKILL;
        }
+       if(m_skillType != NONESKILL)
+       {
+           if(m_energy < m_skillEnReduce.at(m_skillType))
+           {
+               m_skillType = NONESKILL;
+           }
+       }
     }
 
 }
