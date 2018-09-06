@@ -12,7 +12,6 @@ PlayerItem::PlayerItem()
     m_collidedState = NOCOLLIDED;
     m_skillType=NONESKILL;
     m_attackedState=NOATTACKED;
-    m_tenacity=0;
     // 动画轮播下标初始化
     standIndex = 0;
     runIndex = 0;
@@ -25,6 +24,11 @@ PlayerItem::PlayerItem()
     m_leftFlag = false;
     m_rightFlag = false;
     m_attackClickFlag = true;
+
+    // 人物属性初始化
+    m_blood = 100;
+    m_energy = 100;
+    m_tenacity = 100; // 硬直
 }
 
 PlayerItem::~PlayerItem()
@@ -144,6 +148,31 @@ void PlayerItem::init_3()
     // skill 6
     m_skillPath_6.addEllipse(0, 0, p_skill.at(5).at(5).width(), -p_skill.at(5).at(5).height());
 
+    // 人物属性初始化
+    // 攻击力属性
+    m_basicATK = 5; // 基础攻击力 在init中初始
+    m_punchATK = 10;
+    m_kickATK = 15;
+    for(int i=1;i<=6;i++)
+        m_skillATK.append(15+i*5);
+
+    // 防御力属性
+    m_basicDEF = 10;
+
+    // 精力消耗值
+    m_punchEnReduce = 10;
+    m_jumpEnReduce = 5;
+    m_kickEnReduce = 15;
+    for(int i=1;i<=6;i++)
+        m_skillEnReduce.append(15+i*5);
+
+    // 招式的削韧
+    m_punchTeReduce = 20;
+    m_kickTeReduce = 20;
+    for(int i=1;i<=4;i++)
+        m_skillTeReduce.append(25);
+    m_skillTeReduce.append(30);
+    m_skillTeReduce.append(30);
 }
 
 void PlayerItem::init_4()
@@ -243,6 +272,32 @@ void PlayerItem::init_4()
 
         //skill_6
         m_skillPath_6.addEllipse(0,-p_skill.at(5).at(3).height() , p_skill.at(5).at(3).width() , p_skill.at(5).at(3).height());
+
+        // 人物属性初始化
+        // 攻击力属性
+        m_basicATK = 5; // 基础攻击力 在init中初始
+        m_punchATK = 10;
+        m_kickATK = 15;
+        for(int i=1;i<=6;i++)
+            m_skillATK.append(15+i*5);
+
+        // 防御力属性
+        m_basicDEF = 10;
+
+        // 精力消耗值
+        m_punchEnReduce = 10;
+        m_jumpEnReduce = 5;
+        m_kickEnReduce = 15;
+        for(int i=1;i<=6;i++)
+            m_skillEnReduce.append(15+i*5);
+
+        // 招式的削韧
+        m_punchTeReduce = 20;
+        m_kickTeReduce = 20;
+        for(int i=1;i<=4;i++)
+            m_skillTeReduce.append(25);
+        m_skillTeReduce.append(30);
+        m_skillTeReduce.append(30);
 }
 
 void PlayerItem::paint(QPainter *painter,
@@ -293,8 +348,8 @@ void PlayerItem::paint(QPainter *painter,
             // 出拳视图
             if(kickIndex==0)
             {
-//                //计算精力消耗
-//                Rule::calculateEnergy(*this, m_punchEnReduce);
+                //计算精力消耗
+                Rule::calculateEnergy(*this, m_punchEnReduce);
             }
             if(punchIndex >= p_punch.size()-1)
             {
@@ -318,8 +373,8 @@ void PlayerItem::paint(QPainter *painter,
             // 出脚视图 存在bug 图片显示不完全，且会留下边角图像
             if(kickIndex==0)
             {
-//                //计算精力消耗
-//                Rule::calculateEnergy(*this, m_kickEnReduce);
+                //计算精力消耗
+                Rule::calculateEnergy(*this, m_kickEnReduce);
             }
             if(kickIndex >= p_kicking.size()-1)
             {
@@ -393,10 +448,9 @@ void PlayerItem::paint(QPainter *painter,
             {
                 if(skillIndex==0)
                 {
-//                    //计算精力消耗
-//                    Rule::calculateEnergy(*this, m_skillEnReduce.at(m_skillType));
+                    //计算精力消耗
+                    Rule::calculateEnergy(*this, m_skillEnReduce.at(m_skillType));
                 }
-                qDebug()<<"技能轮播";
                 if(skillIndex >= p_skill.at(m_skillType).size()-1)
                 {
                     skillIndex = 0;
@@ -635,7 +689,7 @@ int PlayerItem::getTenacity()const
 void PlayerItem::run()
 {
     // 人物奔跑功能 m_x控制
-    if(m_state != RUN || m_collidedState == ISATTACKED)  //如果人物僵直（ISATTACKED）也不能移动 （把原先的NORMAL更改为ISATTACKED）
+    if(m_state != RUN)
         return;
     if( m_direction == LEFT && m_collidedState != ISCOLLIDEDLEFT)  //左边不能被挡住
     {

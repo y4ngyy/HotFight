@@ -20,6 +20,9 @@ private:
 
     // 游戏线程ID
     int timerId;
+
+    // 时间计数
+    int m_timerCount;
 };
 
 #endif // LOCALGAMESCENE_H

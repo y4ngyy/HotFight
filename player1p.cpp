@@ -33,8 +33,8 @@ void Player1P::keyPressEvent(QKeyEvent *event)
             case Qt::Key_J:
                 if(m_attackClickFlag)
                 {
-                    m_state = PUNCH;
                     m_attackClickFlag = false;
+                    m_state = PUNCH;
                     // 添加进缓冲区
                     m_buffer.addKey('J');
                 }

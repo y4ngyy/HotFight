@@ -17,7 +17,10 @@ void Rule::calculateBlood(PlayerItem &attackItem, PlayerItem &attackedItem)
             t_atk = attackItem.m_kickATK;
         break;
         case PlayerItem::SKILL:
+            if(attackItem.m_skillType == PlayerItem::NONESKILL)
+                return;
             t_atk = attackItem.m_skillATK.at(attackItem.m_skillType);
+        break;
         default:
             return;
     }
@@ -25,13 +28,12 @@ void Rule::calculateBlood(PlayerItem &attackItem, PlayerItem &attackedItem)
 
 }
 
-<<<<<<< HEAD
-void Rule::calculateEnergy(PlayerItem &item, int energy)
-=======
 void Rule::calculateEnergy(PlayerItem &item, int energyReduce)
->>>>>>> rule
 {
-    item.m_energy -= energyReduce;
+    if(item.m_energy - energyReduce <= 0)
+        item.m_energy = 0;
+    else
+        item.m_energy -= energyReduce;
 }
 
 void Rule::calculateTenacity(PlayerItem &attackItem, PlayerItem &attackedItem)
@@ -46,11 +48,16 @@ void Rule::calculateTenacity(PlayerItem &attackItem, PlayerItem &attackedItem)
             t_tenaReduce = attackItem.m_kickTeReduce;
         break;
         case PlayerItem::SKILL:
+            if(attackItem.m_skillType == PlayerItem::NONESKILL)
+                return;
             t_tenaReduce = attackItem.m_skillTeReduce.at(attackItem.m_skillType);
         default:
             return;
     }
-    attackedItem.m_tenacity -= t_tenaReduce;
+    if(attackedItem.m_tenacity - t_tenaReduce <= 0)
+        attackedItem.m_tenacity = 0;
+    else
+        attackedItem.m_tenacity -= t_tenaReduce;
 }
 
 // timerEvent中调用
@@ -64,7 +71,7 @@ void Rule::recoverEnergy(PlayerItem &item)
 
 void Rule::recoverTenacity(PlayerItem &item)
 {
-    if(item.m_state != PlayerItem::ISHITTING)
+    if(item.m_state == PlayerItem::ISHITTING)
     {
         if(item.m_tenacity + 5 >= 100)
             item.m_tenacity = 100;
