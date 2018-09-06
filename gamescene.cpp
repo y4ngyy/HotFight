@@ -14,7 +14,9 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
 {
      //如果不是出拳的话，这里预留接口，还要加上其他的动作，或者考虑把所有的与攻击相关的状态重新声明一个枚举常量
      // 增加kick
-     if( attackingitem.getState()!=PlayerItem::PUNCH && attackingitem.getState()!=PlayerItem::KICK)
+    //增加skilll
+     if( !(attackingitem.getState()==PlayerItem::PUNCH || attackingitem.getState()==PlayerItem::KICK
+             ||attackingitem.getState()==PlayerItem::SKILL))
      {
          return false;
      }
@@ -22,7 +24,8 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
      {
          if( ! attackingitem.collidesWithItem( &attackeditem2 ) )  //如果没有检测到碰撞 预留接口（判断是否有远程攻击）
          {
-             attackeditem2.setCollidedState( PlayerItem::NORMAL );   //没被对方碰撞，把状态设成正常
+             attackingitem.setCollidedState(PlayerItem::NOCOLLIDED);  //碰撞状态设成无碰撞
+             attackeditem2.setCollidedState(PlayerItem::NOCOLLIDED);
              return false;
          }
          else
@@ -30,22 +33,43 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
              if( attackingitem.getDirection()==PlayerItem::LEFT          //判断人物朝向并且，判断人物的坐标
                      && attackingitem.getX()>= attackeditem2.getX())
              {
-                attackeditem2.setCollidedState(PlayerItem::ISATTACKED);
-                attackeditem2.setState(PlayerItem::ISHITTING);  //item2 被攻击
-                //do something 计算伤害的预留接口
+                if(attackeditem2.getTenacity()==0)
+                {
+                    //设置被攻击状态为硬直状态,如果硬直条清零的话进入硬直状态，任何键盘的输入都无效
+                    attackeditem2.setAttackedState(PlayerItem::ISATTACKED);
+
+                }
+                 attackeditem2.setState(PlayerItem::ISHITTING);  //item2 被攻击
+
+                Rule::calculateBlood(attackingitem,attackeditem2);//do something 计算伤害的预留接口
+                if(attackeditem2.getAttackedState()!=PlayerItem::ISATTACKED)
+                {
+                    //在硬直状态下不能削韧
+                    Rule::calculateTenacity(attackingitem,attackeditem2); //计算削韧//do something 计算伤害的预留接口
+                }
                 return true;
              }
              else if( attackingitem.getDirection()==PlayerItem::RIGHT          //判断人物朝向并且，判断人物的坐标
                       && attackingitem.getX()<= attackeditem2.getX())
              {
-                attackeditem2.setCollidedState(PlayerItem::ISATTACKED);
-                attackeditem2.setState(PlayerItem::ISHITTING);  //item2 被攻击
-                //do something 计算伤害的预留接口
+                 if(attackeditem2.getTenacity()==0)
+                 {
+                     //如果硬直条清零的话进入硬直状态，任何键盘的输入都无效
+                     attackeditem2.setAttackedState(PlayerItem::ISATTACKED);
+
+                 }
+                  attackeditem2.setState(PlayerItem::ISHITTING);
+
+                Rule::calculateBlood(attackingitem,attackeditem2);//do something 计算伤害的预留接口
+                if(attackeditem2.getAttackedState()!=PlayerItem::ISATTACKED)
+                {
+                    //在硬直状态下不能削韧
+                    Rule::calculateTenacity(attackingitem,attackeditem2); //计算削韧//do something 计算伤害的预留接口
+                }
                 return true;
              }
              else
              {
-                attackeditem2.setCollidedState( PlayerItem::NORMAL );
                 return false;
              }
          }
@@ -56,8 +80,8 @@ int GameScene::isCollided( PlayerItem& originalItem1, PlayerItem& targetItem2)
 {
     if(!originalItem1.collidesWithItem(&targetItem2) )  //如果没有检测到碰撞,item1和item2的collidedstate均为正常，反会1
     {
-        originalItem1.setCollidedState(PlayerItem::NORMAL);
-        targetItem2.setCollidedState(PlayerItem::NORMAL);
+        originalItem1.setCollidedState(PlayerItem::NOCOLLIDED);
+        targetItem2.setCollidedState(PlayerItem::NOCOLLIDED);
         return 1;
     }
     else                                              //检测到碰撞
