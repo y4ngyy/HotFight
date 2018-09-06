@@ -8,6 +8,9 @@ class Bar: public QGraphicsObject
 public:
     Bar();
     void setBlood(double);
+
+protected:
+    QRectF boundingRect() const;
 private:
     // 宽度 高度
     static const int MAX_WIDTH = 200; // 生命值为100时

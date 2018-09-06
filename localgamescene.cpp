@@ -9,6 +9,8 @@ LocalGameScene::LocalGameScene()
     // 初始化人物位置
     item1.setPositonInfo(200, 300);
     item2.setPositonInfo(500, 300);
+    healthBar_1.setPos(0,0);
+    addItem(&healthBar_1);
     addItem(&item1);
     addItem(&item2);
     timerId = startTimer(100);

@@ -2,6 +2,7 @@
 #define LOCALGAMESCENE_H
 
 #include "gamescene.h"
+#include "bar.h"
 #include <QEvent>
 
 class LocalGameScene : public GameScene
@@ -17,12 +18,14 @@ protected:
 private:
     Player1P item1;
     Player2P item2;
+    Bar healthBar_1;
 
     // 游戏线程ID
     int timerId;
 
     // 时间计数
     int m_timerCount;
+
 };
 
 #endif // LOCALGAMESCENE_H

@@ -63,6 +63,9 @@ void Rule::calculateTenacity(PlayerItem &attackItem, PlayerItem &attackedItem)
 // timerEvent中调用
 void Rule::recoverEnergy(PlayerItem &item)
 {   
+    // 攻击时无法回复精力
+    if(item.getState() == PlayerItem::PUNCH || item.getState() == PlayerItem::KICK||item.getState() == PlayerItem::SKILL)
+        return;
     if(item.m_energy + 10 >= 100)
         item.m_energy = 100;
     else
