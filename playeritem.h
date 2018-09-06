@@ -2,7 +2,10 @@
 #define PLAYERITEM_H
 
 #include "keyboardbuffer.h"
+<<<<<<< HEAD
 
+=======
+>>>>>>> rule
 #include <QGraphicsItem>
 #include <QPixmap>
 #include <QList>
