@@ -2,7 +2,8 @@
 #define LOCALGAMESCENE_H
 
 #include "gamescene.h"
-#include "bar.h"
+#include "healthybar.h"
+#include"energybar.h"
 #include <QEvent>
 
 class LocalGameScene : public GameScene
@@ -18,7 +19,10 @@ protected:
 private:
     Player1P item1;
     Player2P item2;
-    Bar healthBar_1;
+    HealthyBar healthBar_1;
+    HealthyBar healthBar_2;
+    EnergyBar energyBar_1;
+    EnergyBar energyBar_2;
 
     // 游戏线程ID
     int timerId;

@@ -347,15 +347,16 @@ void PlayerItem::paint(QPainter *painter,
 
         case PUNCH:
             // 出拳视图
-            if(kickIndex==0)
-            {
-                //计算精力消耗
-                Rule::calculateEnergy(*this, m_punchEnReduce);
-            }
+//            if(kickIndex==0)   //准备改成结束帧数
+//            {
+//                //计算精力消耗
+//                Rule::calculateEnergy(*this, m_punchEnReduce);
+//            }
             if(punchIndex >= p_punch.size()-1)
             {
                 punchIndex = 0;
                 m_state = STAND;
+                Rule::calculateEnergy(*this, m_punchEnReduce);
             }
             else
                 punchIndex++;
@@ -372,15 +373,16 @@ void PlayerItem::paint(QPainter *painter,
             break;
         case KICK:
             // 出脚视图 存在bug 图片显示不完全，且会留下边角图像
-            if(kickIndex==0)
-            {
-                //计算精力消耗
-                Rule::calculateEnergy(*this, m_kickEnReduce);
-            }
+//            if(kickIndex==0)
+//            {
+//                //计算精力消耗
+//                Rule::calculateEnergy(*this, m_kickEnReduce);
+//            }
             if(kickIndex >= p_kicking.size()-1)
             {
                 kickIndex = 0;
                 m_state = STAND;
+                 Rule::calculateEnergy(*this, m_kickEnReduce);
             }
             else
                 kickIndex++;
@@ -446,18 +448,19 @@ void PlayerItem::paint(QPainter *painter,
                     painter->drawImage(0, -m_height, p_standing.at(standIndex).toImage().mirrored(true,false));
             }
             else
-            {
+            {/*
                 if(skillIndex==0)
                 {
                     //计算精力消耗
                     Rule::calculateEnergy(*this, m_skillEnReduce.at(m_skillType));
-                }
+                }*/
                 if(skillIndex >= p_skill.at(m_skillType).size()-1)
                 {
                     skillIndex = 0;
                     m_state = STAND;
                     // 轮播完缓冲区清空
                     m_buffer.clear();
+                     Rule::calculateEnergy(*this, m_skillEnReduce.at(m_skillType));
                 }
                 else
                     skillIndex++;

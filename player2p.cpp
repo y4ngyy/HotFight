@@ -59,6 +59,7 @@ void Player2P::keyPressEvent(QKeyEvent *event)
 
 void Player2P::keyReleaseEvent(QKeyEvent *event)
 {
+    //这样改应该能提升操作手感
     if(m_state != SKILL &&m_attackedState!=ISATTACKED)
     {
         switch (event->key())

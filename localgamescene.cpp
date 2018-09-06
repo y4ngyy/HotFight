@@ -10,8 +10,17 @@ LocalGameScene::LocalGameScene()
     item1.setPositonInfo(200, 300);
     item2.setPositonInfo(500, 300);
     healthBar_1.setPos(0,0);
+    //增加血条精力条
     addItem(&healthBar_1);
+    addItem(&healthBar_2);
+    addItem(&energyBar_1);
+    addItem(&energyBar_2);
+    //设置血条精力条的位置
+    healthBar_1.setPos(0,0);
+    healthBar_2.setPos(600-healthBar_2.getMaxWdith(),0);
     addItem(&item1);
+    energyBar_1.setPos(0,healthBar_1.getHeight());
+    energyBar_2.setPos(600-energyBar_2.getMaxWdith(),healthBar_1.getHeight());
     addItem(&item2);
     timerId = startTimer(100);
     m_timerCount = 0;
@@ -50,12 +59,19 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
         {
             isAttacked(item2,item1);
         }
+        //刷新血条和精力条
+        healthBar_1.setBlood(item1.getBlood());
+        healthBar_2.setBlood(item2.getBlood());
+        energyBar_1.setEnergy(item1.getEnergy());
+        energyBar_2.setEnergy(item2.getEnergy());
+
         // 游戏线程 刷新视图和人物跑动 碰撞
         item1.run();
         item2.run();
         // 碰撞
         item1.updatePos();
         item2.updatePos();
+
     }
 }
 

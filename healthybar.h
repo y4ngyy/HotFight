@@ -1,14 +1,19 @@
 #ifndef HEALTHBAR_H
 #define HEALTHBAR_H
 
-#include <QGraphicsObject>
 
-class Bar: public QGraphicsObject
+#include<QGraphicsObject>
+#include<QPen>
+#include<QColor>
+#include <QPainter>
+
+class HealthyBar: public QGraphicsObject
 {
 public:
-    Bar();
+    HealthyBar();
     void setBlood(double);
-
+    static int getMaxWdith();
+    int getHeight()const;
 protected:
     QRectF boundingRect() const;
 private:

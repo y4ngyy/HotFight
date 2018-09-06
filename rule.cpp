@@ -24,7 +24,13 @@ void Rule::calculateBlood(PlayerItem &attackItem, PlayerItem &attackedItem)
         default:
             return;
     }
-    attackedItem.m_blood -= m_damageK1* t_atk * attackItem.m_energy - m_damageK2 * attackedItem.m_energy * attackedItem.m_basicDEF;
+    double damage=m_damageK1* t_atk * attackItem.m_energy - m_damageK2 * attackedItem.m_energy * attackedItem.m_basicDEF;
+    if(damage>=0)
+    {
+        attackedItem.m_blood -= damage;
+    }
+    if(attackedItem.m_blood<=0)
+        attackedItem.m_blood=0;
 
 }
 

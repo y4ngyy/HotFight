@@ -37,7 +37,8 @@ SOURCES += \
     netgamewindow.cpp \
     keyboardbuffer.cpp \
     rule.cpp \
-    bar.cpp
+    helthybar.cpp \
+    energybar.cpp
 
 HEADERS += \
     playeritem.h \
@@ -53,7 +54,8 @@ HEADERS += \
     netgamewindow.h \
     keyboardbuffer.h \
     rule.h \
-    bar.h
+    healthybar.h \
+    energybar.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
