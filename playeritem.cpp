@@ -200,7 +200,7 @@ void PlayerItem::init_4()
         m_punchPath.addEllipse(0,-p_punch.at(7).height(),p_punch.at(7).width(),p_punch.at(7).height());
 
         //run
-        m_runPath.addEllipse(p_punch.at(3).width()/4,-p_punch.at(3).height()*5/4,p_punch.at(3).width(),p_punch.at(3).height());
+        m_runPath.addEllipse(0,-p_punch.at(3).height(),p_punch.at(3).width(),p_punch.at(3).height());
 
         //kick
         m_kickPath.moveTo(0 , -p_kicking.at(2).height());
@@ -268,7 +268,9 @@ void PlayerItem::paint(QPainter *painter,
             {
                 painter->drawImage(0, -m_height, p_running.at(runIndex).toImage().mirrored(true,false));
             }
-                break;
+
+            break;
+
         case STAND:
             // 站立状态视图
             if(standIndex >= p_standing.size()-1)
@@ -284,6 +286,7 @@ void PlayerItem::paint(QPainter *painter,
             else
                 painter->drawImage(0, -m_height, p_standing.at(standIndex).toImage().mirrored(true,false));
             break;
+
         case PUNCH:
             // 出拳视图
             if(punchIndex >= p_punch.size()-1)
