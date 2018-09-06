@@ -16,7 +16,7 @@ Player1P::Player1P()
 void Player1P::keyPressEvent(QKeyEvent *event)
 {
     // 技能释放中不处理键盘事件
-    if(m_state != SKILL)
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED)
     {
         switch (event->key())
         {
@@ -59,8 +59,8 @@ void Player1P::keyPressEvent(QKeyEvent *event)
 
 void Player1P::keyReleaseEvent(QKeyEvent *event)
 {
-    // 技能释放中不处理键盘事件
-    if(m_state != SKILL)
+    // 技能释放中或者硬直状态下不处理键盘事件
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED)
     {
         switch (event->key())
         {

@@ -13,7 +13,7 @@ Player2P::Player2P()
 */
 void Player2P::keyPressEvent(QKeyEvent *event)
 {
-    if(m_state != SKILL)
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED)
     {
         switch (event->key())
         {
@@ -54,7 +54,7 @@ void Player2P::keyPressEvent(QKeyEvent *event)
 
 void Player2P::keyReleaseEvent(QKeyEvent *event)
 {
-    if(m_state != SKILL)
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED)
     {
         switch (event->key())
         {

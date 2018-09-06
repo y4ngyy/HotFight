@@ -10,7 +10,7 @@ void Rule::calculateBlood(PlayerItem &attackItem, PlayerItem &attackedItem)
 
 }
 
-void Rule::calculateEnergy(PlayerItem &item)
+void Rule::calculateEnergy(PlayerItem &item, int energy)
 {
 
 }

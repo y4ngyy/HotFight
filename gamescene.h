@@ -8,6 +8,7 @@
 #include <QEvent>
 #include <QKeyEvent>
 #include <QTimerEvent>
+#include"rule.h"
 
 enum NETFLAG{SERVER, CLIENT};
 class GameScene: public QGraphicsScene

@@ -3,14 +3,16 @@
 #include <QDebug>
 #include <QImage>
 #include <QTimer>
+#include"rule.h"
 
 PlayerItem::PlayerItem()
 {
     // 初始化变量
     m_state =  STAND;
-    m_collidedState = NORMAL;
+    m_collidedState = NOCOLLIDED;
     m_skillType=NONESKILL;
-
+    m_attackedState=NOATTACKED;
+    m_tenacity=0;
     // 动画轮播下标初始化
     standIndex = 0;
     runIndex = 0;
@@ -289,6 +291,11 @@ void PlayerItem::paint(QPainter *painter,
 
         case PUNCH:
             // 出拳视图
+            if(kickIndex==0)
+            {
+//                //计算精力消耗
+//                Rule::calculateEnergy(*this, m_punchEnReduce);
+            }
             if(punchIndex >= p_punch.size()-1)
             {
                 punchIndex = 0;
@@ -305,9 +312,15 @@ void PlayerItem::paint(QPainter *painter,
             {
                 painter->drawImage(0, -m_height, p_punch.at(punchIndex).toImage().mirrored(true,false));
             }
+
             break;
         case KICK:
             // 出脚视图 存在bug 图片显示不完全，且会留下边角图像
+            if(kickIndex==0)
+            {
+//                //计算精力消耗
+//                Rule::calculateEnergy(*this, m_kickEnReduce);
+            }
             if(kickIndex >= p_kicking.size()-1)
             {
                 kickIndex = 0;
@@ -325,27 +338,35 @@ void PlayerItem::paint(QPainter *painter,
             {
                 painter->drawImage(0, -m_height, p_kicking.at(kickIndex).toImage().mirrored(true,false));
             }
+
             break;
         case ISHITTING:
             //受攻击视图
-            if(ishittingIndex >= p_ishitting.size()-1)
+            if(m_attackedState==ISATTACKED)
             {
-                punchIndex = 0;
-                m_state = STAND;       //被攻击的最后一帧应该停下来
-                m_collidedState=NORMAL;
+                if(ishittingIndex >= p_ishitting.size()-1)
+                {
+                    punchIndex = 0;
+                    if(m_tenacity>=20)
+                    {
+                        qDebug()<<"改变状态";
+                        m_state = STAND;       //被攻击的最后一帧应该停下来
+                        m_attackedState=NOATTACKED;  //解除硬直
+                    }
+                }
+                else
+                    ishittingIndex++;
+                if(m_direction == RIGHT)
+                {
+                    // drawPixmap 改为 drawImage 尝试修复图片拉长
+                    painter->drawImage(0, -m_height, p_ishitting.at(ishittingIndex).toImage());
+                }
+                else
+                {
+                    painter->drawImage(0, -m_height, p_ishitting.at(ishittingIndex).toImage().mirrored(true,false));
+                }
+                break;
             }
-            else
-                ishittingIndex++;
-            if(m_direction == RIGHT)
-            {
-                // drawPixmap 改为 drawImage 尝试修复图片拉长
-                painter->drawImage(0, -m_height, p_ishitting.at(ishittingIndex).toImage());
-            }
-            else
-            {
-                painter->drawImage(0, -m_height, p_ishitting.at(ishittingIndex).toImage().mirrored(true,false));
-            }
-            break;
         case SKILL:
             // 释放技能
             setSkillType();
@@ -370,6 +391,11 @@ void PlayerItem::paint(QPainter *painter,
             }
             else
             {
+                if(skillIndex==0)
+                {
+//                    //计算精力消耗
+//                    Rule::calculateEnergy(*this, m_skillEnReduce.at(m_skillType));
+                }
                 qDebug()<<"技能轮播";
                 if(skillIndex >= p_skill.at(m_skillType).size()-1)
                 {
@@ -390,6 +416,7 @@ void PlayerItem::paint(QPainter *painter,
                 {
                     painter->drawImage(0, -m_height, p_skill.at(m_skillType).at(skillIndex).toImage().mirrored(true,false));
                 }
+
             }
             break;
         default:
@@ -515,6 +542,16 @@ PlayerItem::SKILLTYPE PlayerItem::getSkillType()const
     return m_skillType;
 }
 
+void PlayerItem::setAttackedState(ATTACKEDSTATE attackedState)
+{
+    m_attackedState=attackedState;
+}
+
+PlayerItem::ATTACKEDSTATE PlayerItem::getAttackedState()const
+{
+    return m_attackedState;
+}
+
 void PlayerItem::setX(qreal x)
 {
     m_x = x;
@@ -573,6 +610,26 @@ void PlayerItem::setBlood(int t_blood)
 int  PlayerItem::getBlood()const
 {
     return m_blood;
+}
+
+void PlayerItem::setEnergy(int energy)
+{
+    m_energy=energy;
+}
+
+int PlayerItem::getEnergy()const
+{
+    return m_energy;
+}
+
+void PlayerItem::setTenacity(int tenacity)
+{
+    m_tenacity=tenacity;
+}
+
+int PlayerItem::getTenacity()const
+{
+    return m_tenacity;
 }
 
 void PlayerItem::run()

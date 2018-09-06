@@ -2,7 +2,7 @@
 #define PLAYERITEM_H
 
 #include "keyboardbuffer.h"
-#include "rule.h"
+
 #include <QGraphicsItem>
 #include <QPixmap>
 #include <QList>
@@ -31,7 +31,8 @@ public:
     enum DIRECTION{LEFT, RIGHT};
     //与战斗时碰撞有关的状态 目前ISATTACKED表示格斗游戏中的硬直状态
     // ISHITTING 和ISATTACKED所表示的意义相同，但是用在不同的函数上
-    enum COLLIDEDSTATE{NORMAL,ISCOLLIDEDLEFT,ISCOLLIDEDRIGHT,ISATTACKED};
+    enum COLLIDEDSTATE{NOCOLLIDED,ISCOLLIDEDLEFT,ISCOLLIDEDRIGHT};
+    enum ATTACKEDSTATE{NOATTACKED,ISATTACKED};
     PlayerItem();
     ~PlayerItem();
 
@@ -57,6 +58,8 @@ public:
     COLLIDEDSTATE getCollidedState()const;
     void setSkillType(SKILLTYPE);
     SKILLTYPE getSkillType()const;
+    void setAttackedState(ATTACKEDSTATE);
+    ATTACKEDSTATE getAttackedState()const;
 
     void setX(qreal);
     qreal getX()const;
@@ -71,6 +74,11 @@ public:
     void setBlood(int);
     int  getBlood()const;
 
+    void setEnergy(int);
+    int getEnergy()const;
+    void setTenacity(int);
+    int getTenacity()const;
+
 protected:
 
     //人物状态变量 子类重载暂时需直接修改 变为保护型 在该类的构造函数中初始化
@@ -78,6 +86,7 @@ protected:
     DIRECTION m_direction;
     COLLIDEDSTATE m_collidedState;
     SKILLTYPE m_skillType;
+    ATTACKEDSTATE m_attackedState;
 
     // 加载图片资源
     // 子类需直接加载资源 将私有变成保护型  在子类的资源加载函数中进行初始化
