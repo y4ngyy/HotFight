@@ -163,17 +163,17 @@ void PlayerItem::init_3()
     m_punchATK = 10;
     m_kickATK = 15;
     for(int i=1;i<=6;i++)
-        m_skillATK.append(15+i*5);
+        m_skillATK.append(15);
 
     // 防御力属性
     m_basicDEF = 10;
 
     // 精力消耗值
-    m_punchEnReduce = 10;
-    m_jumpEnReduce = 5;
-    m_kickEnReduce = 15;
+    m_punchEnReduce = 20;
+    m_jumpEnReduce = 20;
+    m_kickEnReduce = 20;
     for(int i=1;i<=6;i++)
-        m_skillEnReduce.append(15+i*5);
+        m_skillEnReduce.append(30);
 
     // 招式的削韧
     m_punchTeReduce = 20;
@@ -290,17 +290,17 @@ void PlayerItem::init_4()
         m_punchATK = 10;
         m_kickATK = 15;
         for(int i=1;i<=6;i++)
-            m_skillATK.append(15+i*5);
+            m_skillATK.append(15);
 
         // 防御力属性
         m_basicDEF = 10;
 
         // 精力消耗值
-        m_punchEnReduce = 10;
-        m_jumpEnReduce = 5;
-        m_kickEnReduce = 15;
+        m_punchEnReduce = 20;
+        m_jumpEnReduce = 20;
+        m_kickEnReduce = 20;
         for(int i=1;i<=6;i++)
-            m_skillEnReduce.append(15+i*5);
+            m_skillEnReduce.append(30);
 
         // 招式的削韧
         m_punchTeReduce = 20;
@@ -790,6 +790,7 @@ void PlayerItem::jump()
         m_jumpT = 0;
         jumpIndex = 0;
         m_state = STAND;
+        Rule::calculateEnergy(*this, m_jumpEnReduce);
     }
     else
     {

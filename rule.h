@@ -22,8 +22,10 @@ protected:
 
 private:
     // 伤害系数
-    constexpr static double m_damageK1 = 0.05;
-    constexpr static double m_damageK2 = 0.01;
+    constexpr static double m_damageK1 = 0.5;
+    constexpr static double m_damageK2 = 0.05;
+    constexpr static double m_damageK3 = 0.3;
+    constexpr static double m_damageK4 = 0.03;
 
     static int s_energyTimerCount;
     static int s_tenacityTimerCount;

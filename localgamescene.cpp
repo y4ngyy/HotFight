@@ -36,7 +36,7 @@ LocalGameScene::LocalGameScene()
 
 LocalGameScene::~LocalGameScene()
 {
-
+    killTimer(timerId);
 }
 
 void LocalGameScene::timerEvent(QTimerEvent *event)
@@ -44,17 +44,18 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
     if(event->timerId() == timerId)
     {
         //设想（还没实现，因为经测试这样做有点小问题）因为可能要经常判断1P和2P是否碰撞，所以在成员变量中添加一个bool型的成员变量来减少对碰撞检测函数的调用
-        m_timerCount++;
-        if(m_timerCount == 10)
-        {
-            m_timerCount = 0;
-            Rule::recoverEnergy(item1);
-            Rule::recoverEnergy(item2);
-            Rule::recoverTenacity(item1);
-            Rule::recoverTenacity(item2);
-            qDebug()<<"1:"<<item1.getBlood()<<"||"<<item1.getEnergy()<<"||"<<item1.getTenacity();
-            qDebug()<<"2:"<<item2.getBlood()<<"||"<<item2.getEnergy()<<"||"<<item2.getTenacity();
-        }
+//        m_timerCount++;
+//        if(m_timerCount == 10)
+//        {
+//            m_timerCount = 0;
+
+//        }
+        Rule::recoverEnergy(item1);
+        Rule::recoverEnergy(item2);
+        Rule::recoverTenacity(item1);
+        Rule::recoverTenacity(item2);
+        qDebug()<<"1:"<<item1.getBlood()<<"||"<<item1.getEnergy()<<"||"<<item1.getTenacity();
+        qDebug()<<"2:"<<item2.getBlood()<<"||"<<item2.getEnergy()<<"||"<<item2.getTenacity();
         isCollided(item1,item2);   //1P 和2P的 碰撞检测，必须放在攻击检测的前面，否则ISATTACKED会被替换成 ISCOLLIDEDLEFT，以后可以考虑整合成一个大函数
         //人物的攻击判定  测试
         item1.JudgeingAttack();

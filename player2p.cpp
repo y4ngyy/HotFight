@@ -28,6 +28,8 @@ void Player2P::keyPressEvent(QKeyEvent *event)
                 m_rightFlag = true;
                 break;
             case Qt::Key_Up:
+                if(getEnergy() < m_jumpEnReduce)
+                    return;
                 jumpStart();
                 m_state = JUMP;
                 break;

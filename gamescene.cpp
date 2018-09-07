@@ -16,7 +16,7 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
      // 增加kick
     //增加skilll
      if( !(attackingitem.getState()==PlayerItem::PUNCH || attackingitem.getState()==PlayerItem::KICK
-             ||attackingitem.getState()==PlayerItem::SKILL))
+             ||attackingitem.getState()==PlayerItem::SKILL )||attackeditem2.getState()==PlayerItem::JUMP)
      {
          return false;
      }

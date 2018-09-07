@@ -24,7 +24,7 @@ void Rule::calculateBlood(PlayerItem &attackItem, PlayerItem &attackedItem)
         default:
             return;
     }
-    double damage=m_damageK1* t_atk * attackItem.m_energy - m_damageK2 * attackedItem.m_energy * attackedItem.m_basicDEF;
+    double damage=m_damageK1* t_atk + m_damageK2 * attackItem.m_energy - m_damageK4 * attackedItem.m_energy- m_damageK3 * attackedItem.m_basicDEF;
     if(damage>=0)
     {
         attackedItem.m_blood -= damage;
@@ -70,28 +70,25 @@ void Rule::calculateTenacity(PlayerItem &attackItem, PlayerItem &attackedItem)
 void Rule::recoverEnergy(PlayerItem &item)
 {   
     // 攻击时无法回复精力
-    if(item.getState() == PlayerItem::PUNCH || item.getState() == PlayerItem::KICK||item.getState() == PlayerItem::SKILL)
+    if(item.getState() == PlayerItem::PUNCH || item.getState() == PlayerItem::KICK||item.getState() == PlayerItem::SKILL ||item.getState() == PlayerItem::JUMP)
         return;
-    if(item.m_energy + 10 >= 100)
+    if(item.m_energy + 2 >= 100)
         item.m_energy = 100;
     else
-        item.m_energy += 10;
+        item.m_energy += 2;
 }
 
 void Rule::recoverTenacity(PlayerItem &item)
 {
-    if(item.m_state == PlayerItem::ISHITTING)
+    if(item.m_state == PlayerItem::ISHITTING && item.m_attackedState != PlayerItem::ISATTACKED)
     {
-        if(item.m_tenacity + 5 >= 100)
-            item.m_tenacity = 100;
-        else
-            item.m_tenacity += 5;
+        return;
     }
     else
     {
-        if(item.m_tenacity + 20 >= 100)
+        if(item.m_tenacity + 2 >= 100)
             item.m_tenacity = 100;
         else
-            item.m_tenacity += 20;
+            item.m_tenacity += 2;
     }
 }

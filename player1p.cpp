@@ -32,6 +32,8 @@ void Player1P::keyPressEvent(QKeyEvent *event)
                 m_rightFlag = true;
                 break;
             case Qt::Key_W:
+                if(getEnergy() < m_jumpEnReduce)
+                    return;
                 jumpStart();
                 m_state = JUMP;
                 break;
