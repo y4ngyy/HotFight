@@ -14,6 +14,9 @@ PlayerItem::PlayerItem()
     m_skillType=NONESKILL;
     m_attackedState=NOATTACKED;
     m_attackingFlag=false;
+    m_damageFlag=false;
+    m_hasDamagedFlag=false; //还没有被攻击一次
+
     // 动画轮播下标初始化
     standIndex = 0;
     runIndex = 0;
@@ -546,44 +549,10 @@ QPainterPath PlayerItem::shape()const
        }
 }
 
+//判断是不是攻击帧
 void PlayerItem::JudgeingAttack()
 {
-   switch(m_state)
-   {
-      case PUNCH:
-           if(punchIndex==3)   //第四帧
-           {
-               m_attackingFlag=true;
-           }
-           else
-           {
-                m_attackingFlag=false;
-           }
-           break;
-      case KICK:
-           if(kickIndex==3)   //第四帧
-           {
-               m_attackingFlag=true;
-           }
-           else
-           {
-                m_attackingFlag=false;
-           }
-           break;
-      case SKILL:
-           if(skillIndex==3)   //第四帧  //到时候扩展在子类中重写，找到具体哪一帧，再把条件里的Index改一下就可以了
-           {
-               m_attackingFlag=true;
-           }
-           else
-           {
-                m_attackingFlag=false;
-           }
-           break;
-      default:
-           m_attackingFlag=false;
-           break;
-   }
+    //空函数，在子类中实现
 }
 
 QRectF PlayerItem::boundingRect() const
@@ -765,6 +734,26 @@ bool PlayerItem::getAttackedFlag()const
     return m_attackingFlag;
 }
 
+void PlayerItem::setDamageFlag(bool flag)
+{
+    m_damageFlag=flag;
+}
+
+bool PlayerItem::getDamageFlag()const
+{
+    return m_damageFlag;
+}
+
+void PlayerItem::setHasDamagedFlag(bool flag)
+{
+    m_hasDamagedFlag=flag;
+}
+
+bool PlayerItem::getHasDamagedFlag()const
+{
+    return m_hasDamagedFlag;
+}
+
 void PlayerItem::run()
 {
     // 人物奔跑功能 m_x控制
@@ -807,6 +796,28 @@ void PlayerItem::jump()
         m_jumpCurrentV -= s_Gravity * m_jumpT;
         m_jumpT++;
     }
+}
+
+//人物攻击时的位移补偿函数
+void PlayerItem::attackingMove()
+{
+   switch(m_state)
+   {
+
+       //使用技能时的位移补偿
+       case SKILL:
+            if(m_direction==LEFT && m_collidedState!=ISCOLLIDEDLEFT)
+            {
+                m_x -=m_width/15;
+            }
+            else if(m_direction==RIGHT && m_collidedState!=ISCOLLIDEDRIGHT)
+            {
+                m_x +=m_width/15;
+            }
+            break;
+       default:
+            break;
+   }
 }
 
 void PlayerItem::jumpStart()

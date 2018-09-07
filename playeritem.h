@@ -43,6 +43,7 @@ public:
     // 需在scene中调用
     void run();
     void jump();
+    void attackingMove(); //攻击的位移补偿，需要在scene中调用
 
     // 跳跃开始设置速度
     void jumpStart();
@@ -88,6 +89,12 @@ public:
 
     void setAttackingFlag(bool);
     bool getAttackedFlag()const;
+
+    void setDamageFlag(bool);
+    bool getDamageFlag()const;
+
+    void setHasDamagedFlag(bool);
+    bool getHasDamagedFlag()const;
 
 protected:
 
@@ -160,6 +167,23 @@ protected:
     int m_punchTeReduce;
     int m_kickTeReduce;
     QList<int> m_skillTeReduce;
+
+    //判定帧的flag
+    bool m_attackingFlag;
+    //伤害判定的flag
+    bool m_damageFlag;
+    //已经计算完一次伤害的Flag；
+    bool m_hasDamagedFlag;
+
+    //动画控制变量 如果要添加新变量到该类的构造函数去初始化
+    int standIndex;
+    int runIndex;
+    int punchIndex;
+    int ishittingIndex;
+    int kickIndex;
+    int skillIndex;
+    int jumpIndex;
+
 private:
     // 绘制函数
     void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
@@ -173,14 +197,6 @@ private:
     int m_width;
     void setPixmapInfo();
 
-    //动画控制变量 如果要添加新变量到该类的构造函数去初始化
-    int standIndex;
-    int runIndex;
-    int punchIndex;
-    int ishittingIndex;
-    int kickIndex;
-    int skillIndex;
-    int jumpIndex;
 
     // 跳跃属性
     static constexpr qreal s_Gravity = 9.8;
@@ -202,8 +218,9 @@ private:
     //根据键盘缓冲区判断出招种类的函数
     void setSkillType();
 
-    //判定帧的flag
-    bool m_attackingFlag;
+
+
+
 };
 
 #endif // PLAYERITEM_H

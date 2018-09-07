@@ -132,6 +132,8 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
         item2.jump();
         item1.run();
         item2.run();
+        item1.attackingMove();
+        item2.attackingMove();
         // 碰撞
         item1.updatePos();
         item2.updatePos();
