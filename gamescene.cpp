@@ -40,8 +40,11 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
 
                 }
                  attackeditem2.setState(PlayerItem::ISHITTING);  //item2 被攻击
-
-                Rule::calculateBlood(attackingitem,attackeditem2);//do something 计算伤害的预留接口
+                if(attackingitem.getDamageFlag())
+                {
+                    Rule::calculateBlood(attackingitem,attackeditem2);//do something 计算伤害的预留接口
+                    attackingitem.setHasDamagedFlag(true);
+                }
                 if(attackeditem2.getAttackedState()!=PlayerItem::ISATTACKED)
                 {
                     //在硬直状态下不能削韧
@@ -63,7 +66,11 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
                  }
                   attackeditem2.setState(PlayerItem::ISHITTING);
 
-                Rule::calculateBlood(attackingitem,attackeditem2);//do something 计算伤害的预留接口
+                  if(attackingitem.getDamageFlag())
+                  {
+                      Rule::calculateBlood(attackingitem,attackeditem2);//do something 计算伤害的预留接口
+                       attackingitem.setHasDamagedFlag(true);
+                  }
                 if(attackeditem2.getAttackedState()!=PlayerItem::ISATTACKED)
                 {
                     //在硬直状态下不能削韧
