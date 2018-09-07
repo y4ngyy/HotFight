@@ -13,7 +13,7 @@ Player2P::Player2P()
 */
 void Player2P::keyPressEvent(QKeyEvent *event)
 {
-    if(m_state != SKILL &&m_attackedState!=ISATTACKED)
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP)
     {
         switch (event->key())
         {
@@ -26,6 +26,10 @@ void Player2P::keyPressEvent(QKeyEvent *event)
                 m_state = RUN;
                 m_direction = RIGHT;
                 m_rightFlag = true;
+                break;
+            case Qt::Key_Up:
+                jumpStart();
+                m_state = JUMP;
                 break;
             case Qt::Key_1:
                 if(m_attackClickFlag)
@@ -60,7 +64,7 @@ void Player2P::keyPressEvent(QKeyEvent *event)
 void Player2P::keyReleaseEvent(QKeyEvent *event)
 {
     //这样改应该能提升操作手感
-    if(m_state != SKILL &&m_attackedState!=ISATTACKED)
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP)
     {
         switch (event->key())
         {

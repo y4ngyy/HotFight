@@ -16,7 +16,7 @@ Player1P::Player1P()
 void Player1P::keyPressEvent(QKeyEvent *event)
 {
     // 技能释放中不处理键盘事件
-    if(m_state != SKILL &&m_attackedState!=ISATTACKED )
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP)
     {
         switch (event->key())
         {
@@ -29,6 +29,10 @@ void Player1P::keyPressEvent(QKeyEvent *event)
                 m_state = RUN;
                 m_direction = RIGHT;
                 m_rightFlag = true;
+                break;
+            case Qt::Key_W:
+                jumpStart();
+                m_state = JUMP;
                 break;
             case Qt::Key_J:
                 if(m_attackClickFlag)
@@ -45,13 +49,11 @@ void Player1P::keyPressEvent(QKeyEvent *event)
             case Qt::Key_K:
                 if(m_attackClickFlag)
                 {
-
                     m_attackClickFlag = false;
                     if(getEnergy() < m_kickEnReduce)
                         return;
                     m_state = KICK;
                     // 添加进缓冲区
-
                     m_buffer.addKey('K');
                 }
                 break;
@@ -66,8 +68,8 @@ void Player1P::keyPressEvent(QKeyEvent *event)
 
 void Player1P::keyReleaseEvent(QKeyEvent *event)
 {
-    // 技能释放中或者硬直状态下不处理键盘事件
-    if(m_state != SKILL &&m_attackedState!=ISATTACKED)
+    // 技能释放中或者硬直状态下或者跳跃状态不处理键盘事件
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP)
     {
         switch (event->key())
         {

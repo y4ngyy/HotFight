@@ -223,5 +223,16 @@
         <file>images/player4/skill_4/6.png</file>
         <file>images/player4/skill_4/7.png</file>
         <file>images/player4/skill_4/8.png</file>
+        <file>images/player3/jumping/jumping_1.png</file>
+        <file>images/player3/jumping/jumping_2.png</file>
+        <file>images/player3/jumping/jumping_3.png</file>
+        <file>images/player3/jumping/jumping_4.png</file>
+        <file>images/player3/jumping/jumping_5.png</file>
+        <file>images/player3/jumping/jumping_6.png</file>
+        <file>images/player4/jumping/jumping_1.png</file>
+        <file>images/player4/jumping/jumping_2.png</file>
+        <file>images/player4/jumping/jumping_3.png</file>
+        <file>images/player4/jumping/jumping_4.png</file>
+        <file>images/player4/jumping/jumping_5.png</file>
     </qresource>
 </RCC>

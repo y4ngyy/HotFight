@@ -1,9 +1,10 @@
-#include <QPainter>
 #include "playeritem.h"
+#include"rule.h"
+#include <QPainter>
 #include <QDebug>
 #include <QImage>
 #include <QTimer>
-#include"rule.h"
+#include <windows.h>
 
 PlayerItem::PlayerItem()
 {
@@ -20,6 +21,7 @@ PlayerItem::PlayerItem()
     ishittingIndex = 0;
     kickIndex = 0;
     skillIndex = 0;
+    jumpIndex = 0;
 
     // 键盘flag初始化
     m_leftFlag = false;
@@ -122,6 +124,9 @@ void PlayerItem::init_3()
         skillList.append(QPixmap(QString(":/images/player3/skill_6/%1.png").arg(i)));
     p_skill.append(skillList);
 
+    for(int i=1; i<=6; i++)
+        p_jumping.append(QPixmap(QString(":/images/player3/jumping/jumping_%1.png").arg(i)));
+
     // 加载路径
     // stand
     m_standPath.lineTo(p_standing.at(0).width(), 0);
@@ -188,6 +193,8 @@ void PlayerItem::init_4()
             p_kicking.append(QPixmap(QString(":/images/player4/kicking/kicking_%1.png").arg(i)));
         for(int i=1;i<=2;i++)
             p_ishitting.append(QPixmap(QString(":/images/player4/ishitting/ishitting_%1.png").arg(i)));
+        for(int i=1; i<=5; i++)
+            p_jumping.append(QPixmap(QString(":/images/player4/jumping/jumping_%1.png").arg(i)));
         //添加技能
         QList<QPixmap> skillList;
         //技能1
@@ -372,7 +379,7 @@ void PlayerItem::paint(QPainter *painter,
 
             break;
         case KICK:
-            // 出脚视图 存在bug 图片显示不完全，且会留下边角图像
+            // 出脚视图
 //            if(kickIndex==0)
 //            {
 //                //计算精力消耗
@@ -476,6 +483,21 @@ void PlayerItem::paint(QPainter *painter,
                 }
 
             }
+            break;
+        case JUMP:
+            // 跳跃
+            if(jumpIndex <= 3 && m_jumpCurrentV > 0)
+            {
+                jumpIndex++;
+            }
+            else if(m_jumpCurrentV < 0 && jumpIndex >= 3 && jumpIndex < p_jumping.size()-1)
+                jumpIndex++;
+            if(m_direction == RIGHT)
+            {
+                painter->drawImage(0, -m_height, p_jumping.at(jumpIndex).toImage());
+            }
+            else
+                painter->drawImage(0, -m_height, p_jumping.at(jumpIndex).toImage().mirrored(true,false));
             break;
         default:
             break;
@@ -590,7 +612,11 @@ void PlayerItem::setPixmapInfo()
             break;
         case ISHITTING:
             m_width = p_ishitting.at(ishittingIndex).width();
-            m_width = p_ishitting.at(ishittingIndex).height();
+            m_height = p_ishitting.at(ishittingIndex).height();
+            break;
+        case JUMP:
+            m_width = p_jumping.at(jumpIndex).width();
+            m_height = p_jumping.at(jumpIndex).height();
             break;
         default:
             break;
@@ -758,10 +784,46 @@ void PlayerItem::run()
     }
 }
 
+void PlayerItem::jump()
+{
+    if(m_state != JUMP)
+        return;
+    if(m_direction == LEFT)
+        m_x -= m_jumpHorizontalV;
+    else
+        m_x += m_jumpHorizontalV;
+    m_y = m_sceneGround - (m_jumpVerticalV * m_jumpT - s_Gravity/2 * m_jumpT * m_jumpT);
+    if(m_y >= m_sceneGround)
+    {
+        m_y = m_sceneGround;
+        m_jumpHorizontalV = 0;
+        m_jumpVerticalV = 0;
+        m_jumpT = 0;
+        jumpIndex = 0;
+        m_state = STAND;
+    }
+    else
+    {
+        m_jumpCurrentV -= s_Gravity * m_jumpT;
+        m_jumpT++;
+    }
+}
+
+void PlayerItem::jumpStart()
+{
+    if(m_state != RUN)
+        m_jumpHorizontalV = 0;
+    else
+        m_jumpHorizontalV = 15;
+    m_jumpVerticalV = 50;
+    m_jumpCurrentV = m_jumpVerticalV;
+    m_jumpT = 1;
+}
 void PlayerItem::setPositonInfo(qreal x, qreal y)
 {
     m_x = x;
     m_y = y;
+    m_sceneGround = y;
 }
 
 void PlayerItem::updatePos()
