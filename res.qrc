@@ -239,5 +239,8 @@
         <file>images/player4/jumping/jumping_3.png</file>
         <file>images/player4/jumping/jumping_4.png</file>
         <file>images/player4/jumping/jumping_5.png</file>
+        <file>images/mouse.png</file>
+        <file>images/endui_background.gif</file>
+        <file>images/label_background.png</file>
     </qresource>
 </RCC>

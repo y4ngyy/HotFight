@@ -9,18 +9,22 @@ LocalGameScene::LocalGameScene()
     // 初始化人物位置
     item1.setPositonInfo(200, 300);
     item2.setPositonInfo(500, 300);
+    //设置血条精力条的位置
+    healthBar_1.setType(P1);
+    healthBar_2.setType(P2);
     healthBar_1.setPos(0,0);
+    healthBar_2.setPos(600-healthBar_2.getMaxWdith(),0);
+    energyBar_1.setType(P1);
+    energyBar_2.setType(P2);
+    energyBar_1.setPos(0,healthBar_1.getHeight());
+    energyBar_2.setPos(600-energyBar_2.getMaxWdith(),healthBar_1.getHeight());
     //增加血条精力条
     addItem(&healthBar_1);
     addItem(&healthBar_2);
     addItem(&energyBar_1);
     addItem(&energyBar_2);
-    //设置血条精力条的位置
-    healthBar_1.setPos(0,0);
-    healthBar_2.setPos(600-healthBar_2.getMaxWdith(),0);
+
     addItem(&item1);
-    energyBar_1.setPos(0,healthBar_1.getHeight());
-    energyBar_2.setPos(600-energyBar_2.getMaxWdith(),healthBar_1.getHeight());
     addItem(&item2);
     //添加爆炸物,并且设置为不可见
     addItem(&m_explodingitem);

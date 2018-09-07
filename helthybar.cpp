@@ -18,8 +18,11 @@ void HealthyBar::paint(QPainter *painter,
     painter->setPen(pen);
     painter->drawRect(0,0,MAX_WIDTH,m_height);
     painter->setBrush(QBrush(QColor("#e40737")));
-    painter->drawRect(0,0,m_width,m_height);
-
+    // 1p 2p血条削减方向不同
+    if(m_type == P1)
+        painter->drawRect(0,0,m_width,m_height);
+    else
+        painter->drawRect(MAX_WIDTH-m_width, 0,MAX_WIDTH,m_height);
 }
 
 QRectF HealthyBar::boundingRect() const
@@ -42,5 +45,10 @@ int HealthyBar::getMaxWdith()
 int HealthyBar::getHeight()const
 {
     return m_height;
+}
+
+void HealthyBar::setType(BAR_TYPE type)
+{
+    m_type = type;
 }
 

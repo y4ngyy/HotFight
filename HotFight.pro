@@ -39,7 +39,8 @@ SOURCES += \
     rule.cpp \
     helthybar.cpp \
     energybar.cpp \
-    explodingitem.cpp
+    explodingitem.cpp \
+    endwindow.cpp
 
 HEADERS += \
     playeritem.h \
@@ -57,7 +58,8 @@ HEADERS += \
     rule.h \
     healthybar.h \
     energybar.h \
-    explodingitem.h
+    explodingitem.h \
+    endwindow.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -69,4 +71,5 @@ RESOURCES += \
 
 FORMS += \
     startwindow.ui \
-    netconnectdialog.ui
+    netconnectdialog.ui \
+    endwindow.ui

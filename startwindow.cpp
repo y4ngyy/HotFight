@@ -7,7 +7,7 @@ StartWindow::StartWindow(QWidget *parent) :
     ui(new Ui::StartWindow)
 {    
     // 设置固定大小
-    setFixedSize(QSize(500,500));
+    setFixedSize(QSize(600,500));
     ui->setupUi(this);
     setWindowTitle("开始游戏");
     // 设置窗口背景图

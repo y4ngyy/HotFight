@@ -17,7 +17,10 @@ void EnergyBar::paint(QPainter *painter,
     painter->setPen(pen);
     painter->drawRect(0,0,MAX_WIDTH,m_height);
     painter->setBrush(QBrush(QColor("#66ff66")));
-    painter->drawRect(0,0,m_width,m_height);
+    if(m_type == P1)
+        painter->drawRect(0,0,m_width,m_height);
+    else
+        painter->drawRect(MAX_WIDTH-m_width, 0,MAX_WIDTH,m_height);
 
 }
 
@@ -41,4 +44,9 @@ int EnergyBar::getMaxWdith()
 int EnergyBar::getHeight()const
 {
     return m_height;
+}
+
+void EnergyBar::setType(BAR_TYPE type)
+{
+    m_type = type;
 }
