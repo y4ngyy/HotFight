@@ -223,5 +223,10 @@
         <file>images/player4/skill_4/6.png</file>
         <file>images/player4/skill_4/7.png</file>
         <file>images/player4/skill_4/8.png</file>
+        <file>images/exploding/1.png</file>
+        <file>images/exploding/2.png</file>
+        <file>images/exploding/3.png</file>
+        <file>images/exploding/4.png</file>
+        <file>images/exploding/5.png</file>
     </qresource>
 </RCC>

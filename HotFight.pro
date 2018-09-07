@@ -38,7 +38,8 @@ SOURCES += \
     keyboardbuffer.cpp \
     rule.cpp \
     helthybar.cpp \
-    energybar.cpp
+    energybar.cpp \
+    explodingitem.cpp
 
 HEADERS += \
     playeritem.h \
@@ -55,7 +56,8 @@ HEADERS += \
     keyboardbuffer.h \
     rule.h \
     healthybar.h \
-    energybar.h
+    energybar.h \
+    explodingitem.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

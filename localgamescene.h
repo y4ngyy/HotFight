@@ -4,6 +4,7 @@
 #include "gamescene.h"
 #include "healthybar.h"
 #include"energybar.h"
+#include"explodingitem.h"
 #include <QEvent>
 
 class LocalGameScene : public GameScene
@@ -23,6 +24,7 @@ private:
     HealthyBar healthBar_2;
     EnergyBar energyBar_1;
     EnergyBar energyBar_2;
+    ExplodingItem m_explodingitem;
 
     // 游戏线程ID
     int timerId;

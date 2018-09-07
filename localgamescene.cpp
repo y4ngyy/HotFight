@@ -22,6 +22,9 @@ LocalGameScene::LocalGameScene()
     energyBar_1.setPos(0,healthBar_1.getHeight());
     energyBar_2.setPos(600-energyBar_2.getMaxWdith(),healthBar_1.getHeight());
     addItem(&item2);
+    //添加爆炸物,并且设置为不可见
+    addItem(&m_explodingitem);
+    m_explodingitem.setVisible(false);
     timerId = startTimer(100);
     m_timerCount = 0;
 
@@ -29,6 +32,7 @@ LocalGameScene::LocalGameScene()
 
 LocalGameScene::~LocalGameScene()
 {
+
 }
 
 void LocalGameScene::timerEvent(QTimerEvent *event)
@@ -52,13 +56,67 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
         item1.JudgeingAttack();
         if(item1.getAttackedFlag())
         {
-            isAttacked(item1,item2);
+            if(isAttacked(item1,item2))
+            {
+               if(item2.getCollidedState()==PlayerItem::ISCOLLIDEDLEFT)
+               {
+                   m_explodingitem.setX(item2.x());
+                   m_explodingitem.setY(item2.y()-item2.getHeight()*4/5);
+                   //把爆炸物状态视为可见
+                   m_explodingitem.updatePos();
+                   m_explodingitem.isItemVisable=true;
+                   qDebug()<<m_explodingitem.getX()<<m_explodingitem.getY()<<m_explodingitem.scenePos();
+               }
+               else if(item2.getCollidedState()==PlayerItem::ISCOLLIDEDRIGHT)
+               {
+                   m_explodingitem.setX(item2.x()+item2.getWidth());
+                   m_explodingitem.setY(item2.y()-item2.getHeight()*4/5);
+                   //把爆炸物状态视为可见
+                   m_explodingitem.updatePos();
+                   m_explodingitem.isItemVisable=true;
+                   qDebug()<<m_explodingitem.getX()<<m_explodingitem.getY()<<m_explodingitem.scenePos();
+               }
+            }
         }
         item2.JudgeingAttack();
         if(item2.getAttackedFlag())
         {
-            isAttacked(item2,item1);
+            if(isAttacked(item2,item1))
+            {
+               if(item1.getCollidedState()==PlayerItem::ISCOLLIDEDLEFT)
+               {
+                    m_explodingitem.setX(item1.x()+item1.getWidth()*2/5);
+                    m_explodingitem.setY(item1.y()-item1.getHeight()*4/5);
+                    //把爆炸物状态视为可见
+                    m_explodingitem.updatePos();
+                    m_explodingitem.isItemVisable=true;
+                    qDebug()<<m_explodingitem.getX()<<m_explodingitem.getY()<<m_explodingitem.scenePos();
+               }
+               else if(item1.getCollidedState()==PlayerItem::ISCOLLIDEDRIGHT)
+               {
+                   m_explodingitem.setX(item1.x()+item1.getWidth()*3/5);
+                   m_explodingitem.setY(item1.y()-item1.getHeight()*4/5);
+                   //把爆炸物状态视为可见
+                   m_explodingitem.updatePos();
+                   m_explodingitem.isItemVisable=true;
+                   qDebug()<<m_explodingitem.getX()<<m_explodingitem.getY()<<m_explodingitem.scenePos();
+
+               }
+            }
         }
+        //刷新爆炸物
+        if(m_explodingitem.isItemVisable)
+        {
+
+            m_explodingitem.setVisible(true);
+        }
+        else
+        {
+
+             m_explodingitem.setVisible(false);
+        }
+
+
         //刷新血条和精力条
         healthBar_1.setBlood(item1.getBlood());
         healthBar_2.setBlood(item2.getBlood());

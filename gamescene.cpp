@@ -47,6 +47,9 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
                     //在硬直状态下不能削韧
                     Rule::calculateTenacity(attackingitem,attackeditem2); //计算削韧//do something 计算伤害的预留接口
                 }
+                // 设置碰撞状态
+                attackingitem.setCollidedState(PlayerItem::ISCOLLIDEDLEFT);
+                attackeditem2.setCollidedState(PlayerItem::ISCOLLIDEDRIGHT);
                 return true;
              }
              else if( attackingitem.getDirection()==PlayerItem::RIGHT          //判断人物朝向并且，判断人物的坐标
@@ -66,6 +69,9 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
                     //在硬直状态下不能削韧
                     Rule::calculateTenacity(attackingitem,attackeditem2); //计算削韧//do something 计算伤害的预留接口
                 }
+                // 设置碰撞状态
+                attackingitem.setCollidedState(PlayerItem::ISCOLLIDEDRIGHT);
+                attackeditem2.setCollidedState(PlayerItem::ISCOLLIDEDLEFT);
                 return true;
              }
              else
