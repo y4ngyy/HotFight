@@ -123,7 +123,9 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
         energyBar_1.setEnergy(item1.getEnergy());
         energyBar_2.setEnergy(item2.getEnergy());
 
-        // 游戏线程 刷新视图和人物跑动 碰撞
+        // 游戏线程 刷新视图和人物跑动 碰撞 跳跃
+        item1.jump();
+        item2.jump();
         item1.run();
         item2.run();
         // 碰撞

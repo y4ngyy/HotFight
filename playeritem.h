@@ -40,8 +40,12 @@ public:
     virtual QPainterPath shape()const;
 
     // 功能函数
-    // 调试：需在scene中调用
+    // 需在scene中调用
     void run();
+    void jump();
+
+    // 跳跃开始设置速度
+    void jumpStart();
 
     // GameScene中调用设置人物位置
     void setPositonInfo(qreal, qreal);
@@ -102,6 +106,7 @@ protected:
     QList<QPixmap> p_punch;
     QList<QPixmap> p_ishitting;
     QList<QPixmap> p_kicking;
+    QList<QPixmap> p_jumping;
     QList<QList<QPixmap>> p_skill;
 
     // 图片的path 在shape()中返回
@@ -175,6 +180,16 @@ private:
     int ishittingIndex;
     int kickIndex;
     int skillIndex;
+    int jumpIndex;
+
+    // 跳跃属性
+    static constexpr qreal s_Gravity = 9.8;
+    int m_jumpT;
+    DIRECTION m_jumpDirection;
+    qreal m_jumpHorizontalV;
+    qreal m_jumpVerticalV;
+    qreal m_jumpCurrentV;
+    qreal m_sceneGround;  // setPositionInfo()中初始化
 
     // 人物属性
     int m_speed; //奔跑速度 在 setinfo中初始化
