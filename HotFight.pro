@@ -40,7 +40,9 @@ SOURCES += \
     energybar.cpp \
     explodingitem.cpp \
     endwindow.cpp \
-    net.cpp
+    net.cpp \
+    netplayer1p.cpp \
+    netplayer2p.cpp
 
 HEADERS += \
     playeritem.h \
@@ -59,7 +61,9 @@ HEADERS += \
     energybar.h \
     explodingitem.h \
     endwindow.h \
-    net.h
+    net.h \
+    netplayer1p.h \
+    netplayer2p.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

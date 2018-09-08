@@ -49,11 +49,11 @@ void NetConnectDialog::on_clientConnect_clicked()
         //设置1p还是2p
         if(ui->radioButton1P->isChecked())
         {
-            m_netGameWindow->setSceneNetType(NetGameScene::SERVER);
+            m_netGameWindow->setSceneNetType(NetGameScene::C1);
         }
         else
         {
-            m_netGameWindow->setSceneNetType(NetGameScene::CLIENT);
+            m_netGameWindow->setSceneNetType(NetGameScene::C2);
         }
 
         m_netGameWindow->show();

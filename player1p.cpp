@@ -62,6 +62,7 @@ void Player1P::keyPressEvent(QKeyEvent *event)
                 break;
             case Qt::Key_I:
                 m_state = SKILL;
+                judgeSkillType();
                 break;
             default:
                 break;

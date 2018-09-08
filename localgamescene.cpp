@@ -30,7 +30,6 @@ LocalGameScene::LocalGameScene()
     addItem(&m_explodingitem);
     m_explodingitem.setVisible(false);
     timerId = startTimer(100);
-    m_timerCount = 0;
 
 }
 
@@ -43,13 +42,6 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
 {
     if(event->timerId() == timerId)
     {
-        //设想（还没实现，因为经测试这样做有点小问题）因为可能要经常判断1P和2P是否碰撞，所以在成员变量中添加一个bool型的成员变量来减少对碰撞检测函数的调用
-//        m_timerCount++;
-//        if(m_timerCount == 10)
-//        {
-//            m_timerCount = 0;
-
-//        }
         Rule::recoverEnergy(item1);
         Rule::recoverEnergy(item2);
         Rule::recoverTenacity(item1);

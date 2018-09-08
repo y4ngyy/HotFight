@@ -437,7 +437,7 @@ void PlayerItem::paint(QPainter *painter,
             }
         case SKILL:
             // 释放技能
-            setSkillType();
+
             if(m_skillType==NONESKILL)
             {
                 m_buffer.clear();
@@ -848,7 +848,7 @@ void PlayerItem::updatePos()
 }
 
 //根据缓冲区来设定出招的种类
-void PlayerItem::setSkillType()
+void PlayerItem::judgeSkillType()
 {
     if(m_buffer.getCurrentSize()<KeyBoardBuffer::SIZE)
     {

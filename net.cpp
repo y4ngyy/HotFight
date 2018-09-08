@@ -13,7 +13,10 @@ void Net::setNetWorkInfo(QJsonObject json, PlayerItem &item)
     item.setPositonInfo(json.take("m_x").toDouble(), json.take("m_y").toDouble());
     item.setState(static_cast<PlayerItem::STATE>(json.take("m_state").toInt()));
     item.setDirection(static_cast<PlayerItem::DIRECTION>(json.take("m_direction").toInt()));
-    item.setCollidedState(static_cast<PlayerItem::COLLIDEDSTATE>(json.take("m_collided").toInt()));
+    item.setSkillType(static_cast<PlayerItem::SKILLTYPE>(json.take("m_skillType").toInt()));
+    item.setBlood(json.take("m_blood").toInt());
+    item.setEnergy(json.take("m_energy").toInt());
+    item.setTenacity(json.take("m_tenacity").toInt());
 }
 
 void Net::sendJsInfo(QUdpSocket *udp, PlayerItem &item)
@@ -23,7 +26,11 @@ void Net::sendJsInfo(QUdpSocket *udp, PlayerItem &item)
     js.insert("m_y", item.getY());
     js.insert("m_state", item.getState());
     js.insert("m_direction", item.getDirection());
-    js.insert("m_collided", item.getCollidedState());
+    js.insert("m_skillType", item.getSkillType());
+    // 人物属性
+    js.insert("m_blood", item.getBlood());
+    js.insert("m_energy", item.getEnergy());
+    js.insert("m_tenacity", item.getTenacity());
     // 后面增加状态
     QByteArray array;
     QJsonDocument doc;

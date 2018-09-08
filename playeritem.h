@@ -148,6 +148,11 @@ protected:
     // 键盘缓冲区，技能释放使用
     KeyBoardBuffer m_buffer;
 
+
+    //根据键盘缓冲区判断出招种类的函数
+    void judgeSkillType();
+
+
     // 攻击力属性
     int m_basicATK; // 基础攻击力 在init中初始
     int m_punchATK;
@@ -212,15 +217,6 @@ private:
     double m_blood; //生命值
     int m_energy;  // 精力值
     int m_tenacity;  // 韧性值
-
-
-
-    //根据键盘缓冲区判断出招种类的函数
-    void setSkillType();
-
-
-
-
 };
 
 #endif // PLAYERITEM_H
