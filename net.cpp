@@ -1,0 +1,39 @@
+#include "net.h"
+#include <QJsonDocument>
+
+Net::Net()
+{
+
+}
+
+QString Net::m_objectIp = "127.0.0.1";
+quint16 Net::m_objectPort = 8888;
+void Net::setNetWorkInfo(QJsonObject json, PlayerItem &item)
+{
+    item.setPositonInfo(json.take("m_x").toDouble(), json.take("m_y").toDouble());
+    item.setState(static_cast<PlayerItem::STATE>(json.take("m_state").toInt()));
+    item.setDirection(static_cast<PlayerItem::DIRECTION>(json.take("m_direction").toInt()));
+    item.setCollidedState(static_cast<PlayerItem::COLLIDEDSTATE>(json.take("m_collided").toInt()));
+}
+
+void Net::sendJsInfo(QUdpSocket *udp, PlayerItem &item)
+{
+    QJsonObject js;
+    js.insert("m_x", item.getX());
+    js.insert("m_y", item.getY());
+    js.insert("m_state", item.getState());
+    js.insert("m_direction", item.getDirection());
+    js.insert("m_collided", item.getCollidedState());
+    // 后面增加状态
+    QByteArray array;
+    QJsonDocument doc;
+    doc.setObject(js);
+    array = doc.toJson(QJsonDocument::Compact);
+    udp->writeDatagram(array.data(),QHostAddress(m_objectIp),m_objectPort);
+}
+
+void Net::setNetInfo(QString ip, quint16 port)
+{
+    m_objectIp = ip;
+    m_objectPort = port;
+}

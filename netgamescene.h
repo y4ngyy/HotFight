@@ -2,7 +2,6 @@
 #define NETGAMESCENE_H
 
 #include "gamescene.h"
-#include "netplayeritem.h"
 #include <QUdpSocket>
 
 class NetGameScene : public GameScene
@@ -38,8 +37,6 @@ private:
     int m_objectPort;
     // 传输数据套接字
     QUdpSocket *m_udpSocket;
-    NetPlayerItem *m_netItem1;
-    NetPlayerItem *m_netItem2;
 
     //游戏线程的id
     int timerId;
@@ -47,8 +44,6 @@ private:
     //窗口的类型，是客户端或者是服务器
     // 调试时在构造函数里面设置，实际用对话框设置
     NETTYPE m_netType;
-
-
 };
 
 #endif // NETGAMESCENE_H
