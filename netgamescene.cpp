@@ -9,6 +9,7 @@ NetGameScene::NetGameScene(QString ip, int port)
     //设置初始的ip 和 端口
     setObjectIp(ip);
     setObjectPort(port);
+    Net::setNetInfo(ip,port);
     m_netType = C1;
 //    isSceneUdpConnected=false;
     m_udpSocket = new QUdpSocket(this);

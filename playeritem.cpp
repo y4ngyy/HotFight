@@ -315,6 +315,7 @@ void PlayerItem::paint(QPainter *painter,
                        const QStyleOptionGraphicsItem *option,
                        QWidget *widget)
 {
+    qDebug()<<m_state;
     switch (m_state)
     {
         case RUN:
@@ -489,6 +490,7 @@ void PlayerItem::paint(QPainter *painter,
             break;
         case JUMP:
             // 跳跃
+
             if(jumpIndex <= 3 && m_jumpCurrentV > 0)
             {
                 jumpIndex++;
@@ -596,6 +598,8 @@ void PlayerItem::setPixmapInfo()
     //所有的set/get函数的实现
 void PlayerItem::setState(STATE t_state)
 {
+    if(t_state == JUMP)
+        jumpStart();
     m_state = t_state;
 }
 
@@ -831,6 +835,7 @@ void PlayerItem::jumpStart()
     m_jumpCurrentV = m_jumpVerticalV;
     m_jumpT = 1;
 }
+
 void PlayerItem::setPositonInfo(qreal x, qreal y)
 {
     m_x = x;

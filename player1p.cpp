@@ -2,6 +2,7 @@
 #include <QPixmap>
 #include <QKeyEvent>
 #include <windows.h>
+#include<QDebug>
 
 Player1P::Player1P()
 {
