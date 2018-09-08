@@ -30,6 +30,7 @@ PlayerItem::PlayerItem()
     m_leftFlag = false;
     m_rightFlag = false;
     m_attackClickFlag = true;
+    m_isJumpStart = true;
 
     // 人物属性初始化
     m_blood = 100;
@@ -598,8 +599,13 @@ void PlayerItem::setPixmapInfo()
     //所有的set/get函数的实现
 void PlayerItem::setState(STATE t_state)
 {
-    if(t_state == JUMP)
+    if(t_state == JUMP && m_isJumpStart)
+    {
         jumpStart();
+        m_isJumpStart = false;
+    }
+    else if(t_state != JUMP)
+        m_isJumpStart = true;
     m_state = t_state;
 }
 

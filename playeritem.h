@@ -179,6 +179,7 @@ protected:
     bool m_damageFlag;
     //已经计算完一次伤害的Flag；
     bool m_hasDamagedFlag;
+    bool m_isJumpStart;
 
     //动画控制变量 如果要添加新变量到该类的构造函数去初始化
     int standIndex;
