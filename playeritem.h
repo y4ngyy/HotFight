@@ -109,7 +109,9 @@ public:
     void setJumpCurrentV(qreal);
     qreal getJumpCurrentV()const;
 
-
+    //龟派气功动作的需要
+    void setUltimateSkillIndex(int);
+    int getUltimateSkillIndex()const;
 
 protected:
 

@@ -123,6 +123,8 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
                 delete m_guiFlyItem;
                 m_guiFlyItem=NULL;
                 item2.setState(PlayerItem::STAND);
+                //将index重置
+                item2.setUltimateSkillIndex(0);
             }
             else
             {
@@ -145,6 +147,8 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
                     delete m_guiFlyItem;
                     m_guiFlyItem=NULL;
                     item2.setState(PlayerItem::STAND);
+                    //将index重置
+                    item2.setUltimateSkillIndex(0);
                 }
             }
         }
@@ -184,7 +188,7 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
         // 碰撞
         item1.updatePos();
         item2.updatePos();
-
+        qDebug()<<"被攻击状态"<<item1.getAttackedState();
     }
 }
 

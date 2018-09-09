@@ -459,6 +459,22 @@ void PlayerItem::paint(QPainter *painter,
                     painter->drawImage(0, -m_height, p_ishitting.at(ishittingIndex).toImage().mirrored(true,false));
                 }
             }
+            else
+            {
+                // 站立状态视图
+                if(standIndex >= p_standing.size()-1)
+                {
+                    standIndex = 0;
+                }
+                else
+                    standIndex++;
+                if(m_direction == RIGHT)
+                {
+                    painter->drawImage(0, -m_height, p_standing.at(standIndex).toImage());
+                }
+                else
+                    painter->drawImage(0, -m_height, p_standing.at(standIndex).toImage().mirrored(true,false));
+            }
             break;
         case SKILL:
             // 释放技能
@@ -471,7 +487,15 @@ void PlayerItem::paint(QPainter *painter,
                 // 轮播stand状态，去除点击技能键闪烁
                 if(standIndex >= p_standing.size()-1)
                 {
-                    standIndex = 0;
+                    // 两个人物有区别
+                    if(m_characterFlag==C1)
+                    {
+                        standIndex = 0;
+                    }
+                    else if(m_characterFlag==C2)
+                    {
+                        //什么都不做
+                    }
                 }
                 else
                     standIndex++;
@@ -631,10 +655,19 @@ void PlayerItem::setPixmapInfo()
             break;
         case SKILL:
             //可能有小bug 不知道为什么会造成指针越界
-            if(skillIndex<p_skill.at(m_skillType).size())
+            if(m_skillType==NONESKILL)
             {
-                m_width=p_skill.at(m_skillType).at(skillIndex).width();
-                m_height=p_skill.at(m_skillType).at(skillIndex).height();
+                m_width = p_standing.at(standIndex).width();
+                m_height = p_standing.at(standIndex).height();
+
+            }
+            else
+            {
+                if(skillIndex<p_skill.at(m_skillType).size())
+                {
+                    m_width=p_skill.at(m_skillType).at(skillIndex).width();
+                    m_height=p_skill.at(m_skillType).at(skillIndex).height();
+                }
             }
             break;
         case ULTIMATESKILL:
@@ -835,6 +868,15 @@ PlayerItem::CHARACTERFlAG PlayerItem::getCharacterFlag()const
     return m_characterFlag;
 }
 
+void PlayerItem::setUltimateSkillIndex(int index)
+{
+    ultimateSkillIndex=index;
+}
+
+int PlayerItem::getUltimateSkillIndex()const
+{
+    return ultimateSkillIndex;
+}
 
 void PlayerItem::run()
 {
@@ -955,6 +997,7 @@ void PlayerItem::updatePos()
 //根据缓冲区来设定出招的种类
 void PlayerItem::judgeSkillType()
 {
+    qDebug()<<"缓冲区大小"<<m_buffer.getCurrentSize();
     if(m_buffer.getCurrentSize()<KeyBoardBuffer::SIZE)
     {
         m_skillType = NONESKILL;

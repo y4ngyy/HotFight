@@ -56,7 +56,9 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
 
              }
          }
-         else if( ! attackingitem.collidesWithItem( &attackeditem2 ) )  //如果没有检测到碰撞 预留接口（判断是否有远程攻击）
+         else if( ! attackingitem.collidesWithItem( &attackeditem2 ) &&
+                 !(attackingitem.getCharacterFlag()==PlayerItem::C2&&attackingitem.getState()==PlayerItem::ULTIMATESKILL))
+             //如果没有检测到碰撞 预留接口（判断是否有远程攻击）并且排除上一种情况
          {
              attackingitem.setCollidedState(PlayerItem::NOCOLLIDED);  //碰撞状态设成无碰撞
              attackeditem2.setCollidedState(PlayerItem::NOCOLLIDED);
