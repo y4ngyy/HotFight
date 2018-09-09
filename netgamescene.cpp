@@ -39,6 +39,8 @@ NetGameScene::NetGameScene(QString ip, int port)
     addItem(&m_item2);
     addItem(&m_explodingitem);
     m_explodingitem.setVisible(false);
+    //测试用
+    qDebug()<<"2P的y坐标:"<<m_item2.getY();
 }
 
 NetGameScene::~NetGameScene()
@@ -54,15 +56,22 @@ NetGameScene::~NetGameScene()
 void NetGameScene::timerEvent(QTimerEvent *event)
 {    if(event->timerId() == timerId)
     {
-        // 增加游戏线程
-        Rule::recoverEnergy(m_item1);
-        Rule::recoverEnergy(m_item2);
-        Rule::recoverTenacity(m_item1);
-        Rule::recoverTenacity(m_item2);
+        // 增加游戏线程，只需要判断操作的一方
+        if(m_netType==C1)
+        {
+            Rule::recoverEnergy(m_item1);
+            Rule::recoverTenacity(m_item1);
+        }
+        else if(m_netType==C2)
+        {
+             Rule::recoverEnergy(m_item2);
+             Rule::recoverTenacity(m_item2);
+        }
         qDebug()<<"1:"<<m_item1.getBlood()<<"||"<<m_item1.getEnergy()<<"||"<<m_item1.getTenacity();
         qDebug()<<"2:"<<m_item2.getBlood()<<"||"<<m_item2.getEnergy()<<"||"<<m_item2.getTenacity();
         isCollided(m_item1,m_item2);   //1P 和2P的 碰撞检测，必须放在攻击检测的前面，否则ISATTACKED会被替换成 ISCOLLIDEDLEFT，以后可以考虑整合成一个大函数
-        //人物的攻击判定  测试
+        //人物的攻击判定  测试,
+
         m_item1.JudgeingAttack();
         if(m_item1.getAttackedFlag())
         {
@@ -134,12 +143,22 @@ void NetGameScene::timerEvent(QTimerEvent *event)
         energyBar_2.setEnergy(m_item2.getEnergy());
 
         // 游戏线程 刷新视图和人物跑动 碰撞 跳跃
-        m_item1.jump();
-        m_item2.jump();
-        m_item1.run();
-        m_item2.run();
-        m_item1.attackingMove();
-        m_item2.attackingMove();
+        //只需要可操控的角色进行奔跑即可
+        if(m_netType==C1)
+        {
+            m_item1.jump();
+            m_item1.run();
+            m_item1.attackingMove();
+        }
+        else if(m_netType==C2)
+        {
+            m_item2.jump();
+            m_item2.run();
+            m_item2.attackingMove();
+        }
+
+
+
         // 传输数据
         if(m_netType == C1)
             Net::sendJsInfo(m_udpSocket, m_item1);

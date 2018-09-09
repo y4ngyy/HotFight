@@ -96,6 +96,9 @@ public:
     void setHasDamagedFlag(bool);
     bool getHasDamagedFlag()const;
 
+    void setJumpCurrentV(qreal);
+    qreal getJumpCurrentV()const;
+
 protected:
 
     //人物状态变量 子类重载暂时需直接修改 变为保护型 在该类的构造函数中初始化
@@ -179,7 +182,7 @@ protected:
     bool m_damageFlag;
     //已经计算完一次伤害的Flag；
     bool m_hasDamagedFlag;
-    bool m_isJumpStart;
+//  bool m_isJumpStart;
 
     //动画控制变量 如果要添加新变量到该类的构造函数去初始化
     int standIndex;

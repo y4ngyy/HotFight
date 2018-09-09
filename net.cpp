@@ -17,6 +17,7 @@ void Net::setNetWorkInfo(QJsonObject json, PlayerItem &item)
     item.setBlood(json.take("m_blood").toInt());
     item.setEnergy(json.take("m_energy").toInt());
     item.setTenacity(json.take("m_tenacity").toInt());
+    item.setJumpCurrentV(json.take("m_jumpCurrentV").toDouble());
 }
 
 void Net::sendJsInfo(QUdpSocket *udp, PlayerItem &item)
@@ -31,6 +32,11 @@ void Net::sendJsInfo(QUdpSocket *udp, PlayerItem &item)
     js.insert("m_blood", item.getBlood());
     js.insert("m_energy", item.getEnergy());
     js.insert("m_tenacity", item.getTenacity());
+
+    //增加跳跃的CurrentV (在跳跃属性中 m_x,m_y都可以由远程端发送的信息决定，所以把在NetGameScene中
+    //不用调用jump函数（run同理）但是因为jump的动画受到JumpCurrentV的控制，而JumpCurrentV又由Jump函数
+    //决定，因此为了比较容易地解决jump动画的问题，直接增加传递jumpcurrentV
+    js.insert("m_jumpCurrentV",item.getJumpCurrentV());
     // 后面增加状态
     QByteArray array;
     QJsonDocument doc;
