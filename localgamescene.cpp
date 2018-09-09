@@ -42,6 +42,15 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
 {
     if(event->timerId() == timerId)
     {
+        //判断硬直状态
+        if(item1.getTenacity()==0)
+        {
+            item1.setAttackedState(PlayerItem::ISATTACKED);
+        }
+        if(item2.getTenacity()==0)
+        {
+            item2.setAttackedState(PlayerItem::ISATTACKED);
+        }
         Rule::recoverEnergy(item1);
         Rule::recoverEnergy(item2);
         Rule::recoverTenacity(item1);
@@ -101,6 +110,51 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
                }
             }
         }
+//        龟派气功的伤害判定
+//        如果还存在的话
+        if(m_guiFlyItem!=NULL)
+        {
+            //飞行物还没有被销毁就一直保持大招状态
+            item2.setState(PlayerItem::ULTIMATESKILL);
+            //如果飞出场景之外了，那么就销毁，600暂时指的是场景的宽
+            if( m_guiFlyItem->getX()<=0 || m_guiFlyItem->getX()>=600)
+            {
+                m_guiFlyItem->m_isExisting=false;
+                delete m_guiFlyItem;
+                m_guiFlyItem=NULL;
+                item2.setState(PlayerItem::STAND);
+            }
+            else
+            {
+                if(m_guiFlyItem->collidesWithItem(&item1))
+                {
+                    //测试用
+                    qDebug()<<"撞到了";
+                    //伤害计算函数和碰撞效果的接口
+                    //碰撞特效
+                    m_explodingitem.setX(item1.x()+item1.getWidth()/2);
+                    m_explodingitem.setY(item1.y()-item1.getHeight()/2);
+                    //把爆炸物状态视为可见
+                    m_explodingitem.updatePos();
+                    m_explodingitem.isItemVisable=true;
+                    //伤害和削韧计算
+                    Rule::calculateBlood(item2,item1);
+                    Rule::calculateTenacity(item2,item1);
+                    //打中了之后要销毁
+                    m_guiFlyItem->m_isExisting=false;
+                    delete m_guiFlyItem;
+                    m_guiFlyItem=NULL;
+                    item2.setState(PlayerItem::STAND);
+                }
+            }
+        }
+        //刷新龟派气功
+        if(m_guiFlyItem!=NULL)
+        {
+            m_guiFlyItem->Flying();
+            m_guiFlyItem->updatePos();
+        }
+
         //刷新爆炸物
         if(m_explodingitem.isItemVisable)
         {

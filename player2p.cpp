@@ -4,8 +4,15 @@
 Player2P::Player2P()
 {
     init_4();
+    setCharacterFlag(PlayerItem::C2);
     setHeight(p_standing.at(0).height());
+    m_direction=PlayerItem::LEFT;
 }
+
+ Player2P::~Player2P()
+ {
+
+ }
 
 /*
  * 1p控制方法 ← →左右行走
@@ -57,6 +64,9 @@ void Player2P::keyPressEvent(QKeyEvent *event)
             case Qt::Key_5:
                 m_state = SKILL;
                 judgeSkillType();
+                break;
+            case Qt::Key_4:
+                m_state=ULTIMATESKILL;   //大招
                 break;
             default:
                 break;
@@ -292,7 +302,16 @@ void Player2P::JudgeingAttack()
                     break;
             }
             break;
+        //2P的终结技
+       case ULTIMATESKILL:
+        // 6 7 8帧
+            if(ultimateSkillIndex>=5 && ultimateSkillIndex<=7)
+            {
+               m_attackingFlag=true;
 
+            }
+
+            break;
        default:
             {
                 m_attackingFlag=false;

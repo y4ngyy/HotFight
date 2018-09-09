@@ -1,4 +1,5 @@
 #include "rule.h"
+#include<QDebug>
 
 Rule::Rule()
 {
@@ -21,10 +22,16 @@ void Rule::calculateBlood(PlayerItem &attackItem, PlayerItem &attackedItem)
                 return;
             t_atk = attackItem.m_skillATK.at(attackItem.m_skillType);
         break;
+        case PlayerItem::ULTIMATESKILL:
+            //测试需要
+            qDebug()<<"减少生命";
+            t_atk=attackedItem.m_ultimateATK;
+            break;
         default:
             return;
     }
     double damage=m_damageK1* t_atk + m_damageK2 * attackItem.m_energy - m_damageK4 * attackedItem.m_energy- m_damageK3 * attackedItem.m_basicDEF;
+    qDebug()<<"伤害"<<damage;
     if(damage>=0)
     {
         attackedItem.m_blood -= damage;
@@ -57,6 +64,9 @@ void Rule::calculateTenacity(PlayerItem &attackItem, PlayerItem &attackedItem)
             if(attackItem.m_skillType == PlayerItem::NONESKILL)
                 return;
             t_tenaReduce = attackItem.m_skillTeReduce.at(attackItem.m_skillType);
+        case PlayerItem::ULTIMATESKILL:
+            t_tenaReduce = attackItem.m_ultimateTeReduce;
+            break;
         default:
             return;
     }

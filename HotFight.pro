@@ -42,7 +42,8 @@ SOURCES += \
     endwindow.cpp \
     net.cpp \
     netplayer1p.cpp \
-    netplayer2p.cpp
+    netplayer2p.cpp \
+    guiflyitem.cpp
 
 HEADERS += \
     playeritem.h \
@@ -63,7 +64,8 @@ HEADERS += \
     endwindow.h \
     net.h \
     netplayer1p.h \
-    netplayer2p.h
+    netplayer2p.h \
+    guiflyitem.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

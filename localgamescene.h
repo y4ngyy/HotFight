@@ -5,6 +5,7 @@
 #include "healthybar.h"
 #include"energybar.h"
 #include"explodingitem.h"
+#include"guiflyitem.h"
 #include <QEvent>
 
 class LocalGameScene : public GameScene
@@ -17,6 +18,9 @@ protected:
     void timerEvent(QTimerEvent *);
 
     bool event(QEvent *);
+
+
+
 private:
     Player1P item1;
     Player2P item2;
