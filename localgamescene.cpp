@@ -142,6 +142,7 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
                     //伤害和削韧计算
                     Rule::calculateBlood(item2,item1);
                     Rule::calculateTenacity(item2,item1);
+                    item1.setState(PlayerItem::ISHITTING); //被打中了
                     //打中了之后要销毁
                     m_guiFlyItem->m_isExisting=false;
                     delete m_guiFlyItem;
