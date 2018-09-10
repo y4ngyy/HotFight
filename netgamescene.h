@@ -6,6 +6,7 @@
 #include "netplayer2p.h"
 #include "healthybar.h"
 #include "energybar.h"
+#include"angerbar.h"
 #include "explodingitem.h"
 #include <QEvent>
 #include <QUdpSocket>
@@ -55,6 +56,8 @@ private:
     HealthyBar m_healthBar_2;
     EnergyBar m_energyBar_1;
     EnergyBar m_energyBar_2;
+    AngerBar m_angerBar_1;
+    AngerBar m_angerBar_2;
     ExplodingItem m_explodingitem;
     //窗口的类型，是客户端或者是服务器
     // 调试时在构造函数里面设置，实际用对话框设置

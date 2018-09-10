@@ -2,7 +2,7 @@
 #include "net.h"
 #include <QtDebug>
 #include <QJsonDocument>
-#include <healthybar.h>
+
 
 NetGameScene::NetGameScene(QString ip, int port)
 {
@@ -26,10 +26,16 @@ NetGameScene::NetGameScene(QString ip, int port)
     m_healthBar_2.setType(P2);
     m_healthBar_1.setPos(0,0);
     m_healthBar_2.setPos(600-m_healthBar_2.getMaxWdith(),0);
+
     m_energyBar_1.setType(P1);
     m_energyBar_2.setType(P2);
     m_energyBar_1.setPos(0,m_healthBar_1.getHeight());
     m_energyBar_2.setPos(600-m_energyBar_2.getMaxWdith(),m_healthBar_1.getHeight());
+
+    m_angerBar_1.setType(P1);
+    m_angerBar_2.setType(P2);
+    m_angerBar_1.setPos(0,m_healthBar_1.getHeight()+m_energyBar_1.getHeight());
+    m_angerBar_2.setPos(600-m_angerBar_2.getMaxWdith(),m_healthBar_1.getHeight()+m_energyBar_1.getHeight());
     //增加血条精力条
     addItem(&m_healthBar_1);
     addItem(&m_healthBar_2);
@@ -38,6 +44,8 @@ NetGameScene::NetGameScene(QString ip, int port)
     addItem(&m_item1);
     addItem(&m_item2);
     addItem(&m_explodingitem);
+    addItem(&m_angerBar_1);
+    addItem(&m_angerBar_2);
     m_explodingitem.setVisible(false);
     //测试用
     qDebug()<<"2P的y坐标:"<<m_item2.getY();
@@ -61,11 +69,19 @@ void NetGameScene::timerEvent(QTimerEvent *event)
         {
             Rule::recoverEnergy(m_item1);
             Rule::recoverTenacity(m_item1);
+            if(m_item1.getTenacity()==0)
+            {
+                m_item1.setAttackedState(PlayerItem::ISATTACKED);
+            }
         }
         else if(m_netType==C2)
         {
              Rule::recoverEnergy(m_item2);
              Rule::recoverTenacity(m_item2);
+             if(m_item1.getTenacity()==0)
+             {
+                 m_item1.setAttackedState(PlayerItem::ISATTACKED);
+             }
         }
         qDebug()<<"1:"<<m_item1.getBlood()<<"||"<<m_item1.getEnergy()<<"||"<<m_item1.getTenacity();
         qDebug()<<"2:"<<m_item2.getBlood()<<"||"<<m_item2.getEnergy()<<"||"<<m_item2.getTenacity();
@@ -123,6 +139,58 @@ void NetGameScene::timerEvent(QTimerEvent *event)
                }
             }
         }
+//        龟派气功的伤害判定
+//        如果还存在的话
+        if(m_guiFlyItem!=NULL && m_item1.getState()!=PlayerItem::JUMP)
+        {
+            //飞行物还没有被销毁就一直保持大招状态
+            m_item2.setState(PlayerItem::ULTIMATESKILL);
+            //如果飞出场景之外了，那么就销毁，600暂时指的是场景的宽
+            if( m_guiFlyItem->getX()<=0 || m_guiFlyItem->getX()>=600)
+            {
+                m_guiFlyItem->m_isExisting=false;
+                delete m_guiFlyItem;
+                m_guiFlyItem=NULL;
+                m_item2.setState(PlayerItem::STAND);
+                //将index重置
+                m_item2.setUltimateSkillIndex(0);
+            }
+            else
+            {
+                if(m_guiFlyItem->collidesWithItem(&m_item1))
+                {
+                    //测试用
+                    qDebug()<<"撞到了";
+                    //伤害计算函数和碰撞效果的接口
+                    //碰撞特效
+                    m_explodingitem.setX(m_item1.x()+m_item1.getWidth()/2);
+                    m_explodingitem.setY(m_item1.y()-m_item1.getHeight()/2);
+                    //把爆炸物状态视为可见
+                    m_explodingitem.updatePos();
+                    m_explodingitem.isItemVisable=true;
+                    //伤害和削韧计算
+                    Rule::calculateBlood(m_item2,m_item1);
+                    Rule::calculateTenacity(m_item2,m_item1);
+                    //怒气
+                    Rule::calculateAnger(m_item1,m_item1.getAngerIncrease());
+                    m_item1.setState(PlayerItem::ISHITTING); //被打中了
+                    //打中了之后要销毁
+                    m_guiFlyItem->m_isExisting=false;
+                    delete m_guiFlyItem;
+                    m_guiFlyItem=NULL;
+                    m_item2.setState(PlayerItem::STAND);
+                    //将index重置
+                    m_item2.setUltimateSkillIndex(0);
+                }
+            }
+        }
+        //刷新龟派气功
+        if(m_guiFlyItem!=NULL)
+        {
+            m_guiFlyItem->Flying();
+            m_guiFlyItem->updatePos();
+        }
+
         //刷新爆炸物
         if(m_explodingitem.isItemVisable)
         {
@@ -136,11 +204,13 @@ void NetGameScene::timerEvent(QTimerEvent *event)
         }
 
 
-        //刷新血条和精力条
+        //刷新血条和精力条和怒气条
         m_healthBar_1.setBlood(m_item1.getBlood());
         m_healthBar_2.setBlood(m_item2.getBlood());
         m_energyBar_1.setEnergy(m_item1.getEnergy());
         m_energyBar_2.setEnergy(m_item2.getEnergy());
+        m_angerBar_1.setAnger(m_item1.getAnger());
+        m_angerBar_2.setAnger(m_item2.getAnger());
 
         // 游戏线程 刷新视图和人物跑动 碰撞 跳跃
         //只需要可操控的角色进行奔跑即可
