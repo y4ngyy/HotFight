@@ -21,7 +21,7 @@ StartWindow::StartWindow(QWidget *parent) :
                           Qt::IgnoreAspectRatio,
                           Qt::SmoothTransformation)));
     setPalette(back);
-
+    setWindowIcon(QIcon(":/images/icon.png"));
     // 初始化指针
     m_localGame = nullptr;
     m_netConnectDialog = nullptr;
@@ -51,6 +51,7 @@ void StartWindow::on_btnNetGame_clicked()
 
 void StartWindow::on_btnHelp_clicked()
 {
-
+    m_helpWindow = new Help();
+    m_helpWindow->show();
 }
 

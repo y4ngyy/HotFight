@@ -277,5 +277,6 @@
         <file>images/player3/ultimateskill/15.png</file>
         <file>images/player3/ultimateskill/16.png</file>
         <file>images/player3/ultimateskill/17.png</file>
+        <file>images/icon.png</file>
     </qresource>
 </RCC>

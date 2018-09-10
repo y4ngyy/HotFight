@@ -70,7 +70,7 @@ QLabel{border-image:url(:/images/label_background.png)}
           <enum>Qt::RightToLeft</enum>
          </property>
          <property name="text">
-          <string>双人热血格斗</string>
+          <string>双人硬核格斗</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -131,6 +131,7 @@ QLabel{border-image:url(:/images/label_background.png)}
          <property name="font">
           <font>
            <family>Adobe 楷体 Std R</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <property name="autoFillBackground">
@@ -198,6 +199,7 @@ QLabel{border-image:url(:/images/label_background.png)}
          <property name="font">
           <font>
            <family>Adobe 楷体 Std R</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -262,6 +264,7 @@ QLabel{border-image:url(:/images/label_background.png)}
          <property name="font">
           <font>
            <family>Adobe 楷体 Std R</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <property name="styleSheet">

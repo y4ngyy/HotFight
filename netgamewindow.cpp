@@ -43,3 +43,9 @@ void NetGameWindow::setSceneNetType(NetGameScene::NETTYPE Type)
  {
      return m_netGameScene.getObjectPort();
  }
+
+ // 重载closeEvent 关闭窗口时停止udp传输
+ void NetGameWindow::closeEvent(QCloseEvent *event)
+ {
+     m_netGameScene.closeUdpSocket();
+ }

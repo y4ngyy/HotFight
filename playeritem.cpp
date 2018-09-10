@@ -591,7 +591,7 @@ QRectF PlayerItem::boundingRect() const
 {
     // 将boundingRect改为较大定值区域 去除重绘bug
     // 要重写shape函数来作为碰撞检测的根据
-    return QRectF(0, -200, 200, 200);
+    return QRectF(0, -200, 200, 400);
 }
 
 void PlayerItem::setPixmapInfo()
@@ -902,7 +902,7 @@ void PlayerItem::jump()
     }
     else
     {
-        m_jumpCurrentV -= s_Gravity * m_jumpT;
+        m_jumpCurrentV -= s_Gravity;
         m_jumpT++;
     }
 }

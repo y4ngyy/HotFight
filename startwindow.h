@@ -3,7 +3,8 @@
 
 #include "localgamewindow.h"
 #include "netgamewindow.h"
-#include"netconnectdialog.h"
+#include "netconnectdialog.h"
+#include "help.h"
 #include <QWidget>
 
 namespace Ui {
@@ -32,6 +33,8 @@ private:
 
     //必须先进入联网的客户段的窗口
     NetConnectDialog *m_netConnectDialog;
+    //帮助界面
+    Help *m_helpWindow;
 
 };
 
