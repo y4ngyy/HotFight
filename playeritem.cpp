@@ -16,6 +16,8 @@ PlayerItem::PlayerItem()
     m_attackingFlag=false;
     m_damageFlag=false;
     m_hasDamagedFlag=false; //还没有被攻击一次
+    m_characterFlag=C1; //默认是女战士
+
 
     // 动画轮播下标初始化
     standIndex = 0;
@@ -25,61 +27,23 @@ PlayerItem::PlayerItem()
     kickIndex = 0;
     skillIndex = 0;
     jumpIndex = 0;
+    ultimateSkillIndex=0;
 
     // 键盘flag初始化
     m_leftFlag = false;
     m_rightFlag = false;
     m_attackClickFlag = true;
+//    m_isJumpStart = true;
 
     // 人物属性初始化
     m_blood = 100;
     m_energy = 100;
     m_tenacity = 100; // 硬直
+    m_anger=0;// 怒气
 }
 
 PlayerItem::~PlayerItem()
 {
-}
-
-void PlayerItem::init_1()
-{
-     p_standing.append(QPixmap(":/images/player1/standing.png"));
-     p_running.append(QPixmap(":/images/player1/running_1.png"));
-     p_running.append(QPixmap(":/images/player1/running_2.png"));
-     p_running.append(QPixmap(":/images/player1/running_3.png"));
-     p_running.append(QPixmap(":/images/player1/running_2.png"));
-     p_punch.append(QPixmap(":/images/player1/punching_1.png"));
-     p_punch.append(QPixmap(":/images/player1/punching_2.png"));
-     p_punch.append(QPixmap(":/images/player1/punching_3.png"));
-     p_punch.append(QPixmap(":/images/player1/punching_4.png"));
-     p_ishitting.append(QPixmap(":/images/player1/ishitting_1.png"));
-     p_ishitting.append(QPixmap(":/images/player1/ishitting_2.png"));
-     p_ishitting.append(QPixmap(":/images/player1/ishitting_3.png"));
-     p_kicking.append(QPixmap(":/images/player1/kicking_1.png"));
-     p_kicking.append(QPixmap(":/images/player1/kicking_2.png"));
-     p_kicking.append(QPixmap(":/images/player1/kicking_3.png"));
-     p_kicking.append(QPixmap(":/images/player1/kicking_4.png"));
-}
-
-
-void PlayerItem::init_2()
-{
-        p_standing.append(QPixmap(":/images/player2/standing.png"));
-        p_running.append(QPixmap(":/images/player2/running_1.png"));
-        p_running.append(QPixmap(":/images/player2/running_2.png"));
-        p_running.append(QPixmap(":/images/player2/running_3.png"));
-        p_running.append(QPixmap(":/images/player2/running_4.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_1.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_2.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_3.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_3.png"));
-        p_ishitting.append(QPixmap(":/images/player2/ishitting_1.png"));
-        p_ishitting.append(QPixmap(":/images/player2/ishitting_2.png"));
-        p_ishitting.append(QPixmap(":/images/player2/ishitting_3.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_1.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_2.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_3.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_4.png"));
 }
 
 void PlayerItem::init_3()
@@ -95,6 +59,8 @@ void PlayerItem::init_3()
         p_kicking.append(QPixmap(QString(":/images/player3/kicking/kicking_%1.png").arg(i)));
     for(int i=1; i<=4; i++)
         p_ishitting.append(QPixmap(QString(":/images/player3/ishitting/isattacked_%1.png").arg(i)));
+    for(int i=1; i<=6; i++)
+        p_jumping.append(QPixmap(QString(":/images/player3/jumping/jumping_%1.png").arg(i)));
     // 技能添加
     QList<QPixmap> skillList;
     // 技能1
@@ -127,8 +93,13 @@ void PlayerItem::init_3()
         skillList.append(QPixmap(QString(":/images/player3/skill_6/%1.png").arg(i)));
     p_skill.append(skillList);
 
-    for(int i=1; i<=6; i++)
-        p_jumping.append(QPixmap(QString(":/images/player3/jumping/jumping_%1.png").arg(i)));
+    //终结技
+    for(int i=1; i<=17; i++)
+        p_ultimateSkill.append(QPixmap(QString(":/images/player3/ultimateskill/%1.png").arg(i)));
+
+
+
+
 
     // 加载路径
     // stand
@@ -157,6 +128,8 @@ void PlayerItem::init_3()
     // skill 6
     m_skillPath_6.addEllipse(0, 0, p_skill.at(5).at(5).width(), -p_skill.at(5).at(5).height());
 
+    //预留大招的形状
+
     // 人物属性初始化
     // 攻击力属性
     m_basicATK = 5; // 基础攻击力 在init中初始
@@ -164,6 +137,7 @@ void PlayerItem::init_3()
     m_kickATK = 15;
     for(int i=1;i<=6;i++)
         m_skillATK.append(15);
+    m_ultimateATK=30;
 
     // 防御力属性
     m_basicDEF = 10;
@@ -174,6 +148,7 @@ void PlayerItem::init_3()
     m_kickEnReduce = 20;
     for(int i=1;i<=6;i++)
         m_skillEnReduce.append(30);
+    m_ultimateEnReduce=40;
 
     // 招式的削韧
     m_punchTeReduce = 20;
@@ -182,6 +157,10 @@ void PlayerItem::init_3()
         m_skillTeReduce.append(25);
     m_skillTeReduce.append(30);
     m_skillTeReduce.append(30);
+    m_ultimateATK=40;
+
+    //怒气的积攒值
+    m_angerIncrease=8;
 }
 
 void PlayerItem::init_4()
@@ -230,6 +209,10 @@ void PlayerItem::init_4()
         for(int i=1;i<=7 ;i++)
             skillList.append(QPixmap(QString(":/images/player4/skill_6/%1.png").arg(i)));
         p_skill.append(skillList);
+
+        //终结技
+        for(int i=1; i<=10; i++)
+            p_ultimateSkill.append(QPixmap(QString(":/images/player4/ultimateskill/%1.png").arg(i)));
 
         //加载路径
         //stand
@@ -284,6 +267,8 @@ void PlayerItem::init_4()
         //skill_6
         m_skillPath_6.addEllipse(0,-p_skill.at(5).at(3).height() , p_skill.at(5).at(3).width() , p_skill.at(5).at(3).height());
 
+        //预留终结技的接口
+
         // 人物属性初始化
         // 攻击力属性
         m_basicATK = 5; // 基础攻击力 在init中初始
@@ -291,6 +276,7 @@ void PlayerItem::init_4()
         m_kickATK = 15;
         for(int i=1;i<=6;i++)
             m_skillATK.append(15);
+        m_ultimateATK=50;
 
         // 防御力属性
         m_basicDEF = 10;
@@ -301,6 +287,7 @@ void PlayerItem::init_4()
         m_kickEnReduce = 20;
         for(int i=1;i<=6;i++)
             m_skillEnReduce.append(30);
+        m_ultimateEnReduce=40;
 
         // 招式的削韧
         m_punchTeReduce = 20;
@@ -309,6 +296,10 @@ void PlayerItem::init_4()
             m_skillTeReduce.append(25);
         m_skillTeReduce.append(30);
         m_skillTeReduce.append(30);
+        m_ultimateTeReduce=100;
+
+        //怒气的积攒值
+        m_angerIncrease=10;
 }
 
 void PlayerItem::paint(QPainter *painter,
@@ -415,12 +406,7 @@ void PlayerItem::paint(QPainter *painter,
                 if(ishittingIndex >= p_ishitting.size()-1)
                 {
                     punchIndex = 0;
-                    if(m_tenacity>=20)
-                    {
-                        qDebug()<<"改变状态";
-                        m_state = STAND;       //被攻击的最后一帧应该停下来
-                        m_attackedState=NOATTACKED;  //解除硬直
-                    }
+                     //解除硬值放在rule里面
                 }
                 else
                     ishittingIndex++;
@@ -433,11 +419,27 @@ void PlayerItem::paint(QPainter *painter,
                 {
                     painter->drawImage(0, -m_height, p_ishitting.at(ishittingIndex).toImage().mirrored(true,false));
                 }
-                break;
             }
+            else
+            {
+                // 站立状态视图
+                if(standIndex >= p_standing.size()-1)
+                {
+                    standIndex = 0;
+                }
+                else
+                    standIndex++;
+                if(m_direction == RIGHT)
+                {
+                    painter->drawImage(0, -m_height, p_standing.at(standIndex).toImage());
+                }
+                else
+                    painter->drawImage(0, -m_height, p_standing.at(standIndex).toImage().mirrored(true,false));
+            }
+            break;
         case SKILL:
             // 释放技能
-            setSkillType();
+
             if(m_skillType==NONESKILL)
             {
                 m_buffer.clear();
@@ -458,12 +460,8 @@ void PlayerItem::paint(QPainter *painter,
                     painter->drawImage(0, -m_height, p_standing.at(standIndex).toImage().mirrored(true,false));
             }
             else
-            {/*
-                if(skillIndex==0)
-                {
-                    //计算精力消耗
-                    Rule::calculateEnergy(*this, m_skillEnReduce.at(m_skillType));
-                }*/
+            {
+
                 if(skillIndex >= p_skill.at(m_skillType).size()-1)
                 {
                     skillIndex = 0;
@@ -489,6 +487,7 @@ void PlayerItem::paint(QPainter *painter,
             break;
         case JUMP:
             // 跳跃
+
             if(jumpIndex <= 3 && m_jumpCurrentV > 0)
             {
                 jumpIndex++;
@@ -501,6 +500,39 @@ void PlayerItem::paint(QPainter *painter,
             }
             else
                 painter->drawImage(0, -m_height, p_jumping.at(jumpIndex).toImage().mirrored(true,false));
+            break;
+        //终结技
+        case ULTIMATESKILL:
+
+            if(ultimateSkillIndex >= p_ultimateSkill.size()-1)
+            {
+                // 两个人物有区别
+                if(m_characterFlag==C1)
+                {
+                    Rule::calculateAnger(*this,-100);
+                    Rule::calculateEnergy(*this, m_ultimateEnReduce);
+                    ultimateSkillIndex = 0;
+                    m_state=STAND;
+                }
+                else if(m_characterFlag==C2)
+                {
+                    qDebug()<<"怒气扣掉了";
+                    Rule::calculateAnger(*this,-100);
+                    Rule::calculateEnergy(*this, m_ultimateEnReduce);
+                    //什么都不做
+                }
+
+            }
+            else
+            {
+                ultimateSkillIndex++;
+            }
+            if(m_direction == RIGHT)
+            {
+                painter->drawImage(0, -m_height, p_ultimateSkill.at(ultimateSkillIndex).toImage());
+            }
+            else
+                painter->drawImage(0, -m_height, p_ultimateSkill.at(ultimateSkillIndex).toImage().mirrored(true,false));
             break;
         default:
             break;
@@ -587,6 +619,27 @@ void PlayerItem::setPixmapInfo()
             m_width = p_jumping.at(jumpIndex).width();
             m_height = p_jumping.at(jumpIndex).height();
             break;
+        case SKILL:
+            //可能有小bug 不知道为什么会造成指针越界
+            if(m_skillType==NONESKILL)
+            {
+                m_width = p_standing.at(standIndex).width();
+                m_height = p_standing.at(standIndex).height();
+
+            }
+            else
+            {
+                if(skillIndex<p_skill.at(m_skillType).size())
+                {
+                    m_width=p_skill.at(m_skillType).at(skillIndex).width();
+                    m_height=p_skill.at(m_skillType).at(skillIndex).height();
+                }
+            }
+            break;
+        case ULTIMATESKILL:
+             m_width=p_ultimateSkill.at(ultimateSkillIndex).width();
+             m_height=p_ultimateSkill.at(ultimateSkillIndex).height();
+            break;
         default:
             break;
     }
@@ -596,6 +649,13 @@ void PlayerItem::setPixmapInfo()
     //所有的set/get函数的实现
 void PlayerItem::setState(STATE t_state)
 {
+//    if(t_state == JUMP && m_isJumpStart)
+//    {
+//        jumpStart();
+//        m_isJumpStart = false;
+//    }
+//    else if(t_state != JUMP)
+//        m_isJumpStart = true;
     m_state = t_state;
 }
 
@@ -754,6 +814,54 @@ bool PlayerItem::getHasDamagedFlag()const
     return m_hasDamagedFlag;
 }
 
+void PlayerItem::setJumpCurrentV(qreal v)
+{
+    m_jumpCurrentV=v;
+}
+
+qreal PlayerItem::getJumpCurrentV()const
+{
+    return m_jumpCurrentV;
+}
+
+void PlayerItem::setCharacterFlag(CHARACTERFlAG flag)
+{
+    m_characterFlag=flag;
+}
+
+PlayerItem::CHARACTERFlAG PlayerItem::getCharacterFlag()const
+{
+    return m_characterFlag;
+}
+
+void PlayerItem::setUltimateSkillIndex(int index)
+{
+    ultimateSkillIndex=index;
+}
+
+int PlayerItem::getUltimateSkillIndex()const
+{
+    return ultimateSkillIndex;
+}
+
+void PlayerItem::setAnger(int anger)
+{
+    m_anger=anger;
+}
+
+int PlayerItem::getAnger()const
+{
+    return m_anger;
+}
+
+void PlayerItem::setAngerIncrease(int increase)
+{
+    m_angerIncrease=increase;
+}
+int PlayerItem::getAngerIncrease()const
+{
+    return m_angerIncrease;
+}
 void PlayerItem::run()
 {
     // 人物奔跑功能 m_x控制
@@ -816,6 +924,28 @@ void PlayerItem::attackingMove()
                 m_x +=m_width/15;
             }
             break;
+        //大招的位移补偿
+       case ULTIMATESKILL:
+            if(m_characterFlag==C1) //如果是女战士的话
+            {
+                if(m_direction==LEFT && m_collidedState!=ISCOLLIDEDLEFT)
+                {
+                    m_x -=m_width/8;
+                }
+                else if(m_direction==RIGHT && m_collidedState!=ISCOLLIDEDRIGHT)
+                {
+                    m_x +=m_width/8;
+                }
+            }
+            else if(m_characterFlag==C2)   //如果是孙悟空，孙悟空的龟派气功不补偿
+            {
+                return;
+            }
+            else
+            {
+                return;
+            }
+            break;
        default:
             break;
    }
@@ -831,6 +961,7 @@ void PlayerItem::jumpStart()
     m_jumpCurrentV = m_jumpVerticalV;
     m_jumpT = 1;
 }
+
 void PlayerItem::setPositonInfo(qreal x, qreal y)
 {
     m_x = x;
@@ -848,8 +979,9 @@ void PlayerItem::updatePos()
 }
 
 //根据缓冲区来设定出招的种类
-void PlayerItem::setSkillType()
+void PlayerItem::judgeSkillType()
 {
+    qDebug()<<"缓冲区大小"<<m_buffer.getCurrentSize();
     if(m_buffer.getCurrentSize()<KeyBoardBuffer::SIZE)
     {
         m_skillType = NONESKILL;
@@ -894,3 +1026,5 @@ void PlayerItem::setSkillType()
     }
 
 }
+
+

@@ -12,7 +12,5 @@ int main(int argc, char *argv[])
     s.show();
 
     // 测试结束界面
-    EndWindow e;
-    e.show();
     return a.exec();
 }

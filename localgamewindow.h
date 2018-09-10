@@ -9,6 +9,7 @@
 #include <QWidget>
 #include<QEvent>
 #include<QKeyEvent>
+#include <QCloseEvent>
 
 
 class LocalGameWindow : public QGraphicsView
@@ -21,7 +22,7 @@ public:
 protected:
 private:
 
-    LocalGameScene m_localgamescene;   //测试需要
+    LocalGameScene *m_localgamescene;   //测试需要
 };
 
 #endif // MAINWINDOW_H

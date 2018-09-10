@@ -242,5 +242,40 @@
         <file>images/mouse.png</file>
         <file>images/endui_background.gif</file>
         <file>images/label_background.png</file>
+        <file>images/player4/guiflyitem/1.png</file>
+        <file>images/player4/guiflyitem/2.png</file>
+        <file>images/player4/guiflyitem/3.png</file>
+        <file>images/player4/guiflyitem/4.png</file>
+        <file>images/player4/guiflyitem/5.png</file>
+        <file>images/player4/guiflyitem/6.png</file>
+        <file>images/player4/guiflyitem/7.png</file>
+        <file>images/player4/guiflyitem/8.png</file>
+        <file>images/player4/ultimateskill/1.png</file>
+        <file>images/player4/ultimateskill/2.png</file>
+        <file>images/player4/ultimateskill/3.png</file>
+        <file>images/player4/ultimateskill/4.png</file>
+        <file>images/player4/ultimateskill/5.png</file>
+        <file>images/player4/ultimateskill/6.png</file>
+        <file>images/player4/ultimateskill/7.png</file>
+        <file>images/player4/ultimateskill/8.png</file>
+        <file>images/player4/ultimateskill/9.png</file>
+        <file>images/player4/ultimateskill/10.png</file>
+        <file>images/player3/ultimateskill/1.png</file>
+        <file>images/player3/ultimateskill/2.png</file>
+        <file>images/player3/ultimateskill/3.png</file>
+        <file>images/player3/ultimateskill/4.png</file>
+        <file>images/player3/ultimateskill/5.png</file>
+        <file>images/player3/ultimateskill/6.png</file>
+        <file>images/player3/ultimateskill/7.png</file>
+        <file>images/player3/ultimateskill/8.png</file>
+        <file>images/player3/ultimateskill/9.png</file>
+        <file>images/player3/ultimateskill/10.png</file>
+        <file>images/player3/ultimateskill/11.png</file>
+        <file>images/player3/ultimateskill/12.png</file>
+        <file>images/player3/ultimateskill/13.png</file>
+        <file>images/player3/ultimateskill/14.png</file>
+        <file>images/player3/ultimateskill/15.png</file>
+        <file>images/player3/ultimateskill/16.png</file>
+        <file>images/player3/ultimateskill/17.png</file>
     </qresource>
 </RCC>

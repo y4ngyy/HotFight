@@ -32,7 +32,6 @@ SOURCES += \
     localgamewindow.cpp \
     gamescene.cpp \
     localgamescene.cpp \
-    netplayeritem.cpp \
     netgamescene.cpp \
     netgamewindow.cpp \
     keyboardbuffer.cpp \
@@ -40,7 +39,12 @@ SOURCES += \
     helthybar.cpp \
     energybar.cpp \
     explodingitem.cpp \
-    endwindow.cpp
+    endwindow.cpp \
+    net.cpp \
+    netplayer1p.cpp \
+    netplayer2p.cpp \
+    guiflyitem.cpp \
+    angerbar.cpp
 
 HEADERS += \
     playeritem.h \
@@ -51,7 +55,6 @@ HEADERS += \
     localgamewindow.h \
     gamescene.h \
     localgamescene.h \
-    netplayeritem.h \
     netgamescene.h \
     netgamewindow.h \
     keyboardbuffer.h \
@@ -59,7 +62,12 @@ HEADERS += \
     healthybar.h \
     energybar.h \
     explodingitem.h \
-    endwindow.h
+    endwindow.h \
+    net.h \
+    netplayer1p.h \
+    netplayer2p.h \
+    guiflyitem.h \
+    angerbar.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

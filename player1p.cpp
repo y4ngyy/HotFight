@@ -2,11 +2,14 @@
 #include <QPixmap>
 #include <QKeyEvent>
 #include <windows.h>
+#include<QDebug>
 
 Player1P::Player1P()
 {
     init_3();
+    setCharacterFlag(PlayerItem::C1);
     setHeight(p_standing.at(0).height());
+    m_direction=PlayerItem::RIGHT;
 
 }
 
@@ -17,7 +20,7 @@ Player1P::Player1P()
 void Player1P::keyPressEvent(QKeyEvent *event)
 {
     // 技能释放中不处理键盘事件
-    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP)
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP && m_state!=ULTIMATESKILL)
     {
         switch (event->key())
         {
@@ -32,7 +35,7 @@ void Player1P::keyPressEvent(QKeyEvent *event)
                 m_rightFlag = true;
                 break;
             case Qt::Key_W:
-                if(getEnergy() < m_jumpEnReduce)
+              if(getEnergy() < m_jumpEnReduce)
                     return;
                 jumpStart();
                 m_state = JUMP;
@@ -62,6 +65,14 @@ void Player1P::keyPressEvent(QKeyEvent *event)
                 break;
             case Qt::Key_I:
                 m_state = SKILL;
+                judgeSkillType();
+                break;
+            case Qt::Key_U:
+                if(getAnger()<100)
+                {
+                    return;
+                }
+                m_state=ULTIMATESKILL;   //大招
                 break;
             default:
                 break;
@@ -72,7 +83,7 @@ void Player1P::keyPressEvent(QKeyEvent *event)
 void Player1P::keyReleaseEvent(QKeyEvent *event)
 {
     // 技能释放中或者硬直状态下或者跳跃状态不处理键盘事件
-    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP)
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP && m_state!=ULTIMATESKILL)
     {
         switch (event->key())
         {
@@ -296,7 +307,31 @@ void Player1P::JudgeingAttack()
                     break;
             }
             break;
-
+       case ULTIMATESKILL:
+        //2-4帧 ,6-8,14-17
+           if((ultimateSkillIndex>=1&&ultimateSkillIndex<=3)||
+                   (ultimateSkillIndex>=5&&ultimateSkillIndex<=7)||
+                   (ultimateSkillIndex>=13&&ultimateSkillIndex<=16))
+           {
+               m_attackingFlag=true;
+               //如果伤害还没有被计算
+               if(!m_hasDamagedFlag)
+               {
+                   m_damageFlag=true;
+               }
+               else
+               {
+                   //如果已经计算过一次伤害了，那就不能再次造成伤害
+                   m_damageFlag=false;
+               }
+           }
+           else
+           {
+               m_damageFlag=false;
+               m_attackingFlag=false;
+               m_hasDamagedFlag=false;
+           }
+           break;
        default:
             {
                 m_attackingFlag=false;

@@ -1,6 +1,7 @@
 #include "startwindow.h"
 #include "ui_startwindow.h"
 #include <QPalette>
+#include <QCloseEvent>
 
 StartWindow::StartWindow(QWidget *parent) :
     QWidget(parent),
@@ -20,15 +21,19 @@ StartWindow::StartWindow(QWidget *parent) :
                           Qt::IgnoreAspectRatio,
                           Qt::SmoothTransformation)));
     setPalette(back);
+
+    // 初始化指针
+    m_localGame = nullptr;
+    m_netConnectDialog = nullptr;
 }
 
 StartWindow::~StartWindow()
 {
     delete ui;
-    if(m_localGame != nullptr)
-        delete m_localGame;
-    if(m_netConnectDialog != nullptr)
-        delete m_netConnectDialog;
+//    if(m_localGame != nullptr)
+//        delete m_localGame;
+//    if(m_netConnectDialog != nullptr)
+//        delete m_netConnectDialog;
 }
 
 void StartWindow::on_btnLocalGame_clicked()
@@ -36,7 +41,6 @@ void StartWindow::on_btnLocalGame_clicked()
     // 打开单机游戏画面
     m_localGame = new LocalGameWindow();
     m_localGame->show();
-    this->close();
 }
 
 void StartWindow::on_btnNetGame_clicked()
@@ -49,3 +53,4 @@ void StartWindow::on_btnHelp_clicked()
 {
 
 }
+

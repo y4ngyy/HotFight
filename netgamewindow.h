@@ -21,8 +21,6 @@ public:
     void setScenePort(int);
     int getScenePort()const;
 protected:
-    void closeEvent(QCloseEvent *);
-
 private:
     NetGameScene m_netGameScene;
 

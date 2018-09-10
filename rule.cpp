@@ -1,4 +1,5 @@
 #include "rule.h"
+#include<QDebug>
 
 Rule::Rule()
 {
@@ -21,10 +22,16 @@ void Rule::calculateBlood(PlayerItem &attackItem, PlayerItem &attackedItem)
                 return;
             t_atk = attackItem.m_skillATK.at(attackItem.m_skillType);
         break;
+        case PlayerItem::ULTIMATESKILL:
+            //测试需要
+            qDebug()<<"减少生命";
+            t_atk=attackedItem.m_ultimateATK;
+            break;
         default:
             return;
     }
     double damage=m_damageK1* t_atk + m_damageK2 * attackItem.m_energy - m_damageK4 * attackedItem.m_energy- m_damageK3 * attackedItem.m_basicDEF;
+    qDebug()<<"伤害"<<damage;
     if(damage>=0)
     {
         attackedItem.m_blood -= damage;
@@ -57,6 +64,9 @@ void Rule::calculateTenacity(PlayerItem &attackItem, PlayerItem &attackedItem)
             if(attackItem.m_skillType == PlayerItem::NONESKILL)
                 return;
             t_tenaReduce = attackItem.m_skillTeReduce.at(attackItem.m_skillType);
+        case PlayerItem::ULTIMATESKILL:
+            t_tenaReduce = attackItem.m_ultimateTeReduce;
+            break;
         default:
             return;
     }
@@ -64,6 +74,21 @@ void Rule::calculateTenacity(PlayerItem &attackItem, PlayerItem &attackedItem)
         attackedItem.m_tenacity = 0;
     else
         attackedItem.m_tenacity -= t_tenaReduce;
+}
+
+//怒气积攒
+void Rule::calculateAnger(PlayerItem& item,int anger)
+{
+
+    item.m_anger += anger;
+    if(item.m_anger>100)
+    {
+        item.m_anger=100;
+    }
+    if(item.m_anger<0)
+    {
+        item.m_anger=0;
+    }
 }
 
 // timerEvent中调用
@@ -90,5 +115,11 @@ void Rule::recoverTenacity(PlayerItem &item)
             item.m_tenacity = 100;
         else
             item.m_tenacity += 2;
+    }
+    if(item.m_tenacity>=20 && item.m_attackedState==PlayerItem::ISATTACKED )
+    {
+        qDebug()<<"改变状态";
+        item.m_state = PlayerItem::STAND;       //被攻击的最后一帧应该停下来
+        item.m_attackedState=PlayerItem::NOATTACKED;  //解除硬直
     }
 }

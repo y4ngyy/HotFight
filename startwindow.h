@@ -17,7 +17,6 @@ class StartWindow : public QWidget
 public:
     explicit StartWindow(QWidget *parent = nullptr);
     ~StartWindow();
-
 private slots:
     void on_btnLocalGame_clicked();
 
