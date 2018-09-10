@@ -46,47 +46,6 @@ PlayerItem::~PlayerItem()
 {
 }
 
-void PlayerItem::init_1()
-{
-     p_standing.append(QPixmap(":/images/player1/standing.png"));
-     p_running.append(QPixmap(":/images/player1/running_1.png"));
-     p_running.append(QPixmap(":/images/player1/running_2.png"));
-     p_running.append(QPixmap(":/images/player1/running_3.png"));
-     p_running.append(QPixmap(":/images/player1/running_2.png"));
-     p_punch.append(QPixmap(":/images/player1/punching_1.png"));
-     p_punch.append(QPixmap(":/images/player1/punching_2.png"));
-     p_punch.append(QPixmap(":/images/player1/punching_3.png"));
-     p_punch.append(QPixmap(":/images/player1/punching_4.png"));
-     p_ishitting.append(QPixmap(":/images/player1/ishitting_1.png"));
-     p_ishitting.append(QPixmap(":/images/player1/ishitting_2.png"));
-     p_ishitting.append(QPixmap(":/images/player1/ishitting_3.png"));
-     p_kicking.append(QPixmap(":/images/player1/kicking_1.png"));
-     p_kicking.append(QPixmap(":/images/player1/kicking_2.png"));
-     p_kicking.append(QPixmap(":/images/player1/kicking_3.png"));
-     p_kicking.append(QPixmap(":/images/player1/kicking_4.png"));
-}
-
-
-void PlayerItem::init_2()
-{
-        p_standing.append(QPixmap(":/images/player2/standing.png"));
-        p_running.append(QPixmap(":/images/player2/running_1.png"));
-        p_running.append(QPixmap(":/images/player2/running_2.png"));
-        p_running.append(QPixmap(":/images/player2/running_3.png"));
-        p_running.append(QPixmap(":/images/player2/running_4.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_1.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_2.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_3.png"));
-        p_punch.append(QPixmap(":/images/player2/punching_3.png"));
-        p_ishitting.append(QPixmap(":/images/player2/ishitting_1.png"));
-        p_ishitting.append(QPixmap(":/images/player2/ishitting_2.png"));
-        p_ishitting.append(QPixmap(":/images/player2/ishitting_3.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_1.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_2.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_3.png"));
-        p_kicking.append(QPixmap(":/images/player2/kicking_4.png"));
-}
-
 void PlayerItem::init_3()
 {
     // 重写成for循环

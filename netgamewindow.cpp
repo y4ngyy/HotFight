@@ -14,12 +14,6 @@ setStyleSheet("border: 0px;"
               "padding: 0px;");
 
 }
-
-void NetGameWindow::closeEvent(QCloseEvent *e)
-{
-    m_netGameScene.closeUdpSocket();
-}
-
 //用来调用子类的set函数
 void NetGameWindow::setSceneNetType(NetGameScene::NETTYPE Type)
 {

@@ -5,7 +5,8 @@ LocalGameWindow::LocalGameWindow(QWidget *parent)
     : QGraphicsView(parent)
 {
 setFixedSize(800,400);
-setScene(&m_localgamescene);
+m_localgamescene = new LocalGameScene();
+setScene(m_localgamescene);
 this->setBackgroundBrush(QBrush(
                              QPixmap(":/images/startui_background.gif").scaled(
                                  this->size(),
@@ -18,5 +19,6 @@ setStyleSheet("border: 0px;"
 
 LocalGameWindow::~LocalGameWindow()
 {
-
+    if(m_localgamescene != nullptr)
+        delete m_localgamescene;
 }
