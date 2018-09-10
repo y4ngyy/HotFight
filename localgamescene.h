@@ -8,12 +8,21 @@
 #include"explodingitem.h"
 #include"guiflyitem.h"
 #include <QEvent>
+#include<QObject>
 
 class LocalGameScene : public GameScene
 {
+Q_OBJECT
 public:
     LocalGameScene();
     ~LocalGameScene();
+
+//自定义信号
+signals:
+    void gameover1PSignal();
+    void gameover2PSignal();
+    void gameoverBothSignal();
+
 protected:
     // 游戏线程
     void timerEvent(QTimerEvent *);

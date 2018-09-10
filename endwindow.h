@@ -2,6 +2,7 @@
 #define ENDWINDOW_H
 
 #include <QWidget>
+#include<QString>
 
 namespace Ui {
 class EndWindow;
@@ -9,12 +10,14 @@ class EndWindow;
 
 class EndWindow : public QWidget
 {
-    Q_OBJECT
-
+   Q_OBJECT
 public:
     explicit EndWindow(QWidget *parent = nullptr);
+    void setWinner(QString);
     ~EndWindow();
-
+signals:
+    void restartSignal();
+    void returnToSignal();
 private slots:
     void on_btnRestart_clicked();
 

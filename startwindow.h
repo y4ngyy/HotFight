@@ -16,8 +16,14 @@ class StartWindow : public QWidget
     Q_OBJECT
 
 public:
+    enum WINDOWTYPE{NOWINDOW,LOCAL,NET};
     explicit StartWindow(QWidget *parent = nullptr);
     ~StartWindow();
+
+    void setWindowType(WINDOWTYPE);
+    WINDOWTYPE getWindowType()const;
+ public slots:
+    void closeLocalGame();
 private slots:
     void on_btnLocalGame_clicked();
 
@@ -26,6 +32,7 @@ private slots:
     void on_btnHelp_clicked();
 
 private:
+    WINDOWTYPE m_windowType;
     Ui::StartWindow *ui;
 
     // 单机游戏界面

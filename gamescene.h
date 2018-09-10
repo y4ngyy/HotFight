@@ -6,6 +6,8 @@
 #include "player1p.h"
 #include "player2p.h"
 #include <QEvent>
+#include<QObject>
+#include<QWidget>
 #include <QKeyEvent>
 #include <QTimerEvent>
 #include"rule.h"
@@ -16,6 +18,7 @@
 enum NETFLAG{SERVER, CLIENT};
 class GameScene: public QGraphicsScene
 {
+
 public:
     GameScene();
     ~GameScene();
