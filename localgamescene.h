@@ -4,6 +4,7 @@
 #include "gamescene.h"
 #include "healthybar.h"
 #include"energybar.h"
+#include"angerbar.h"
 #include"explodingitem.h"
 #include"guiflyitem.h"
 #include <QEvent>
@@ -22,13 +23,16 @@ protected:
 
 
 private:
-    Player1P item1;
-    Player2P item2;
-    HealthyBar healthBar_1;
-    HealthyBar healthBar_2;
-    EnergyBar energyBar_1;
-    EnergyBar energyBar_2;
+    Player1P m_item1;
+    Player2P m_item2;
+    HealthyBar m_healthBar_1;
+    HealthyBar m_healthBar_2;
+    EnergyBar m_energyBar_1;
+    EnergyBar m_energyBar_2;
+    AngerBar m_angerBar_1;
+    AngerBar m_angerBar_2;
     ExplodingItem m_explodingitem;
+
 
     // 游戏线程ID
     int timerId;

@@ -8,7 +8,7 @@ NetPlayer2P::NetPlayer2P()
 void NetPlayer2P::keyPressEvent(QKeyEvent * event)
 {
     // 技能释放中不处理键盘事件
-    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP)
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP && m_state!=ULTIMATESKILL)
     {
         switch (event->key())
         {
@@ -55,6 +55,13 @@ void NetPlayer2P::keyPressEvent(QKeyEvent * event)
                 m_state = SKILL;
                 judgeSkillType();
                 break;
+            case Qt::Key_U:
+                if(getAnger()<100)
+                {
+                    return;
+                }
+                m_state=ULTIMATESKILL;   //大招
+                break;
             default:
                 break;
         }
@@ -64,7 +71,7 @@ void NetPlayer2P::keyPressEvent(QKeyEvent * event)
 void NetPlayer2P::keyReleaseEvent(QKeyEvent * event)
 {
     // 技能释放中或者硬直状态下或者跳跃状态不处理键盘事件
-    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP)
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP && m_state!=ULTIMATESKILL)
     {
         switch (event->key())
         {

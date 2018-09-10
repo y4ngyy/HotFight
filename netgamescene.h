@@ -51,10 +51,10 @@ private:
     // 游戏元素
     NetPlayer1P m_item1;
     NetPlayer2P m_item2;
-    HealthyBar healthBar_1;
-    HealthyBar healthBar_2;
-    EnergyBar energyBar_1;
-    EnergyBar energyBar_2;
+    HealthyBar m_healthBar_1;
+    HealthyBar m_healthBar_2;
+    EnergyBar m_energyBar_1;
+    EnergyBar m_energyBar_2;
     ExplodingItem m_explodingitem;
     //窗口的类型，是客户端或者是服务器
     // 调试时在构造函数里面设置，实际用对话框设置

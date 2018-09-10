@@ -20,7 +20,7 @@ Player2P::Player2P()
 */
 void Player2P::keyPressEvent(QKeyEvent *event)
 {
-    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP)
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP&& m_state!=ULTIMATESKILL)
     {
         switch (event->key())
         {
@@ -66,6 +66,10 @@ void Player2P::keyPressEvent(QKeyEvent *event)
                 judgeSkillType();
                 break;
             case Qt::Key_4:
+                if(getAnger()<100)
+                {
+                    return;
+                }
                 m_state=ULTIMATESKILL;   //大招
                 break;
             default:
@@ -77,7 +81,7 @@ void Player2P::keyPressEvent(QKeyEvent *event)
 void Player2P::keyReleaseEvent(QKeyEvent *event)
 {
     //这样改应该能提升操作手感
-    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP)
+    if(m_state != SKILL &&m_attackedState!=ISATTACKED && m_state != JUMP &&m_state!=ULTIMATESKILL)
     {
         switch (event->key())
         {

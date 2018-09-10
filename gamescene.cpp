@@ -18,6 +18,33 @@ GameScene::~GameScene()
 }
 bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2) //判断攻击的函数判断item1对item2的攻击判定,并且设定item2的状态
 {
+    //孙悟空的远程攻击的攻击判定，不得已这样写
+    if(attackingitem.getCharacterFlag()==PlayerItem::C2&&attackingitem.getState()==PlayerItem::ULTIMATESKILL)
+    {
+        //如果气功波还没发出去
+        //下面这段代码负责发出龟派气功,具体的伤害判定在localScene和NetGameScene里面实现
+        if(m_guiFlyItem==NULL)
+        {
+            m_guiFlyItem=new GuiFlyItem;
+            m_guiFlyItem->m_isExisting=true;
+            //测试用
+            qDebug()<<"方向："<<attackingitem.getDirection();
+            if(attackingitem.getDirection()==PlayerItem::LEFT)
+            {
+                m_guiFlyItem->setFlyDirection(GuiFlyItem::LEFT);
+                m_guiFlyItem->setPosition(attackingitem.getX()-m_guiFlyItem->getWidth(),attackingitem.getY()-attackingitem.getWidth());
+            }
+            else if(attackingitem.getDirection()==PlayerItem::RIGHT)
+            {
+                qDebug()<<"进入判断";
+                m_guiFlyItem->setFlyDirection(GuiFlyItem::RIGHT);
+                m_guiFlyItem->setPosition(attackingitem.getX(),attackingitem.getY()-attackingitem.getWidth());
+            }
+            this->addItem(m_guiFlyItem);
+            m_guiFlyItem->update();
+
+        }
+    }
      //如果不是出拳的话，这里预留接口，还要加上其他的动作，或者考虑把所有的与攻击相关的状态重新声明一个枚举常量
      // 增加kick
     //增加skilll
@@ -29,34 +56,8 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
      }
      else
      {
-         //孙悟空的远程攻击的攻击判定，不得已这样写
-         if(attackingitem.getCharacterFlag()==PlayerItem::C2&&attackingitem.getState()==PlayerItem::ULTIMATESKILL)
-         {
-             //如果气功波还没发出去
-             //下面这段代码负责发出龟派气功,具体的伤害判定在localScene和NetGameScene里面实现
-             if(m_guiFlyItem==NULL)
-             {
-                 m_guiFlyItem=new GuiFlyItem;
-                 m_guiFlyItem->m_isExisting=true;
-                 //测试用
-                 qDebug()<<"方向："<<attackingitem.getDirection();
-                 if(attackingitem.getDirection()==PlayerItem::LEFT)
-                 {
-                     m_guiFlyItem->setFlyDirection(GuiFlyItem::LEFT);
-                     m_guiFlyItem->setPosition(attackingitem.getX()-m_guiFlyItem->getWidth(),attackingitem.getY()-attackingitem.getWidth());
-                 }
-                 else if(attackingitem.getDirection()==PlayerItem::RIGHT)
-                 {
-                     qDebug()<<"进入判断";
-                     m_guiFlyItem->setFlyDirection(GuiFlyItem::RIGHT);
-                     m_guiFlyItem->setPosition(attackingitem.getX(),attackingitem.getY()-attackingitem.getWidth());
-                 }
-                 this->addItem(m_guiFlyItem);
-                 m_guiFlyItem->update();
 
-             }
-         }
-         else if( ! attackingitem.collidesWithItem( &attackeditem2 ) &&
+        if( ! attackingitem.collidesWithItem( &attackeditem2 ) &&
                  !(attackingitem.getCharacterFlag()==PlayerItem::C2&&attackingitem.getState()==PlayerItem::ULTIMATESKILL))
              //如果没有检测到碰撞 预留接口（判断是否有远程攻击）并且排除上一种情况
          {
@@ -80,6 +81,7 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
                         //在硬直状态下不能削韧
                         Rule::calculateTenacity(attackingitem,attackeditem2); //计算削韧//do something 计算伤害的预留接口
                     }
+                    Rule::calculateAnger(attackeditem2,attackeditem2.getAngerIncrease());
                 }
                 // 设置碰撞状态
                 attackingitem.setCollidedState(PlayerItem::ISCOLLIDEDLEFT);
@@ -101,6 +103,7 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
                            //在硬直状态下不能削韧
                            Rule::calculateTenacity(attackingitem,attackeditem2); //计算削韧//do something 计算伤害的预留接口
                        }
+                      Rule::calculateAnger(attackeditem2,attackeditem2.getAngerIncrease());
                   }
 
                 // 设置碰撞状态

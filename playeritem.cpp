@@ -39,6 +39,7 @@ PlayerItem::PlayerItem()
     m_blood = 100;
     m_energy = 100;
     m_tenacity = 100; // 硬直
+    m_anger=0;// 怒气
 }
 
 PlayerItem::~PlayerItem()
@@ -198,6 +199,9 @@ void PlayerItem::init_3()
     m_skillTeReduce.append(30);
     m_skillTeReduce.append(30);
     m_ultimateATK=40;
+
+    //怒气的积攒值
+    m_angerIncrease=8;
 }
 
 void PlayerItem::init_4()
@@ -334,6 +338,9 @@ void PlayerItem::init_4()
         m_skillTeReduce.append(30);
         m_skillTeReduce.append(30);
         m_ultimateTeReduce=100;
+
+        //怒气的积攒值
+        m_angerIncrease=10;
 }
 
 void PlayerItem::paint(QPainter *painter,
@@ -440,12 +447,7 @@ void PlayerItem::paint(QPainter *painter,
                 if(ishittingIndex >= p_ishitting.size()-1)
                 {
                     punchIndex = 0;
-                    if(m_tenacity>=20)
-                    {
-                        qDebug()<<"改变状态";
-                        m_state = STAND;       //被攻击的最后一帧应该停下来
-                        m_attackedState=NOATTACKED;  //解除硬直
-                    }
+                     //解除硬值放在rule里面
                 }
                 else
                     ishittingIndex++;
@@ -487,15 +489,7 @@ void PlayerItem::paint(QPainter *painter,
                 // 轮播stand状态，去除点击技能键闪烁
                 if(standIndex >= p_standing.size()-1)
                 {
-                    // 两个人物有区别
-                    if(m_characterFlag==C1)
-                    {
-                        standIndex = 0;
-                    }
-                    else if(m_characterFlag==C2)
-                    {
-                        //什么都不做
-                    }
+                    standIndex = 0;
                 }
                 else
                     standIndex++;
@@ -553,9 +547,21 @@ void PlayerItem::paint(QPainter *painter,
 
             if(ultimateSkillIndex >= p_ultimateSkill.size()-1)
             {
-                ultimateSkillIndex=0;
-                Rule::calculateEnergy(*this, m_ultimateEnReduce);
-                m_state=STAND;
+                // 两个人物有区别
+                if(m_characterFlag==C1)
+                {
+                    Rule::calculateAnger(*this,-100);
+                    Rule::calculateEnergy(*this, m_ultimateEnReduce);
+                    ultimateSkillIndex = 0;
+                    m_state=STAND;
+                }
+                else if(m_characterFlag==C2)
+                {
+                    Rule::calculateAnger(*this,-100);
+                    Rule::calculateEnergy(*this, m_ultimateEnReduce);
+                    //什么都不做
+                }
+
             }
             else
             {
@@ -878,6 +884,24 @@ int PlayerItem::getUltimateSkillIndex()const
     return ultimateSkillIndex;
 }
 
+void PlayerItem::setAnger(int anger)
+{
+    m_anger=anger;
+}
+
+int PlayerItem::getAnger()const
+{
+    return m_anger;
+}
+
+void PlayerItem::setAngerIncrease(int increase)
+{
+    m_angerIncrease=increase;
+}
+int PlayerItem::getAngerIncrease()const
+{
+    return m_angerIncrease;
+}
 void PlayerItem::run()
 {
     // 人物奔跑功能 m_x控制
@@ -946,11 +970,11 @@ void PlayerItem::attackingMove()
             {
                 if(m_direction==LEFT && m_collidedState!=ISCOLLIDEDLEFT)
                 {
-                    m_x -=m_width/15;
+                    m_x -=m_width/8;
                 }
                 else if(m_direction==RIGHT && m_collidedState!=ISCOLLIDEDRIGHT)
                 {
-                    m_x +=m_width/15;
+                    m_x +=m_width/8;
                 }
             }
             else if(m_characterFlag==C2)   //如果是孙悟空，孙悟空的龟派气功不补偿

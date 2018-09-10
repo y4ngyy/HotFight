@@ -22,19 +22,19 @@ NetGameScene::NetGameScene(QString ip, int port)
     m_item1.setPositonInfo(200, 300);
     m_item2.setPositonInfo(500, 300);
     //设置血条精力条的位置
-    healthBar_1.setType(P1);
-    healthBar_2.setType(P2);
-    healthBar_1.setPos(0,0);
-    healthBar_2.setPos(600-healthBar_2.getMaxWdith(),0);
-    energyBar_1.setType(P1);
-    energyBar_2.setType(P2);
-    energyBar_1.setPos(0,healthBar_1.getHeight());
-    energyBar_2.setPos(600-energyBar_2.getMaxWdith(),healthBar_1.getHeight());
+    m_healthBar_1.setType(P1);
+    m_healthBar_2.setType(P2);
+    m_healthBar_1.setPos(0,0);
+    m_healthBar_2.setPos(600-m_healthBar_2.getMaxWdith(),0);
+    m_energyBar_1.setType(P1);
+    m_energyBar_2.setType(P2);
+    m_energyBar_1.setPos(0,m_healthBar_1.getHeight());
+    m_energyBar_2.setPos(600-m_energyBar_2.getMaxWdith(),m_healthBar_1.getHeight());
     //增加血条精力条
-    addItem(&healthBar_1);
-    addItem(&healthBar_2);
-    addItem(&energyBar_1);
-    addItem(&energyBar_2);
+    addItem(&m_healthBar_1);
+    addItem(&m_healthBar_2);
+    addItem(&m_energyBar_1);
+    addItem(&m_energyBar_2);
     addItem(&m_item1);
     addItem(&m_item2);
     addItem(&m_explodingitem);
@@ -137,10 +137,10 @@ void NetGameScene::timerEvent(QTimerEvent *event)
 
 
         //刷新血条和精力条
-        healthBar_1.setBlood(m_item1.getBlood());
-        healthBar_2.setBlood(m_item2.getBlood());
-        energyBar_1.setEnergy(m_item1.getEnergy());
-        energyBar_2.setEnergy(m_item2.getEnergy());
+        m_healthBar_1.setBlood(m_item1.getBlood());
+        m_healthBar_2.setBlood(m_item2.getBlood());
+        m_energyBar_1.setEnergy(m_item1.getEnergy());
+        m_energyBar_2.setEnergy(m_item2.getEnergy());
 
         // 游戏线程 刷新视图和人物跑动 碰撞 跳跃
         //只需要可操控的角色进行奔跑即可

@@ -113,6 +113,11 @@ public:
     void setUltimateSkillIndex(int);
     int getUltimateSkillIndex()const;
 
+    void setAnger(int);
+    int getAnger()const;
+
+    void setAngerIncrease(int);
+    int getAngerIncrease()const;
 protected:
 
     //人物状态变量 子类重载暂时需直接修改 变为保护型 在该类的构造函数中初始化
@@ -198,6 +203,9 @@ protected:
     QList<int> m_skillTeReduce;
     int m_ultimateTeReduce;
 
+    //怒气的积攒值
+    int m_angerIncrease;
+
     //判定帧的flag
     bool m_attackingFlag;
     //伤害判定的flag
@@ -245,6 +253,7 @@ private:
     double m_blood; //生命值
     int m_energy;  // 精力值
     int m_tenacity;  // 韧性值
+    int m_anger;
 };
 
 #endif // PLAYERITEM_H

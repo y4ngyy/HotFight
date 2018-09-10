@@ -18,6 +18,8 @@ public:
     // 精力恢复 硬直条恢复
     static void recoverEnergy(PlayerItem &);
     static void recoverTenacity(PlayerItem &);
+    //怒气积攒
+    static void calculateAnger(PlayerItem&,int);
 protected:
 
 private:

@@ -76,6 +76,21 @@ void Rule::calculateTenacity(PlayerItem &attackItem, PlayerItem &attackedItem)
         attackedItem.m_tenacity -= t_tenaReduce;
 }
 
+//怒气积攒
+void Rule::calculateAnger(PlayerItem& item,int anger)
+{
+
+    item.m_anger += anger;
+    if(item.m_anger>100)
+    {
+        item.m_anger=100;
+    }
+    if(item.m_anger<0)
+    {
+        item.m_anger=0;
+    }
+}
+
 // timerEvent中调用
 void Rule::recoverEnergy(PlayerItem &item)
 {   
@@ -100,5 +115,11 @@ void Rule::recoverTenacity(PlayerItem &item)
             item.m_tenacity = 100;
         else
             item.m_tenacity += 2;
+    }
+    if(item.m_tenacity>=20 && item.m_attackedState==PlayerItem::ISATTACKED )
+    {
+        qDebug()<<"改变状态";
+        item.m_state = PlayerItem::STAND;       //被攻击的最后一帧应该停下来
+        item.m_attackedState=PlayerItem::NOATTACKED;  //解除硬直
     }
 }
