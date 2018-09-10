@@ -21,13 +21,9 @@ StartWindow::StartWindow(QWidget *parent) :
                           Qt::IgnoreAspectRatio,
                           Qt::SmoothTransformation)));
     setPalette(back);
-<<<<<<< HEAD
     setWindowIcon(QIcon(":/images/icon.png"));
-=======
-//初始化打开窗口的类型
+    //初始化打开窗口的类型
     m_windowType=NOWINDOW;
-
->>>>>>> origin/增加了对话框的功能
     // 初始化指针
     m_localGame = nullptr;
     m_netConnectDialog = nullptr;
