@@ -3,12 +3,16 @@
 NetGameWindow::NetGameWindow(QString ip, int port,QWidget *parent)
                              : QGraphicsView(parent),m_netGameScene(ip,port)
 {
+setFixedSize(800,400);
+setScene(&m_netGameScene);
+this->setBackgroundBrush(QBrush(
+                             QPixmap(":/images/startui_background.gif").scaled(
+                                 this->size(),
+                                 Qt::IgnoreAspectRatio,
+                                 Qt::SmoothTransformation)));
+setStyleSheet("border: 0px;"
+              "padding: 0px;");
 
-    setFixedSize(600,442);
-    setScene(&m_netGameScene);
-    setStyleSheet("background:url(:/images/background/background_1.png);"
-                  "border: 0px;"
-                  "padding: 0px;");
 }
 
 void NetGameWindow::closeEvent(QCloseEvent *e)

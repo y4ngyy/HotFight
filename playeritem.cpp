@@ -557,6 +557,7 @@ void PlayerItem::paint(QPainter *painter,
                 }
                 else if(m_characterFlag==C2)
                 {
+                    qDebug()<<"怒气扣掉了";
                     Rule::calculateAnger(*this,-100);
                     Rule::calculateEnergy(*this, m_ultimateEnReduce);
                     //什么都不做

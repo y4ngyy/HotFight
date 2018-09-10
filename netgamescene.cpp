@@ -17,25 +17,25 @@ NetGameScene::NetGameScene(QString ip, int port)
     timerId = startTimer(100);
     connect(m_udpSocket,&QUdpSocket::readyRead,this,&NetGameScene::onReceiveUdp);
     // 设置Scene大小
-    setSceneRect(0,0,600,442);
+    setSceneRect(0,0,800,400);
     // 初始化人物位置
-    m_item1.setPositonInfo(200, 300);
-    m_item2.setPositonInfo(500, 300);
+    m_item1.setPositonInfo(200, 350);
+    m_item2.setPositonInfo(500, 350);
     //设置血条精力条的位置
     m_healthBar_1.setType(P1);
     m_healthBar_2.setType(P2);
     m_healthBar_1.setPos(0,0);
-    m_healthBar_2.setPos(600-m_healthBar_2.getMaxWdith(),0);
+    m_healthBar_2.setPos(800-m_healthBar_2.getMaxWdith(),0);
 
     m_energyBar_1.setType(P1);
     m_energyBar_2.setType(P2);
     m_energyBar_1.setPos(0,m_healthBar_1.getHeight());
-    m_energyBar_2.setPos(600-m_energyBar_2.getMaxWdith(),m_healthBar_1.getHeight());
+    m_energyBar_2.setPos(800-m_energyBar_2.getMaxWdith(),m_healthBar_1.getHeight());
 
     m_angerBar_1.setType(P1);
     m_angerBar_2.setType(P2);
     m_angerBar_1.setPos(0,m_healthBar_1.getHeight()+m_energyBar_1.getHeight());
-    m_angerBar_2.setPos(600-m_angerBar_2.getMaxWdith(),m_healthBar_1.getHeight()+m_energyBar_1.getHeight());
+    m_angerBar_2.setPos(800-m_angerBar_2.getMaxWdith(),m_healthBar_1.getHeight()+m_energyBar_1.getHeight());
     //增加血条精力条
     addItem(&m_healthBar_1);
     addItem(&m_healthBar_2);
