@@ -278,5 +278,7 @@
         <file>images/player3/ultimateskill/16.png</file>
         <file>images/player3/ultimateskill/17.png</file>
         <file>images/icon.png</file>
+        <file>sound/riot_hit_sound.wav</file>
+        <file>sound/sword_hit_sound.wav</file>
     </qresource>
 </RCC>

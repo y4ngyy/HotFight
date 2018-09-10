@@ -21,6 +21,7 @@ StartWindow::StartWindow(QWidget *parent) :
                           Qt::IgnoreAspectRatio,
                           Qt::SmoothTransformation)));
     setPalette(back);
+    setCursor(QCursor(QPixmap(":/images/mouse.png")));
     setWindowIcon(QIcon(":/images/icon.png"));
     //初始化打开窗口的类型
     m_windowType=NOWINDOW;

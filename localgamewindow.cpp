@@ -1,30 +1,31 @@
 #include "localgamewindow.h"
+#include "localgamescene.h"
 #include <QPixmap>
-#include<QDebug>
+#include <QIcon>
+#include <QDebug>
 
 LocalGameWindow::LocalGameWindow(QWidget *parent)
     : QGraphicsView(parent)
 {
-setFixedSize(800,400);
-m_localgamescene = new LocalGameScene();
-setScene(m_localgamescene);
-this->setBackgroundBrush(QBrush(
-                             QPixmap(":/images/startui_background.gif").scaled(
-                                 this->size(),
-                                 Qt::IgnoreAspectRatio,
-                                 Qt::SmoothTransformation)));
-setStyleSheet("border: 0px;"
-              "padding: 0px;");
-m_endWindow=NULL;
+    setFixedSize(800,400);
+    m_localgamescene = new LocalGameScene();
+    setScene(m_localgamescene);
+    this->setBackgroundBrush(QBrush(
+                                 QPixmap(":/images/startui_background.gif").scaled(
+                                     this->size(),
+                                     Qt::IgnoreAspectRatio,
+                                     Qt::SmoothTransformation)));
+    setStyleSheet("border: 0px;"
+                  "padding: 0px;");
+    setCursor(QCursor(QPixmap(":/images/mouse.png")));
+    setWindowIcon(QIcon(":/images/icon.png"));
 
-//弹出结束界面
-connect(m_localgamescene,&LocalGameScene::gameover1PSignal,this,&LocalGameWindow::showEndWindow1PSlot);
-connect(m_localgamescene,&LocalGameScene::gameover2PSignal,this,&LocalGameWindow::showEndWindow2PSlot);
-connect(m_localgamescene,&LocalGameScene::gameoverBothSignal,this,&LocalGameWindow::showEndWindowBothSlot);
+    //弹出结束界面
+    connect(m_localgamescene,&LocalGameScene::gameover1PSignal,this,&LocalGameWindow::showEndWindow1PSlot);
+    connect(m_localgamescene,&LocalGameScene::gameover2PSignal,this,&LocalGameWindow::showEndWindow2PSlot);
+    connect(m_localgamescene,&LocalGameScene::gameoverBothSignal,this,&LocalGameWindow::showEndWindowBothSlot);
 
-
-
-
+    m_endWindow=NULL;
 }
 
 LocalGameWindow::~LocalGameWindow()
@@ -113,4 +114,9 @@ void LocalGameWindow::restartSceneSlot()
         delete m_endWindow;
         m_endWindow=NULL;
     }
+}
+
+void LocalGameWindow::closeEvent(QCloseEvent *event)
+{
+    m_localgamescene->stopTimer();
 }

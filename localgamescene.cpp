@@ -2,6 +2,7 @@
 #include "rule.h"
 #include <QDebug>
 
+
 LocalGameScene::LocalGameScene()
 {
     // 设置Scene大小
@@ -38,7 +39,6 @@ LocalGameScene::LocalGameScene()
     addItem(&m_explodingitem);
     m_explodingitem.setVisible(false);
     timerId = startTimer(100);
-
 }
 
 LocalGameScene::~LocalGameScene()
@@ -240,4 +240,9 @@ bool LocalGameScene::event(QEvent *event)
         default:
             return GameScene::event(event);
     }
+}
+
+void LocalGameScene::stopTimer()
+{
+    killTimer(timerId);
 }

@@ -3,17 +3,18 @@
 NetGameWindow::NetGameWindow(QString ip, int port,QWidget *parent)
                              : QGraphicsView(parent),m_netGameScene(ip,port)
 {
-setFixedSize(800,400);
-setScene(&m_netGameScene);
-this->setBackgroundBrush(QBrush(
-                             QPixmap(":/images/startui_background.gif").scaled(
-                                 this->size(),
-                                 Qt::IgnoreAspectRatio,
-                                 Qt::SmoothTransformation)));
-setStyleSheet("border: 0px;"
-              "padding: 0px;");
-
+    setFixedSize(800,400);
+    setScene(&m_netGameScene);
+    this->setBackgroundBrush(QBrush(
+                                 QPixmap(":/images/startui_background.gif").scaled(
+                                     this->size(),
+                                     Qt::IgnoreAspectRatio,
+                                     Qt::SmoothTransformation)));
+    setStyleSheet("border: 0px;"
+                  "padding: 0px;");
+    setCursor(QCursor(QPixmap(":/images/mouse.png")));
 }
+
 //用来调用子类的set函数
 void NetGameWindow::setSceneNetType(NetGameScene::NETTYPE Type)
 {

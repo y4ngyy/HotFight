@@ -1,18 +1,18 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
-
-#include <QGraphicsScene>
+#include "guiflyitem.h"
+#include "rule.h"
 #include "player1p.h"
 #include "player2p.h"
+#include <QSound>
 #include <QEvent>
-#include<QObject>
-#include<QWidget>
+#include <QObject>
+#include <QWidget>
 #include <QKeyEvent>
 #include <QTimerEvent>
-#include"rule.h"
-//与龟派气功有关的头文件
-#include"guiflyitem.h"
+#include <QGraphicsScene>
+
 
 
 enum NETFLAG{SERVER, CLIENT};
@@ -32,7 +32,9 @@ protected:
 private: 
     // scene大小
     QRectF size;
-
+    // 音效
+    QSound *m_riotHitSound;
+    QSound *m_swordHitSound;
 };
 
 

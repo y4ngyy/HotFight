@@ -7,6 +7,7 @@ NetConnectDialog::NetConnectDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("局域网连接");
+    setCursor(QCursor(QPixmap(":/images/mouse.png")));
     ui->clientIP->setText("127.0.0.1");   //设置默认ip
     ui->clientPort->setText("8888");      //设置默认窗口
     ui->radioButton1P->setChecked(true);   //默认选择1P
