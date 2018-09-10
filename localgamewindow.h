@@ -31,8 +31,9 @@ public slots:
     //重新开始的槽函数
     void restartSceneSlot();
 
-
 protected:
+    void closeEvent(QCloseEvent *);
+
 private:
     EndWindow *m_endWindow;    //结束窗口
     LocalGameScene *m_localgamescene;   //测试需要

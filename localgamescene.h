@@ -9,6 +9,7 @@
 #include"guiflyitem.h"
 #include <QEvent>
 #include<QObject>
+#include <QCloseEvent>
 
 class LocalGameScene : public GameScene
 {
@@ -16,6 +17,9 @@ Q_OBJECT
 public:
     LocalGameScene();
     ~LocalGameScene();
+
+    // 关闭窗口时killTimer,
+    void stopTimer();
 
 //自定义信号
 signals:
@@ -29,8 +33,6 @@ protected:
     void timerEvent(QTimerEvent *);
 
     bool event(QEvent *);
-
-
 
 private:
     Player1P m_item1;

@@ -6,6 +6,8 @@ GameScene::GameScene()
     size.setRect(0, 0, 700, 700);
     setSceneRect(size);
     m_guiFlyItem=NULL;
+    m_riotHitSound = new QSound(":/sound/riot_hit_sound.wav");
+    m_swordHitSound = new QSound(":/sound/sword_hit_sound.wav");
 }
 
 GameScene::~GameScene()
@@ -42,7 +44,6 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
             }
             this->addItem(m_guiFlyItem);
             m_guiFlyItem->update();
-
         }
     }
      //如果不是出拳的话，这里预留接口，还要加上其他的动作，或者考虑把所有的与攻击相关的状态重新声明一个枚举常量
@@ -74,7 +75,12 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
                 attackeditem2.setState(PlayerItem::ISHITTING);  //item2 被攻击
                 if(attackingitem.getDamageFlag())
                 {
-                    Rule::calculateBlood(attackingitem,attackeditem2);//do something 计算伤害的预留接口
+                    Rule::calculateBlood(attackingitem,attackeditem2); //do something 计算伤害的预留接口
+                    // 计算伤害时播放音效
+                    if(attackingitem.getCharacterFlag() == PlayerItem::C1)
+                       m_swordHitSound->play();
+                    else
+                        m_riotHitSound->play();
                     attackingitem.setHasDamagedFlag(true);
                     if(attackeditem2.getAttackedState()!=PlayerItem::ISATTACKED)
                     {
@@ -97,6 +103,10 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
                   if(attackingitem.getDamageFlag())
                   {
                       Rule::calculateBlood(attackingitem,attackeditem2);//do something 计算伤害的预留接口
+                      if(attackingitem.getCharacterFlag() == PlayerItem::C1)
+                         m_swordHitSound->play();
+                      else
+                          m_riotHitSound->play();
                        attackingitem.setHasDamagedFlag(true);
                        if(attackeditem2.getAttackedState()!=PlayerItem::ISATTACKED)
                        {

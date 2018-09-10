@@ -19,6 +19,7 @@ Help::Help(QWidget *parent) :
     setPalette(back);
     setWindowModality(Qt::ApplicationModal);
     setWindowIcon(QIcon(":/images/icon.png"));
+    setCursor(QCursor(QPixmap(":/images/mouse.png")));
 }
 
 Help::~Help()
