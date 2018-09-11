@@ -238,6 +238,23 @@ void NetGameScene::timerEvent(QTimerEvent *event)
         m_item1.updatePos();
         m_item2.updatePos();
 
+        //游戏结束的判定
+        if( m_item1.getBlood()<=0 && m_item2.getBlood()>0)
+        {
+            killTimer(timerId);
+            emit gameover1PSignal();
+        }
+        else if(m_item2.getBlood()<=0 && m_item1.getBlood()>0)
+        {
+            killTimer(timerId);
+            emit gameover2PSignal();
+        }
+        else if(m_item1.getBlood()<=0 && m_item2.getBlood()<=0)
+        {
+            killTimer(timerId);
+            emit gameoverBothSignal();
+        }
+
     }
 }
 

@@ -27,7 +27,7 @@ StartWindow::StartWindow(QWidget *parent) :
     // 初始化指针
     m_localGame = nullptr;
     m_netConnectDialog = nullptr;
-    connect(m_localGame,&LocalGameWindow::returnToStartWindowSignal,this,&StartWindow::closeLocalGame);
+
 }
 
 StartWindow::~StartWindow()
@@ -62,8 +62,11 @@ void StartWindow::on_btnLocalGame_clicked()
         m_localGame = new LocalGameWindow();
         m_windowType=LOCAL;
         m_localGame->show();
-        connect(m_localGame,&LocalGameWindow::returnToStartWindowSignal,this,&StartWindow::closeLocalGame);
+        //第一个是返回主界面
+        connect(m_localGame,&LocalGameWindow::returnToStartWindowSignal,this,&StartWindow::closeLocalGameSlot);
+        connect(m_localGame,&LocalGameWindow::endGameSignal,this,&StartWindow::endGameSlot);
     }
+    this->hide();
 
 }
 
@@ -74,13 +77,20 @@ void StartWindow::on_btnNetGame_clicked()
        delete m_netConnectDialog;
        m_netConnectDialog=NULL;
    }
+
+   //如果没有连接窗口的话
    if(m_netConnectDialog==NULL)
    {
        m_netConnectDialog= new NetConnectDialog;
        m_windowType=NET;
        m_netConnectDialog->show();
-
+       //第一个是返回主界面，第二个是重新开始，第三个是退出游戏
+       connect(m_netConnectDialog,&NetConnectDialog::returnToStartWindowSignal,this,&StartWindow::closeNetGameSlot);
+       connect(m_netConnectDialog,&NetConnectDialog::restartSignal,this,&StartWindow::restartNetGameSlot);
+       connect(m_netConnectDialog,&NetConnectDialog::endGameSignal,this,&StartWindow::endGameSlot);
    }
+   this->hide();
+
 }
 
 void StartWindow::on_btnHelp_clicked()
@@ -88,14 +98,60 @@ void StartWindow::on_btnHelp_clicked()
     m_helpWindow = new Help();
     m_helpWindow->show();
 }
-void StartWindow::closeLocalGame()
+
+void StartWindow::closeLocalGameSlot()
 {
     m_localGame->close();
     if(m_localGame!=NULL)
     {
-
         delete m_localGame;
         m_localGame=NULL;
-
     }
+    this->show();
+}
+
+void  StartWindow::closeNetGameSlot()
+{
+     m_netConnectDialog->close();
+     if(m_netConnectDialog!=nullptr)
+     {
+         delete m_netConnectDialog;
+         m_netConnectDialog=NULL;
+     }
+     this->show();
+}
+
+void StartWindow::restartNetGameSlot()
+{
+    m_netConnectDialog->close();
+    if(m_netConnectDialog!=nullptr)
+    {
+        delete m_netConnectDialog;
+        m_netConnectDialog=NULL;
+    }
+    if(m_netConnectDialog==NULL)
+    {
+        m_netConnectDialog= new NetConnectDialog;
+        m_windowType=NET;
+        m_netConnectDialog->show();
+        connect(m_netConnectDialog,&NetConnectDialog::returnToStartWindowSignal,this,&StartWindow::closeNetGameSlot);
+        connect(m_netConnectDialog,&NetConnectDialog::restartSignal,this,&StartWindow::restartNetGameSlot);
+        connect(m_netConnectDialog,&NetConnectDialog::endGameSignal,this,&StartWindow::endGameSlot);
+    }
+    this->hide();
+}
+
+void StartWindow::endGameSlot()
+{
+    if(m_netConnectDialog!=nullptr)
+    {
+        delete m_netConnectDialog;
+        m_netConnectDialog=NULL;
+    }
+    if(m_localGame!=NULL)
+    {
+        delete m_localGame;
+        m_localGame=NULL;
+    }
+    this->close();
 }

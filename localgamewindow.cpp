@@ -30,7 +30,16 @@ connect(m_localgamescene,&LocalGameScene::gameoverBothSignal,this,&LocalGameWind
 LocalGameWindow::~LocalGameWindow()
 {
     if(m_localgamescene != nullptr)
+    {
         delete m_localgamescene;
+        m_localgamescene=NULL;
+    }
+    if(m_endWindow !=NULL)
+    {
+        delete m_endWindow;
+        m_endWindow=NULL;
+    }
+
 }
 
 void LocalGameWindow::showEndWindow1PSlot()
@@ -43,6 +52,14 @@ void LocalGameWindow::showEndWindow1PSlot()
         connect(m_endWindow,&EndWindow::restartSignal, this , &LocalGameWindow::restartSceneSlot);
         connect(m_endWindow, &EndWindow::returnToSignal,this,[=](){
             emit returnToStartWindowSignal();
+            if(m_endWindow!=NULL)
+            {
+                delete m_endWindow;
+                m_endWindow=NULL;
+            }
+        });
+        connect(m_endWindow, &EndWindow::endGameSignal,this,[=](){
+            emit endGameSignal();
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
@@ -68,6 +85,14 @@ void LocalGameWindow::showEndWindow2PSlot()
                 m_endWindow=NULL;
             }
         });
+        connect(m_endWindow, &EndWindow::endGameSignal,this,[=](){
+            emit endGameSignal();
+            if(m_endWindow!=NULL)
+            {
+                delete m_endWindow;
+                m_endWindow=NULL;
+            }
+        });
     }
 }
 
@@ -87,6 +112,15 @@ void LocalGameWindow::showEndWindowBothSlot()
                 m_endWindow=NULL;
             }
         });
+        connect(m_endWindow, &EndWindow::endGameSignal,this,[=](){
+            emit endGameSignal();
+            if(m_endWindow!=NULL)
+            {
+                delete m_endWindow;
+                m_endWindow=NULL;
+            }
+        });
+
     }
 }
 

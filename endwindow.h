@@ -18,6 +18,7 @@ public:
 signals:
     void restartSignal();
     void returnToSignal();
+    void endGameSignal();
 private slots:
     void on_btnRestart_clicked();
 

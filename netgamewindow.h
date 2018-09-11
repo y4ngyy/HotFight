@@ -5,6 +5,7 @@
 #include <QGraphicsView>
 #include<QCloseEvent>
 #include<QMessageBox>
+#include<QObject>
 
 class NetGameWindow : public QGraphicsView
 {
@@ -20,6 +21,12 @@ public:
     QString getSceneIp()const;
     void setScenePort(int);
     int getScenePort()const;
+
+signals:
+    void gameover1PSignal();
+    void gameover2PSignal();
+    void gameoverBothSignal();
+
 protected:
     void closeEvent(QCloseEvent *);
 private:
