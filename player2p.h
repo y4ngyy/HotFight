@@ -7,6 +7,8 @@
 
 class Player2P:public PlayerItem    //继承基类
 {
+    //用来计算精力
+        friend class Rule;
 public:
    Player2P();
    ~Player2P();

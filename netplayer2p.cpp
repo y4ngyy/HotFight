@@ -29,9 +29,9 @@ void NetPlayer2P::keyPressEvent(QKeyEvent * event)
                 m_state = JUMP;
                 break;
             case Qt::Key_J:
-                if(m_attackClickFlag)
+                if(m_attackJClickFlag)
                 {
-                    m_attackClickFlag = false;
+                    m_attackJClickFlag = false;
                     // 精力过低时无法出招
                     if(getEnergy() < m_punchEnReduce)
                         return;
@@ -41,9 +41,9 @@ void NetPlayer2P::keyPressEvent(QKeyEvent * event)
                 }
                 break;
             case Qt::Key_K:
-                if(m_attackClickFlag)
+                if(m_attackKClickFlag)
                 {
-                    m_attackClickFlag = false;
+                    m_attackKClickFlag = false;
                     if(getEnergy() < m_kickEnReduce)
                         return;
                     m_state = KICK;
@@ -56,7 +56,7 @@ void NetPlayer2P::keyPressEvent(QKeyEvent * event)
                 judgeSkillType();
                 break;
             case Qt::Key_U:
-                if(getAnger()<100)
+                if(getAnger()<50 || getEnergy()<m_ultimateEnReduce)
                 {
                     return;
                 }
@@ -86,8 +86,10 @@ void NetPlayer2P::keyReleaseEvent(QKeyEvent * event)
                     m_state = STAND;
                 break;
             case Qt::Key_J:
+                m_attackJClickFlag=true;
+                break;
             case Qt::Key_K:
-                m_attackClickFlag = true;
+                m_attackKClickFlag = true;
                 break;
             default:
                 break;

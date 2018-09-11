@@ -1,6 +1,6 @@
 #include "player2p.h"
 #include <windows.h>
-
+#include"rule.h"
 Player2P::Player2P()
 {
     init_4();
@@ -41,9 +41,9 @@ void Player2P::keyPressEvent(QKeyEvent *event)
                 m_state = JUMP;
                 break;
             case Qt::Key_1:
-                if(m_attackClickFlag)
+                if(m_attackJClickFlag)
                 {
-                    m_attackClickFlag = false;
+                    m_attackJClickFlag = false;
                     if(getEnergy() < m_punchEnReduce)
                         return;
                     m_state = PUNCH;
@@ -51,10 +51,10 @@ void Player2P::keyPressEvent(QKeyEvent *event)
                 }
                 break;
             case Qt::Key_2:
-                if(m_attackClickFlag)
+                if(m_attackKClickFlag)
                 {
 
-                    m_attackClickFlag = false;
+                    m_attackKClickFlag = false;
                     if(getEnergy() < m_kickEnReduce)
                         return;
                     m_state = KICK;
@@ -66,7 +66,7 @@ void Player2P::keyPressEvent(QKeyEvent *event)
                 judgeSkillType();
                 break;
             case Qt::Key_4:
-                if(getAnger()<100)
+                if(getAnger()<50 || getEnergy()<m_ultimateEnReduce)
                 {
                     return;
                 }
@@ -96,8 +96,10 @@ void Player2P::keyReleaseEvent(QKeyEvent *event)
                     m_state = STAND;
                 break;
             case Qt::Key_1:
+                m_attackJClickFlag=true;
+                break;
             case Qt::Key_2:
-                m_attackClickFlag = true;
+                m_attackKClickFlag = true;
                 break;
             default:
                 break;
@@ -126,12 +128,20 @@ void Player2P::JudgeingAttack()
                     //如果已经计算过一次伤害了，那就不能再次造成伤害
                     m_damageFlag=false;
                 }
+                if(!m_hasEnergyReduce)
+                {
+                    //有两段，精力要减两次所以改了一下
+                   Rule::calculateEnergy(*this,m_punchEnReduce/2);
+                   m_hasEnergyReduce=true;
+                }
             }
             else
             {
                m_attackingFlag=false;
                //不在判定帧内伤害肯定就还没被计算，至少对于下一批的判定帧来说
                m_hasDamagedFlag=false;
+               m_damageFlag=false;
+               m_hasEnergyReduce=false;
             }
             break;
        case KICK:
@@ -149,12 +159,18 @@ void Player2P::JudgeingAttack()
                     //如果已经计算过一次伤害了，那就不能再次造成伤害
                     m_damageFlag=false;
                 }
+                if(!m_hasEnergyReduce)
+                {
+                   Rule::calculateEnergy(*this,m_kickEnReduce);
+                   m_hasEnergyReduce=true;
+                }
             }
             else
             {
                  m_attackingFlag=false;
                  m_damageFlag=false;
                  m_hasDamagedFlag=false;
+                 m_hasEnergyReduce=false;
             }
             break;
        case SKILL:
@@ -175,12 +191,18 @@ void Player2P::JudgeingAttack()
                             //如果已经计算过一次伤害了，那就不能再次造成伤害
                             m_damageFlag=false;
                         }
+                        if(!m_hasEnergyReduce)
+                        {
+                           Rule::calculateEnergy(*this,m_skillEnReduce.at(0));
+                           m_hasEnergyReduce=true;
+                        }
                     }
                     else
                     {
                         m_damageFlag=false;
                         m_attackingFlag=false;
                         m_hasDamagedFlag=false;
+                        m_hasEnergyReduce=false;
                     }
                     break;
 
@@ -199,12 +221,19 @@ void Player2P::JudgeingAttack()
                             //如果已经计算过一次伤害了，那就不能再次造成伤害
                             m_damageFlag=false;
                         }
+                        if(!m_hasEnergyReduce)
+                        {
+                             //有两段，精力要减两次所以改了一下
+                           Rule::calculateEnergy(*this,m_skillEnReduce.at(1)/2);
+                           m_hasEnergyReduce=true;
+                        }
                     }
                     else
                     {
                         m_damageFlag=false;
                         m_attackingFlag=false;
                         m_hasDamagedFlag=false;
+                        m_hasEnergyReduce=false;
                     }
                     break;
 
@@ -223,12 +252,18 @@ void Player2P::JudgeingAttack()
                             //如果已经计算过一次伤害了，那就不能再次造成伤害
                             m_damageFlag=false;
                         }
+                        if(!m_hasEnergyReduce)
+                        {
+                           Rule::calculateEnergy(*this,m_skillEnReduce.at(2));
+                           m_hasEnergyReduce=true;
+                        }
                     }
                     else
                     {
                         m_damageFlag=false;
                         m_attackingFlag=false;
                         m_hasDamagedFlag=false;
+                        m_hasEnergyReduce=false;
                     }
                     break;
 
@@ -247,12 +282,18 @@ void Player2P::JudgeingAttack()
                             //如果已经计算过一次伤害了，那就不能再次造成伤害
                             m_damageFlag=false;
                         }
+                        if(!m_hasEnergyReduce)
+                        {
+                           Rule::calculateEnergy(*this,m_skillEnReduce.at(3));
+                           m_hasEnergyReduce=true;
+                        }
                     }
                     else
                     {
                         m_damageFlag=false;
                         m_attackingFlag=false;
                         m_hasDamagedFlag=false;
+                        m_hasEnergyReduce=false;
                     }
                     break;
                 case SKILLFIVE:
@@ -271,12 +312,19 @@ void Player2P::JudgeingAttack()
                             //如果已经计算过一次伤害了，那就不能再次造成伤害
                             m_damageFlag=false;
                         }
+                        if(!m_hasEnergyReduce)
+                        {
+                             //有三段，精力要减两次所以改了一下
+                           Rule::calculateEnergy(*this,m_skillEnReduce.at(4)/3);
+                           m_hasEnergyReduce=true;
+                        }
                     }
                     else
                     {
                         m_damageFlag=false;
                         m_attackingFlag=false;
                         m_hasDamagedFlag=false;
+                        m_hasEnergyReduce=false;
                     }
                     break;
                 case SKILLSIX:
@@ -289,12 +337,23 @@ void Player2P::JudgeingAttack()
                         {
                             m_damageFlag=true;
                         }
+                        else
+                        {
+                            //如果已经计算过一次伤害了，那就不能再次造成伤害
+                            m_damageFlag=false;
+                        }
+                        if(!m_hasEnergyReduce)
+                        {
+                           Rule::calculateEnergy(*this,m_skillEnReduce.at(5));
+                           m_hasEnergyReduce=true;
+                        }
                     }
                     else
                     {
                         m_damageFlag=false;
                         m_attackingFlag=false;
                         m_hasDamagedFlag=false;
+                        m_hasEnergyReduce=false;
                     }
                     break;
                 default:
@@ -302,6 +361,7 @@ void Player2P::JudgeingAttack()
                         m_attackingFlag=false;
                         m_damageFlag=false;
                         m_hasDamagedFlag=false;
+                        m_hasEnergyReduce=false;
                     }
                     break;
             }
@@ -312,7 +372,19 @@ void Player2P::JudgeingAttack()
             if(ultimateSkillIndex>=5 && ultimateSkillIndex<=7)
             {
                m_attackingFlag=true;
+               if(!m_hasEnergyReduce)
+               {
+                  Rule::calculateEnergy(*this,m_skillEnReduce.at(4));
+                  //怒气消耗
+                  Rule::calculateAnger(*this,-50);
+                  m_hasEnergyReduce=true;
+               }
 
+            }
+            else
+            {
+                m_attackingFlag=false;
+                m_hasEnergyReduce=false;
             }
 
             break;
@@ -321,6 +393,7 @@ void Player2P::JudgeingAttack()
                 m_attackingFlag=false;
                 m_damageFlag=false;
                 m_hasDamagedFlag=false;
+                m_hasEnergyReduce=false;
             }
             break;
     }

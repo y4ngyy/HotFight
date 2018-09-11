@@ -23,7 +23,7 @@ void Rule::calculateBlood(PlayerItem &attackItem, PlayerItem &attackedItem)
         break;
         case PlayerItem::ULTIMATESKILL:
             //测试需要
-            t_atk=attackedItem.m_ultimateATK;
+            t_atk=attackItem.m_ultimateATK;
             break;
         default:
             return;
@@ -91,8 +91,9 @@ void Rule::calculateAnger(PlayerItem& item,int anger)
 // timerEvent中调用
 void Rule::recoverEnergy(PlayerItem &item)
 {   
-    // 攻击时无法回复精力
-    if(item.getState() == PlayerItem::PUNCH || item.getState() == PlayerItem::KICK||item.getState() == PlayerItem::SKILL ||item.getState() == PlayerItem::JUMP)
+    // 攻击时无法回复精力,终结技的时候也不能放大招
+    if(item.getState() == PlayerItem::PUNCH || item.getState() == PlayerItem::KICK||item.getState() == PlayerItem::SKILL ||item.getState() == PlayerItem::JUMP
+            ||item.getState()==PlayerItem::ULTIMATESKILL)
         return;
     if(item.m_energy + 2 >= 100)
         item.m_energy = 100;

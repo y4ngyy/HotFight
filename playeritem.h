@@ -122,6 +122,8 @@ protected:
 
     //人物状态变量 子类重载暂时需直接修改 变为保护型 在该类的构造函数中初始化
     STATE m_state;
+    //为了改善操作手感而设计的变量,上一次的状态。
+    STATE m_lastState;
     DIRECTION m_direction;
     COLLIDEDSTATE m_collidedState;
     SKILLTYPE m_skillType;
@@ -160,8 +162,6 @@ protected:
     QRectF boundingRect()const;
 
     // 资源加载函数，子类选择
-    void init_1();
-    void init_2();
     void init_3();
     void init_4();
 
@@ -170,12 +170,14 @@ protected:
      */
     bool m_leftFlag;
     bool m_rightFlag;
-    bool m_attackClickFlag;
+    bool m_attackJClickFlag;
+    bool m_attackKClickFlag;
 
     // 键盘缓冲区，技能释放使用
     KeyBoardBuffer m_buffer;
 
-
+    //刷新index的函数,在paint中调用
+    void RefreshIndex();
     //根据键盘缓冲区判断出招种类的函数
     void judgeSkillType();
 
@@ -212,7 +214,8 @@ protected:
     bool m_damageFlag;
     //已经计算完一次伤害的Flag；
     bool m_hasDamagedFlag;
-//  bool m_isJumpStart;
+    //已经计算完一次精力
+    bool m_hasEnergyReduce;
 
 
     //动画控制变量 如果要添加新变量到该类的构造函数去初始化

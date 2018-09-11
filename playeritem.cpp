@@ -9,12 +9,14 @@ PlayerItem::PlayerItem()
 {
     // 初始化变量
     m_state =  STAND;
+    m_lastState=STAND;
     m_collidedState = NOCOLLIDED;
     m_skillType=NONESKILL;
     m_attackedState=NOATTACKED;
     m_attackingFlag=false;
     m_damageFlag=false;
     m_hasDamagedFlag=false; //还没有被攻击一次
+    m_hasEnergyReduce=false; //是否消耗过一次精力，原理和多段伤害判定的原理类似
     m_characterFlag=C1; //默认是女战士
 
 
@@ -31,7 +33,8 @@ PlayerItem::PlayerItem()
     // 键盘flag初始化
     m_leftFlag = false;
     m_rightFlag = false;
-    m_attackClickFlag = true;
+    m_attackJClickFlag = true;
+    m_attackKClickFlag = true;
 //    m_isJumpStart = true;
 
     // 人物属性初始化
@@ -142,12 +145,16 @@ void PlayerItem::init_3()
     m_basicDEF = 10;
 
     // 精力消耗值
-    m_punchEnReduce = 20;
+    m_punchEnReduce = 15;
     m_jumpEnReduce = 20;
-    m_kickEnReduce = 20;
+    m_kickEnReduce = 15;
     for(int i=1;i<=6;i++)
         m_skillEnReduce.append(30);
-    m_ultimateEnReduce=40;
+
+    //有的技能消耗精力要比较高
+        m_skillEnReduce[0]=40;
+        m_skillEnReduce[5]=40;
+    m_ultimateEnReduce=50;
 
     // 招式的削韧
     m_punchTeReduce = 20;
@@ -156,10 +163,10 @@ void PlayerItem::init_3()
         m_skillTeReduce.append(25);
     m_skillTeReduce.append(30);
     m_skillTeReduce.append(30);
-    m_ultimateATK=40;
+    m_ultimateTeReduce=30;
 
     //怒气的积攒值
-    m_angerIncrease=8;
+    m_angerIncrease=10;
 }
 
 void PlayerItem::init_4()
@@ -281,12 +288,15 @@ void PlayerItem::init_4()
         m_basicDEF = 10;
 
         // 精力消耗值
-        m_punchEnReduce = 20;
+        m_punchEnReduce = 15;
         m_jumpEnReduce = 20;
         m_kickEnReduce = 20;
         for(int i=1;i<=6;i++)
             m_skillEnReduce.append(30);
-        m_ultimateEnReduce=40;
+        //有的技能消耗精力比较高
+            m_skillEnReduce[1]=40;
+            m_skillEnReduce[4]=45;
+        m_ultimateEnReduce=50;
 
         // 招式的削韧
         m_punchTeReduce = 20;
@@ -305,6 +315,10 @@ void PlayerItem::paint(QPainter *painter,
                        const QStyleOptionGraphicsItem *option,
                        QWidget *widget)
 {
+    //为了提升手感，先刷新状态
+    RefreshIndex();
+    //记录这一次的状态
+    m_lastState=m_state;
     switch (m_state)
     {
         case RUN:
@@ -347,16 +361,12 @@ void PlayerItem::paint(QPainter *painter,
 
         case PUNCH:
             // 出拳视图
-//            if(kickIndex==0)   //准备改成结束帧数
-//            {
-//                //计算精力消耗
-//                Rule::calculateEnergy(*this, m_punchEnReduce);
-//            }
+            //为了提升操作手感加的
+            m_attackJClickFlag=true;
             if(punchIndex >= p_punch.size()-1)
             {
                 punchIndex = 0;
                 m_state = STAND;
-                Rule::calculateEnergy(*this, m_punchEnReduce);
             }
             else
                 punchIndex++;
@@ -373,16 +383,12 @@ void PlayerItem::paint(QPainter *painter,
             break;
         case KICK:
             // 出脚视图
-//            if(kickIndex==0)
-//            {
-//                //计算精力消耗
-//                Rule::calculateEnergy(*this, m_kickEnReduce);
-//            }
+            //为了提升操作手感增加
+            m_attackKClickFlag=true;
             if(kickIndex >= p_kicking.size()-1)
             {
                 kickIndex = 0;
                 m_state = STAND;
-                 Rule::calculateEnergy(*this, m_kickEnReduce);
             }
             else
                 kickIndex++;
@@ -467,7 +473,6 @@ void PlayerItem::paint(QPainter *painter,
                     m_state = STAND;
                     // 轮播完缓冲区清空
                     m_buffer.clear();
-                     Rule::calculateEnergy(*this, m_skillEnReduce.at(m_skillType));
                 }
                 else
                     skillIndex++;
@@ -502,22 +507,13 @@ void PlayerItem::paint(QPainter *painter,
             break;
         //终结技
         case ULTIMATESKILL:
-
             if(ultimateSkillIndex >= p_ultimateSkill.size()-1)
             {
                 // 两个人物有区别
                 if(m_characterFlag==C1)
                 {
-                    Rule::calculateAnger(*this,-100);
-                    Rule::calculateEnergy(*this, m_ultimateEnReduce);
                     ultimateSkillIndex = 0;
                     m_state=STAND;
-                }
-                else if(m_characterFlag==C2)
-                {
-                    Rule::calculateAnger(*this,-100);
-                    Rule::calculateEnergy(*this, m_ultimateEnReduce);
-                    //什么都不做
                 }
 
             }
@@ -647,13 +643,6 @@ void PlayerItem::setPixmapInfo()
     //所有的set/get函数的实现
 void PlayerItem::setState(STATE t_state)
 {
-//    if(t_state == JUMP && m_isJumpStart)
-//    {
-//        jumpStart();
-//        m_isJumpStart = false;
-//    }
-//    else if(t_state != JUMP)
-//        m_isJumpStart = true;
     m_state = t_state;
 }
 
@@ -1023,5 +1012,45 @@ void PlayerItem::judgeSkillType()
     }
 
 }
-
+//enum STATE{JUMP, PUNCH, KICK, RUN, STAND,ISHITTING, SKILL,ULTIMATESKILL};
+//刷新Index的函数 在paint中调用
+void PlayerItem::RefreshIndex()
+{
+    if(m_lastState==m_state)
+    {
+        return;
+    }
+    else
+    {
+        switch(m_lastState)
+        {
+        case STAND:
+            standIndex=0;
+            break;
+        case RUN:
+            runIndex=0;
+            break;
+        case KICK:
+            kickIndex=0;
+            break;
+        case PUNCH:
+            punchIndex=0;
+            break;
+        case JUMP:
+            jumpIndex=0;
+            break;
+        case ISHITTING:
+            ishittingIndex=0;
+            break;
+        case SKILL:
+            skillIndex=0;
+            break;
+        case ULTIMATESKILL:
+            ultimateSkillIndex=0;
+            break;
+        default:
+            break;
+        }
+    }
+}
 

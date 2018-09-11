@@ -2,6 +2,7 @@
 #define NET_H
 
 #include "playeritem.h"
+#include"guiflyitem.h"
 #include <QUdpSocket>
 #include <QJsonObject>
 

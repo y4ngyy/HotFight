@@ -37,6 +37,8 @@ void Net::sendJsInfo(QUdpSocket *udp, PlayerItem &item)
     //不用调用jump函数（run同理）但是因为jump的动画受到JumpCurrentV的控制，而JumpCurrentV又由Jump函数
     //决定，因此为了比较容易地解决jump动画的问题，直接增加传递jumpcurrentV
     js.insert("m_jumpCurrentV",item.getJumpCurrentV());
+
+
     // 后面增加状态
     QByteArray array;
     QJsonDocument doc;

@@ -119,7 +119,7 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
             //飞行物还没有被销毁就一直保持大招状态
             m_item2.setState(PlayerItem::ULTIMATESKILL);
             //如果飞出场景之外了，那么就销毁，600暂时指的是场景的宽
-            if( m_guiFlyItem->getX()<=0 || m_guiFlyItem->getX()>=600)
+            if( m_guiFlyItem->getX()<=0 || m_guiFlyItem->getX()>=800)
             {
                 m_guiFlyItem->m_isExisting=false;
                 delete m_guiFlyItem;
