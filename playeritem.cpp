@@ -1,7 +1,6 @@
 #include "playeritem.h"
 #include"rule.h"
 #include <QPainter>
-#include <QDebug>
 #include <QImage>
 #include <QTimer>
 #include <windows.h>
@@ -516,7 +515,6 @@ void PlayerItem::paint(QPainter *painter,
                 }
                 else if(m_characterFlag==C2)
                 {
-                    qDebug()<<"怒气扣掉了";
                     Rule::calculateAnger(*this,-100);
                     Rule::calculateEnergy(*this, m_ultimateEnReduce);
                     //什么都不做
@@ -981,7 +979,6 @@ void PlayerItem::updatePos()
 //根据缓冲区来设定出招的种类
 void PlayerItem::judgeSkillType()
 {
-    qDebug()<<"缓冲区大小"<<m_buffer.getCurrentSize();
     if(m_buffer.getCurrentSize()<KeyBoardBuffer::SIZE)
     {
         m_skillType = NONESKILL;

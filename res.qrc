@@ -249,5 +249,6 @@
         <file>images/icon.png</file>
         <file>sound/riot_hit_sound.wav</file>
         <file>sound/sword_hit_sound.wav</file>
+        <file>images/vs.png</file>
     </qresource>
 </RCC>

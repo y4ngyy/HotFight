@@ -1,6 +1,5 @@
 #include "gamescene.h"
-#include <QDebug>
-
+#include <QMediaPlaylist>
 GameScene::GameScene()
 {
     size.setRect(0, 0, 700, 700);
@@ -8,6 +7,15 @@ GameScene::GameScene()
     m_guiFlyItem=NULL;
     m_riotHitSound = new QSound(":/sound/riot_hit_sound.wav");
     m_swordHitSound = new QSound(":/sound/sword_hit_sound.wav");
+    m_backgroundMusic = new QMediaPlayer(this);
+    m_backgroundList = new QMediaPlaylist(this);
+    m_backgroundList->addMedia(QUrl::fromLocalFile("./fight_background.mp3"));
+    m_backgroundList->setCurrentIndex(0);
+    m_backgroundList->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    m_backgroundMusic->setPlaylist(m_backgroundList);
+    m_backgroundMusic->play();
+    m_vs.setPixmap(QPixmap(":/images/vs.png"));
+    m_vs.setPos(360,0);
 }
 
 GameScene::~GameScene()
@@ -29,8 +37,6 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
         {
             m_guiFlyItem=new GuiFlyItem;
             m_guiFlyItem->m_isExisting=true;
-            //测试用
-            qDebug()<<"方向："<<attackingitem.getDirection();
             if(attackingitem.getDirection()==PlayerItem::LEFT)
             {
                 m_guiFlyItem->setFlyDirection(GuiFlyItem::LEFT);
@@ -38,7 +44,6 @@ bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2
             }
             else if(attackingitem.getDirection()==PlayerItem::RIGHT)
             {
-                qDebug()<<"进入判断";
                 m_guiFlyItem->setFlyDirection(GuiFlyItem::RIGHT);
                 m_guiFlyItem->setPosition(attackingitem.getX(),attackingitem.getY()-attackingitem.getWidth());
             }

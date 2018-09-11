@@ -4,14 +4,14 @@
 #include "playeritem.h"
 #include "player1p.h"
 #include "player2p.h"
-#include"localgamescene.h"
+#include "localgamescene.h"
 #include <QGraphicsView>
 #include <QWidget>
-#include<QEvent>
-#include<QKeyEvent>
+#include <QEvent>
+#include <QKeyEvent>
 #include <QCloseEvent>
-#include<QObject>
-#include"endwindow.h"
+#include <QObject>
+#include "endwindow.h"
 
 
 class LocalGameWindow : public QGraphicsView

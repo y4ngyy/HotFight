@@ -2,8 +2,8 @@
 #define NETPLAYER2P_H
 
 #include "player2p.h"
-#include"playeritem.h"
-#include<QEvent>
+#include "playeritem.h"
+#include <QEvent>
 
 class NetPlayer2P : public Player2P
 {

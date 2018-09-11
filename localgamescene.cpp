@@ -1,6 +1,5 @@
 #include "localgamescene.h"
 #include "rule.h"
-#include <QDebug>
 
 
 LocalGameScene::LocalGameScene()
@@ -37,6 +36,8 @@ LocalGameScene::LocalGameScene()
     addItem(&m_item2);
     //添加爆炸物,并且设置为不可见
     addItem(&m_explodingitem);
+
+    addItem(&m_vs);
     m_explodingitem.setVisible(false);
     startTimer(100);
 }
@@ -62,8 +63,6 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
         Rule::recoverEnergy(m_item2);
         Rule::recoverTenacity(m_item1);
         Rule::recoverTenacity(m_item2);
-        qDebug()<<"1:"<<m_item1.getBlood()<<"||"<<m_item1.getEnergy()<<"||"<<m_item1.getTenacity();
-        qDebug()<<"2:"<<m_item2.getBlood()<<"||"<<m_item2.getEnergy()<<"||"<<m_item2.getTenacity();
         isCollided(m_item1,m_item2);   //1P 和2P的 碰撞检测，必须放在攻击检测的前面，否则ISATTACKED会被替换成 ISCOLLIDEDLEFT，以后可以考虑整合成一个大函数
         //人物的攻击判定  测试
         m_item1.JudgeingAttack();
@@ -87,7 +86,6 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
                    //把爆炸物状态视为可见
                    m_explodingitem.updatePos();
                    m_explodingitem.isItemVisable=true;
-                   qDebug()<<m_explodingitem.getX()<<m_explodingitem.getY()<<m_explodingitem.scenePos();
                }
             }
         }
@@ -103,7 +101,6 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
                     //把爆炸物状态视为可见
                     m_explodingitem.updatePos();
                     m_explodingitem.isItemVisable=true;
-                    qDebug()<<m_explodingitem.getX()<<m_explodingitem.getY()<<m_explodingitem.scenePos();
                }
                else if(m_item1.getCollidedState()==PlayerItem::ISCOLLIDEDRIGHT)
                {
@@ -112,8 +109,6 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
                    //把爆炸物状态视为可见
                    m_explodingitem.updatePos();
                    m_explodingitem.isItemVisable=true;
-                   qDebug()<<m_explodingitem.getX()<<m_explodingitem.getY()<<m_explodingitem.scenePos();
-
                }
             }
         }
@@ -137,8 +132,6 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
             {
                 if(m_guiFlyItem->collidesWithItem(&m_item1))
                 {
-                    //测试用
-                    qDebug()<<"撞到了";
                     //伤害计算函数和碰撞效果的接口
                     //碰撞特效
                     m_explodingitem.setX(m_item1.x()+m_item1.getWidth()/2);
@@ -197,10 +190,11 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
         m_item2.run();
         m_item1.attackingMove();
         m_item2.attackingMove();
-        // 碰撞
+        // 限制边界
+        Rule::restrictBorder(m_item1);
+        Rule::restrictBorder(m_item2);
         m_item1.updatePos();
         m_item2.updatePos();
-        qDebug()<<"被攻击状态"<<m_item1.getAttackedState();
 
         //游戏结束的判定
         if( m_item1.getBlood()<=0 && m_item2.getBlood()>0)

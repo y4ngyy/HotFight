@@ -20,6 +20,8 @@ public:
     static void recoverTenacity(PlayerItem &);
     //怒气积攒
     static void calculateAnger(PlayerItem&,int);
+
+    static void restrictBorder(PlayerItem &);
 protected:
 
 private:

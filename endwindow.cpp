@@ -1,6 +1,5 @@
 #include "endwindow.h"
 #include "ui_endwindow.h"
-#include<QDebug>
 
 EndWindow::EndWindow(QWidget *parent) :
     QWidget(parent),
@@ -41,7 +40,6 @@ void EndWindow::setWinner(QString winner)
 
 void EndWindow::on_btnRestart_clicked()
 {
-    qDebug()<<"EndWindow发送信号";
     emit restartSignal();
 }
 

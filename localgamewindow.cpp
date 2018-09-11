@@ -2,7 +2,6 @@
 #include "localgamescene.h"
 #include <QPixmap>
 #include <QIcon>
-#include <QDebug>
 
 LocalGameWindow::LocalGameWindow(QWidget *parent)
     : QGraphicsView(parent)
@@ -134,7 +133,6 @@ void LocalGameWindow::showEndWindowBothSlot()
 
 void LocalGameWindow::restartSceneSlot()
 {
-    qDebug()<<"进入槽";
     if(m_localgamescene!=NULL)
     {
         delete m_localgamescene;

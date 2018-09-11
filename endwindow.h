@@ -2,7 +2,7 @@
 #define ENDWINDOW_H
 
 #include <QWidget>
-#include<QString>
+#include <QString>
 
 namespace Ui {
 class EndWindow;

@@ -6,12 +6,12 @@
 #include "netplayer2p.h"
 #include "healthybar.h"
 #include "energybar.h"
-#include"angerbar.h"
+#include "angerbar.h"
 #include "explodingitem.h"
 #include <QEvent>
 #include <QUdpSocket>
 #include <QGraphicsScene>
-#include<QObject>
+#include <QObject>
 
 class NetGameScene : public GameScene
 {

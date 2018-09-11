@@ -1,5 +1,4 @@
 #include "rule.h"
-#include<QDebug>
 
 Rule::Rule()
 {
@@ -24,14 +23,12 @@ void Rule::calculateBlood(PlayerItem &attackItem, PlayerItem &attackedItem)
         break;
         case PlayerItem::ULTIMATESKILL:
             //测试需要
-            qDebug()<<"减少生命";
             t_atk=attackedItem.m_ultimateATK;
             break;
         default:
             return;
     }
     double damage=m_damageK1* t_atk + m_damageK2 * attackItem.m_energy - m_damageK4 * attackedItem.m_energy- m_damageK3 * attackedItem.m_basicDEF;
-    qDebug()<<"伤害"<<damage;
     if(damage>=0)
     {
         attackedItem.m_blood -= damage;
@@ -118,8 +115,15 @@ void Rule::recoverTenacity(PlayerItem &item)
     }
     if(item.m_tenacity>=20 && item.m_attackedState==PlayerItem::ISATTACKED )
     {
-        qDebug()<<"改变状态";
         item.m_state = PlayerItem::STAND;       //被攻击的最后一帧应该停下来
         item.m_attackedState=PlayerItem::NOATTACKED;  //解除硬直
     }
+}
+
+void Rule::restrictBorder(PlayerItem &item)
+{
+    if(item.m_x > 800 - item.m_width)
+        item.m_x = 800 - item.m_width;
+    else if(item.m_x < 0)
+        item.m_x = 0;
 }

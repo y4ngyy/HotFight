@@ -1,5 +1,4 @@
 #include "guiflyitem.h"
-#include<QDebug>
 
 GuiFlyItem::GuiFlyItem()
 {
@@ -56,9 +55,6 @@ void GuiFlyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 //更新函数
 void GuiFlyItem::updatePos()
 {
-    //测试用
-
-    qDebug()<<"龟牌气功刷新用"<<m_x<<m_y;
     setPos(m_x,m_y);
     prepareGeometryChange();
 
@@ -73,7 +69,6 @@ void GuiFlyItem::Flying()
     }
     else
     {
-        qDebug()<<"龟牌气功计算飞行";
         if(m_flyDirection==RIGHT)
         {
             m_x += m_originalV*m_flyTime +  0.5*m_flyAcceleration*(m_flyTime*m_flyTime);

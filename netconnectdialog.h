@@ -2,11 +2,11 @@
 #define NETCONNECTDIALOG_H
 
 #include <QDialog>
-#include<QObject>
-#include"netgamescene.h"
-#include"netgamewindow.h"
-#include<QMessageBox>
-#include"endwindow.h"
+#include <QObject>
+#include "netgamescene.h"
+#include "netgamewindow.h"
+#include <QMessageBox>
+#include "endwindow.h"
 
 namespace Ui {
 class NetConnectDialog;

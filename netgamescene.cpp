@@ -1,6 +1,5 @@
 #include "netgamescene.h"
 #include "net.h"
-#include <QtDebug>
 #include <QJsonDocument>
 
 
@@ -46,6 +45,7 @@ NetGameScene::NetGameScene(QString ip, int port)
     addItem(&m_explodingitem);
     addItem(&m_angerBar_1);
     addItem(&m_angerBar_2);
+    addItem(&m_vs);
     m_explodingitem.setVisible(false);
     //测试用
     qDebug()<<"2P的y坐标:"<<m_item2.getY();
@@ -124,7 +124,6 @@ void NetGameScene::timerEvent(QTimerEvent *event)
                 //把爆炸物状态视为可见
                 m_explodingitem.updatePos();
                 m_explodingitem.isItemVisable=true;
-                qDebug()<<m_explodingitem.getX()<<m_explodingitem.getY()<<m_explodingitem.scenePos();
            }
            else if(m_item1.getCollidedState()==PlayerItem::ISCOLLIDEDRIGHT)
            {
@@ -133,8 +132,6 @@ void NetGameScene::timerEvent(QTimerEvent *event)
                //把爆炸物状态视为可见
                m_explodingitem.updatePos();
                m_explodingitem.isItemVisable=true;
-               qDebug()<<m_explodingitem.getX()<<m_explodingitem.getY()<<m_explodingitem.scenePos();
-
            }
         }
     }
@@ -159,7 +156,6 @@ void NetGameScene::timerEvent(QTimerEvent *event)
             if(m_guiFlyItem->collidesWithItem(&m_item1))
             {
                 //测试用
-                qDebug()<<"撞到了";
                 //伤害计算函数和碰撞效果的接口
                 //碰撞特效
                 m_explodingitem.setX(m_item1.x()+m_item1.getWidth()/2);
@@ -233,7 +229,8 @@ void NetGameScene::timerEvent(QTimerEvent *event)
         Net::sendJsInfo(m_udpSocket, m_item1);
     else
         Net::sendJsInfo(m_udpSocket, m_item2);
-    // 碰撞
+    Rule::restrictBorder(m_item1);
+    Rule::restrictBorder(m_item2);
     m_item1.updatePos();
     m_item2.updatePos();
 
@@ -288,9 +285,7 @@ void NetGameScene::onReceiveUdp()
     qint64 size=m_udpSocket->pendingDatagramSize();
     QByteArray array;
     array.resize(size);
-    qDebug() <<"收到消息";
     m_udpSocket->readDatagram(array.data(),size);
-    qDebug() <<array.data();
     QJsonDocument doc = QJsonDocument::fromJson(array);
     if(m_netType == C1)
         Net::setNetWorkInfo(doc.object(), m_item2);

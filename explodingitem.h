@@ -1,12 +1,12 @@
 #ifndef EXPLODINGITEM_H
 #define EXPLODINGITEM_H
 
-#include<QGraphicsItem>
-#include<QRectF>
-#include<QString>
-#include<QList>
-#include<QPixmap>
-#include<QPainter>
+#include <QGraphicsItem>
+#include <QRectF>
+#include <QString>
+#include <QList>
+#include <QPixmap>
+#include <QPainter>
 
 class ExplodingItem : public QGraphicsItem
 {

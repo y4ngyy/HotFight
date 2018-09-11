@@ -2,9 +2,9 @@
 #define HEALTHBAR_H
 
 
-#include<QGraphicsObject>
-#include<QPen>
-#include<QColor>
+#include <QGraphicsObject>
+#include <QPen>
+#include <QColor>
 #include <QPainter>
 
 enum BAR_TYPE{ P1,P2};

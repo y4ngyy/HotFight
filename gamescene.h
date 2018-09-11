@@ -12,8 +12,10 @@
 #include <QKeyEvent>
 #include <QTimerEvent>
 #include <QGraphicsScene>
+#include <QMediaPlayer>
 
-
+#include<QDir>
+#include<QUrl>
 
 enum NETFLAG{SERVER, CLIENT};
 class GameScene: public QGraphicsScene
@@ -29,12 +31,17 @@ protected:
     int isCollided( PlayerItem& originalItem1, PlayerItem& targetItem2);
     GuiFlyItem* m_guiFlyItem;
 
+    QGraphicsPixmapItem m_vs;
 private: 
     // scene大小
     QRectF size;
     // 音效
     QSound *m_riotHitSound;
     QSound *m_swordHitSound;
+    QMediaPlayer *m_backgroundMusic;
+    QMediaPlaylist *m_backgroundList;
+
+
 };
 
 

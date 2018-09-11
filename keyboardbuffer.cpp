@@ -1,5 +1,4 @@
 #include "keyboardbuffer.h"
-
 #include <QString>
 
 KeyBoardBuffer::KeyBoardBuffer()
