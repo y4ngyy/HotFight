@@ -30,6 +30,7 @@ EndWindow::~EndWindow()
 
 void EndWindow::on_btnQuit_clicked()
 {
+   emit endGameSignal();
    this->close();
 }
 

@@ -22,6 +22,7 @@ public:
     ~LocalGameWindow();
 signals:
     void returnToStartWindowSignal();
+    void endGameSignal();
 public slots:
     void showEndWindow1PSlot();
     void showEndWindow2PSlot();

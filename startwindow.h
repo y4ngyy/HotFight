@@ -21,8 +21,11 @@ public:
 
     void setWindowType(WINDOWTYPE);
     WINDOWTYPE getWindowType()const;
- public slots:
-    void closeLocalGame();
+public slots:
+    void closeLocalGameSlot();
+    void closeNetGameSlot();
+    void restartNetGameSlot();
+    void endGameSlot();
 private slots:
     void on_btnLocalGame_clicked();
 

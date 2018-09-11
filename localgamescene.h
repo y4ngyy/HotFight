@@ -23,6 +23,7 @@ signals:
     void gameover2PSignal();
     void gameoverBothSignal();
 
+
 protected:
     // 游戏线程
     void timerEvent(QTimerEvent *);

@@ -13,6 +13,16 @@ this->setBackgroundBrush(QBrush(
 setStyleSheet("border: 0px;"
               "padding: 0px;");
 
+//将子类的信号传出去
+connect(&m_netGameScene,&NetGameScene::gameover1PSignal,[=](){
+    emit gameover1PSignal();
+});
+connect(&m_netGameScene,&NetGameScene::gameover2PSignal,[=](){
+    emit gameover2PSignal();
+});
+connect(&m_netGameScene,&NetGameScene::gameoverBothSignal,[=](){
+    emit gameoverBothSignal();
+});
 }
 //用来调用子类的set函数
 void NetGameWindow::setSceneNetType(NetGameScene::NETTYPE Type)
