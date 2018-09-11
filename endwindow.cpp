@@ -30,8 +30,8 @@ EndWindow::~EndWindow()
 
 void EndWindow::on_btnQuit_clicked()
 {
-   emit endGameSignal();
    this->close();
+   emit endGameSignal();
 }
 
 void EndWindow::setWinner(QString winner)

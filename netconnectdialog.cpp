@@ -89,21 +89,23 @@ void NetConnectDialog::showEndWindow1PSlot()
             emit restartSignal();
         });
         connect(m_endWindow, &EndWindow::returnToSignal,[=](){
-            emit returnToStartWindowSignal();
+
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            emit returnToStartWindowSignal();
         });
         connect(m_endWindow, &EndWindow::endGameSignal,[=](){
-            emit endGameSignal();
+
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
             this->close();
+            emit endGameSignal();
         });
     }
 }
@@ -119,21 +121,23 @@ void NetConnectDialog::showEndWindow2PSlot()
             emit restartSignal();
         });
         connect(m_endWindow, &EndWindow::returnToSignal,this,[=](){
-            emit returnToStartWindowSignal();
+
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            emit returnToStartWindowSignal();
         });
         connect(m_endWindow, &EndWindow::endGameSignal,[=](){
-            emit endGameSignal();
+
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
             this->close();
+            emit endGameSignal();
         });
     }
 }
@@ -149,21 +153,23 @@ void NetConnectDialog::showEndWindowBothSlot()
             emit restartSignal();
         });
         connect(m_endWindow, &EndWindow::returnToSignal,this,[=](){
-            emit returnToStartWindowSignal();
+
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            emit returnToStartWindowSignal();
         });
         connect(m_endWindow, &EndWindow::endGameSignal,[=](){
-            emit endGameSignal();
+
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
             this->close();
+            emit endGameSignal();
         });
     }
 

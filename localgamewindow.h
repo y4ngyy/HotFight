@@ -32,7 +32,6 @@ public slots:
     void restartSceneSlot();
 
 protected:
-    void closeEvent(QCloseEvent *);
 
 private:
     EndWindow *m_endWindow;    //结束窗口

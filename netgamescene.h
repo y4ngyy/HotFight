@@ -51,8 +51,6 @@ private:
     int m_objectPort;
     // 传输数据套接字
     QUdpSocket *m_udpSocket;
-    //游戏线程的id
-    int timerId;
     // 游戏元素
     NetPlayer1P m_item1;
     NetPlayer2P m_item2;

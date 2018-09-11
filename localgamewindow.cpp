@@ -52,21 +52,21 @@ void LocalGameWindow::showEndWindow1PSlot()
         m_endWindow->show();
         connect(m_endWindow,&EndWindow::restartSignal, this , &LocalGameWindow::restartSceneSlot);
         connect(m_endWindow, &EndWindow::returnToSignal,this,[=](){
-            emit returnToStartWindowSignal();
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            emit returnToStartWindowSignal();
         });
-        connect(m_endWindow, &EndWindow::endGameSignal,this,[=](){
-            emit endGameSignal();
+        connect(m_endWindow, &EndWindow::endGameSignal,this,[=](){           
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
             this->close();
+            emit endGameSignal();
         });
     }
 }
@@ -80,21 +80,23 @@ void LocalGameWindow::showEndWindow2PSlot()
         m_endWindow->show();
         connect(m_endWindow,&EndWindow::restartSignal, this , &LocalGameWindow::restartSceneSlot);
         connect(m_endWindow, &EndWindow::returnToSignal,this,[=](){
-            emit returnToStartWindowSignal();
+
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            emit returnToStartWindowSignal();
         });
         connect(m_endWindow, &EndWindow::endGameSignal,this,[=](){
-            emit endGameSignal();
+
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
             this->close();
+            emit endGameSignal();
         });
     }
 }
@@ -108,21 +110,23 @@ void LocalGameWindow::showEndWindowBothSlot()
         m_endWindow->show();
         connect(m_endWindow,&EndWindow::restartSignal, this , &LocalGameWindow::restartSceneSlot);
         connect(m_endWindow, &EndWindow::returnToSignal,this,[=](){
-            emit returnToStartWindowSignal();
+
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            emit returnToStartWindowSignal();
         });
         connect(m_endWindow, &EndWindow::endGameSignal,this,[=](){
-            emit endGameSignal();
+
             if(m_endWindow!=NULL)
             {
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
             this->close();
+            emit endGameSignal();
         });
 
     }
@@ -151,9 +155,4 @@ void LocalGameWindow::restartSceneSlot()
         delete m_endWindow;
         m_endWindow=NULL;
     }
-}
-
-void LocalGameWindow::closeEvent(QCloseEvent *event)
-{
-    m_localgamescene->stopTimer();
 }

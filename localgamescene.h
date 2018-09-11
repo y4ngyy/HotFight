@@ -3,12 +3,12 @@
 
 #include "gamescene.h"
 #include "healthybar.h"
-#include"energybar.h"
-#include"angerbar.h"
-#include"explodingitem.h"
-#include"guiflyitem.h"
+#include "energybar.h"
+#include "angerbar.h"
+#include "explodingitem.h"
+#include "guiflyitem.h"
 #include <QEvent>
-#include<QObject>
+#include <QObject>
 #include <QCloseEvent>
 
 class LocalGameScene : public GameScene
@@ -19,8 +19,6 @@ public:
     ~LocalGameScene();
 
     // 关闭窗口时killTimer,
-    void stopTimer();
-
 //自定义信号
 signals:
     void gameover1PSignal();
@@ -44,10 +42,6 @@ private:
     AngerBar m_angerBar_1;
     AngerBar m_angerBar_2;
     ExplodingItem m_explodingitem;
-
-
-    // 游戏线程ID
-    int timerId;
 };
 
 #endif // LOCALGAMESCENE_H

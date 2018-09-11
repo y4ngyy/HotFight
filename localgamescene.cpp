@@ -38,18 +38,17 @@ LocalGameScene::LocalGameScene()
     //添加爆炸物,并且设置为不可见
     addItem(&m_explodingitem);
     m_explodingitem.setVisible(false);
-    timerId = startTimer(100);
+    startTimer(100);
 }
 
 LocalGameScene::~LocalGameScene()
 {
-    killTimer(timerId);
 }
 
 void LocalGameScene::timerEvent(QTimerEvent *event)
 {
-    if(event->timerId() == timerId)
-    {
+//    if(event->timerId() == timerId)
+//    {
         //判断硬直状态
         if(m_item1.getTenacity()==0)
         {
@@ -206,22 +205,16 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
         //游戏结束的判定
         if( m_item1.getBlood()<=0 && m_item2.getBlood()>0)
         {
-            killTimer(timerId);
             emit gameover1PSignal();
         }
         else if(m_item2.getBlood()<=0 && m_item1.getBlood()>0)
         {
-            killTimer(timerId);
             emit gameover2PSignal();
         }
         else if(m_item1.getBlood()<=0 && m_item2.getBlood()<=0)
         {
-            killTimer(timerId);
             emit gameoverBothSignal();
         }
-    }
-
-
 }
 
 // 事件分发函数，同时控制两个item人物
@@ -242,7 +235,3 @@ bool LocalGameScene::event(QEvent *event)
     }
 }
 
-void LocalGameScene::stopTimer()
-{
-    killTimer(timerId);
-}
