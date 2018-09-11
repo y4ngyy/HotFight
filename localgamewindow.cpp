@@ -65,6 +65,7 @@ void LocalGameWindow::showEndWindow1PSlot()
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            this->close();
         });
     }
 }
@@ -92,6 +93,7 @@ void LocalGameWindow::showEndWindow2PSlot()
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            this->close();
         });
     }
 }
@@ -119,6 +121,7 @@ void LocalGameWindow::showEndWindowBothSlot()
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            this->close();
         });
 
     }

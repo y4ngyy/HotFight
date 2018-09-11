@@ -102,6 +102,7 @@ void NetConnectDialog::showEndWindow1PSlot()
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            this->close();
         });
     }
 }
@@ -131,6 +132,7 @@ void NetConnectDialog::showEndWindow2PSlot()
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            this->close();
         });
     }
 }
@@ -160,6 +162,7 @@ void NetConnectDialog::showEndWindowBothSlot()
                 delete m_endWindow;
                 m_endWindow=NULL;
             }
+            this->close();
         });
     }
 
