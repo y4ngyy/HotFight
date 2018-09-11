@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets network
+QT       += core gui widgets network multimedia
 
 TARGET = HotFight
 TEMPLATE = app
@@ -44,7 +44,8 @@ SOURCES += \
     netplayer1p.cpp \
     netplayer2p.cpp \
     guiflyitem.cpp \
-    angerbar.cpp
+    angerbar.cpp \
+    help.cpp
 
 HEADERS += \
     playeritem.h \
@@ -67,7 +68,8 @@ HEADERS += \
     netplayer1p.h \
     netplayer2p.h \
     guiflyitem.h \
-    angerbar.h
+    angerbar.h \
+    help.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -80,4 +82,5 @@ RESOURCES += \
 FORMS += \
     startwindow.ui \
     netconnectdialog.ui \
-    endwindow.ui
+    endwindow.ui \
+    help.ui

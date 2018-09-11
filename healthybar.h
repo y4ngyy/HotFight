@@ -20,7 +20,7 @@ protected:
     QRectF boundingRect() const;
 private:
     // 宽度 高度
-    static const int MAX_WIDTH = 200; // 生命值为100时
+    static const int MAX_WIDTH = 350; // 生命值为100时
     int m_width;  // 根据blood的数值转换
     int m_height;
     BAR_TYPE m_type;

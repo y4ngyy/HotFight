@@ -1,5 +1,6 @@
 #include "endwindow.h"
 #include "ui_endwindow.h"
+#include<QDebug>
 
 EndWindow::EndWindow(QWidget *parent) :
     QWidget(parent),
@@ -18,6 +19,7 @@ EndWindow::EndWindow(QWidget *parent) :
                           Qt::IgnoreAspectRatio,
                           Qt::SmoothTransformation)));
     setPalette(back);
+    setWindowModality(Qt::WindowModal);
 }
 
 EndWindow::~EndWindow()
@@ -25,18 +27,25 @@ EndWindow::~EndWindow()
     delete ui;
 }
 
-void EndWindow::on_btnRestart_clicked()
-{
-
-}
-
-void EndWindow::on_btnReturn_clicked()
-{
-
-}
-
 
 void EndWindow::on_btnQuit_clicked()
 {
    this->close();
+   emit endGameSignal();
+}
+
+void EndWindow::setWinner(QString winner)
+{
+    ui->hintLabel->setText(winner);
+}
+
+void EndWindow::on_btnRestart_clicked()
+{
+    qDebug()<<"EndWindow发送信号";
+    emit restartSignal();
+}
+
+void EndWindow::on_btnReturn_clicked()
+{
+    emit returnToSignal();
 }

@@ -11,10 +11,11 @@
 #include <QEvent>
 #include <QUdpSocket>
 #include <QGraphicsScene>
+#include<QObject>
 
 class NetGameScene : public GameScene
 {
-
+ Q_OBJECT
 public:
 //    bool isSceneUdpConnected;
     //构造函数需要ip 和 port作为参数， 并且默认的Ip是127.0.0.1 默认端口是8888
@@ -33,7 +34,10 @@ public:
     void setObjectPort(const int);
     int getObjectPort(void)const;
 
-
+signals:
+    void gameover1PSignal();
+    void gameover2PSignal();
+    void gameoverBothSignal();
 
 protected:
     //游戏线程
@@ -47,8 +51,6 @@ private:
     int m_objectPort;
     // 传输数据套接字
     QUdpSocket *m_udpSocket;
-    //游戏线程的id
-    int timerId;
     // 游戏元素
     NetPlayer1P m_item1;
     NetPlayer2P m_item2;

@@ -1,36 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/player1/running_1.png</file>
-        <file>images/player1/running_2.png</file>
-        <file>images/player1/running_3.png</file>
-        <file>images/player1/standing.png</file>
-        <file>images/player2/punching_1.png</file>
-        <file>images/player2/punching_2.png</file>
-        <file>images/player2/punching_3.png</file>
-        <file>images/player2/running_1.png</file>
-        <file>images/player2/running_2.png</file>
-        <file>images/player2/running_3.png</file>
-        <file>images/player2/running_4.png</file>
-        <file>images/player2/standing.png</file>
-        <file>images/player1/punching_1.png</file>
-        <file>images/player1/punching_2.png</file>
-        <file>images/player1/punching_3.png</file>
-        <file>images/player1/punching_4.png</file>
-        <file>images/player1/ishitting_1.png</file>
-        <file>images/player1/ishitting_2.png</file>
-        <file>images/player1/ishitting_3.png</file>
-        <file>images/player2/ishitting_1.png</file>
-        <file>images/player2/ishitting_2.png</file>
-        <file>images/player2/ishitting_3.png</file>
-        <file>images/player1/kicking_1.png</file>
-        <file>images/player1/kicking_2.png</file>
-        <file>images/player1/kicking_3.png</file>
-        <file>images/player1/kicking_4.png</file>
-        <file>images/player2/kicking_1.png</file>
-        <file>images/player2/kicking_2.png</file>
-        <file>images/player2/kicking_3.png</file>
-        <file>images/player2/punching_4.png</file>
-        <file>images/player2/kicking_4.png</file>
         <file>images/startui_btn.png</file>
         <file>images/startui_btn_hover.png</file>
         <file>images/startui_background.gif</file>
@@ -277,5 +246,8 @@
         <file>images/player3/ultimateskill/15.png</file>
         <file>images/player3/ultimateskill/16.png</file>
         <file>images/player3/ultimateskill/17.png</file>
+        <file>images/icon.png</file>
+        <file>sound/riot_hit_sound.wav</file>
+        <file>sound/sword_hit_sound.wav</file>
     </qresource>
 </RCC>

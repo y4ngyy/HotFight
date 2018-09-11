@@ -70,7 +70,7 @@ QLabel{border-image:url(:/images/label_background.png)}
           <enum>Qt::RightToLeft</enum>
          </property>
          <property name="text">
-          <string>双人热血格斗</string>
+          <string>硬核格斗</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -124,13 +124,14 @@ QLabel{border-image:url(:/images/label_background.png)}
         <widget class="QPushButton" name="btnLocalGame">
          <property name="minimumSize">
           <size>
-           <width>130</width>
+           <width>150</width>
            <height>40</height>
           </size>
          </property>
          <property name="font">
           <font>
            <family>Adobe 楷体 Std R</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <property name="autoFillBackground">
@@ -191,13 +192,14 @@ QLabel{border-image:url(:/images/label_background.png)}
         <widget class="QPushButton" name="btnNetGame">
          <property name="minimumSize">
           <size>
-           <width>130</width>
+           <width>150</width>
            <height>40</height>
           </size>
          </property>
          <property name="font">
           <font>
            <family>Adobe 楷体 Std R</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -255,13 +257,14 @@ QLabel{border-image:url(:/images/label_background.png)}
         <widget class="QPushButton" name="btnHelp">
          <property name="minimumSize">
           <size>
-           <width>130</width>
+           <width>150</width>
            <height>40</height>
           </size>
          </property>
          <property name="font">
           <font>
            <family>Adobe 楷体 Std R</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <property name="styleSheet">
