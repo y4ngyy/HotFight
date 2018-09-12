@@ -9,7 +9,7 @@ GameScene::GameScene()
     m_swordHitSound = new QSound(":/sound/sword_hit_sound.wav");
     m_backgroundMusic = new QMediaPlayer(this);
     m_backgroundList = new QMediaPlaylist(this);
-    m_backgroundList->addMedia(QUrl::fromLocalFile("F://fight_background.mp3"));
+    m_backgroundList->addMedia(QUrl::fromLocalFile("./fight_background.mp3"));
     m_backgroundList->setCurrentIndex(0);
     m_backgroundList->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
     m_backgroundMusic->setPlaylist(m_backgroundList);

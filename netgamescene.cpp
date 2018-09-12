@@ -72,9 +72,14 @@ void NetGameScene::timerEvent(QTimerEvent *event)
     {
         Rule::recoverEnergy(m_item1);
         Rule::recoverTenacity(m_item1);
+        //判断硬直
         if(m_item1.getTenacity()==0)
         {
             m_item1.setAttackedState(PlayerItem::ISATTACKED);
+        }
+        if(m_item2.getTenacity()==0)
+        {
+            m_item2.setAttackedState(PlayerItem::ISATTACKED);
         }
     }
     else if(m_netType==C2)
@@ -84,6 +89,10 @@ void NetGameScene::timerEvent(QTimerEvent *event)
          if(m_item1.getTenacity()==0)
          {
              m_item1.setAttackedState(PlayerItem::ISATTACKED);
+         }
+         if(m_item2.getTenacity()==0)
+         {
+             m_item2.setAttackedState(PlayerItem::ISATTACKED);
          }
     }
     qDebug()<<"1:"<<m_item1.getBlood()<<"||"<<m_item1.getEnergy()<<"||"<<m_item1.getTenacity();
