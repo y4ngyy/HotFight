@@ -9,13 +9,16 @@ GameScene::GameScene()
     m_swordHitSound = new QSound(":/sound/sword_hit_sound.wav");
     m_backgroundMusic = new QMediaPlayer(this);
     m_backgroundList = new QMediaPlaylist(this);
-    m_backgroundList->addMedia(QUrl::fromLocalFile("./fight_background.mp3"));
+    m_backgroundList->addMedia(QUrl::fromLocalFile("F://fight_background.mp3"));
     m_backgroundList->setCurrentIndex(0);
     m_backgroundList->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
     m_backgroundMusic->setPlaylist(m_backgroundList);
     m_backgroundMusic->play();
     m_vs.setPixmap(QPixmap(":/images/vs.png"));
     m_vs.setPos(360,0);
+
+    //设置游戏结束的flag
+    m_isGameOver = false;
 }
 
 GameScene::~GameScene()
@@ -26,6 +29,17 @@ GameScene::~GameScene()
         m_guiFlyItem=NULL;
     }
 }
+
+//set和get函数
+bool  GameScene::getIsGameOverFlag()const
+{
+    return m_isGameOver;
+}
+void  GameScene::setIsGameOverFlag(bool flag)
+{
+    m_isGameOver=flag;
+}
+
 bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2) //判断攻击的函数判断item1对item2的攻击判定,并且设定item2的状态
 {
     //孙悟空的远程攻击的攻击判定，不得已这样写

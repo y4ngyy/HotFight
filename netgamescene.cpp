@@ -63,6 +63,10 @@ NetGameScene::~NetGameScene()
 
 void NetGameScene::timerEvent(QTimerEvent *event)
 {
+    if(m_isGameOver)
+    {
+        return ;
+    }
    // 增加游戏线程，只需要判断操作的一方
     if(m_netType==C1)
     {
@@ -237,14 +241,17 @@ void NetGameScene::timerEvent(QTimerEvent *event)
     //游戏结束的判定
     if( m_item1.getBlood()<=0 && m_item2.getBlood()>0)
     {
+        m_isGameOver=true;
         emit gameover1PSignal();
     }
     else if(m_item2.getBlood()<=0 && m_item1.getBlood()>0)
     {
+        m_isGameOver=true;
         emit gameover2PSignal();
     }
     else if(m_item1.getBlood()<=0 && m_item2.getBlood()<=0)
     {
+        m_isGameOver=true;
         emit gameoverBothSignal();
     }
 

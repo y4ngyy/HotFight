@@ -18,6 +18,7 @@ public:
     LocalGameScene();
     ~LocalGameScene();
 
+
     // 关闭窗口时killTimer,
 //自定义信号
 signals:
@@ -31,6 +32,8 @@ protected:
     void timerEvent(QTimerEvent *);
 
     bool event(QEvent *);
+
+
 
 private:
     Player1P m_item1;

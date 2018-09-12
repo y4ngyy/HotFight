@@ -11,6 +11,7 @@ Player1P::Player1P()
     setCharacterFlag(PlayerItem::C1);
     setHeight(p_standing.at(0).height());
     m_direction=PlayerItem::RIGHT;
+    setPositonInfo(200,350);
 
 }
 

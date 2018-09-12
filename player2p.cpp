@@ -7,6 +7,8 @@ Player2P::Player2P()
     setCharacterFlag(PlayerItem::C2);
     setHeight(p_standing.at(0).height());
     m_direction=PlayerItem::LEFT;
+    setPositonInfo(500,350);
+
 }
 
  Player2P::~Player2P()
