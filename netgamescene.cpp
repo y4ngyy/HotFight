@@ -251,16 +251,28 @@ void NetGameScene::timerEvent(QTimerEvent *event)
     if( m_item1.getBlood()<=0 && m_item2.getBlood()>0)
     {
         m_isGameOver=true;
+        if(m_netType == C1)
+            Net::sendJsInfo(m_udpSocket, m_item1);
+        else
+            Net::sendJsInfo(m_udpSocket, m_item2);
         emit gameover1PSignal();
     }
     else if(m_item2.getBlood()<=0 && m_item1.getBlood()>0)
     {
         m_isGameOver=true;
+        if(m_netType == C1)
+            Net::sendJsInfo(m_udpSocket, m_item1);
+        else
+            Net::sendJsInfo(m_udpSocket, m_item2);
         emit gameover2PSignal();
     }
     else if(m_item1.getBlood()<=0 && m_item2.getBlood()<=0)
     {
         m_isGameOver=true;
+        if(m_netType == C1)
+            Net::sendJsInfo(m_udpSocket, m_item1);
+        else
+            Net::sendJsInfo(m_udpSocket, m_item2);
         emit gameoverBothSignal();
     }
 
