@@ -38,7 +38,7 @@ PlayerItem::PlayerItem()
 //    m_isJumpStart = true;
 
     // 人物属性初始化
-    m_blood = 100;
+    m_blood = 30;
     m_energy = 100;
     m_tenacity = 100; // 硬直
     m_anger=0;// 怒气

@@ -18,7 +18,8 @@ GameScene::GameScene()
     m_vs.setPos(360,0);
 
     //设置游戏结束的flag
-    m_isGameOver = false;
+    m_isGameOver1P = false;
+    m_isGameOver2P = false;
 }
 
 GameScene::~GameScene()
@@ -31,15 +32,22 @@ GameScene::~GameScene()
 }
 
 //set和get函数
-bool  GameScene::getIsGameOverFlag()const
+bool  GameScene::getIsGameOver1PFlag()const
 {
-    return m_isGameOver;
+    return m_isGameOver1P;
 }
-void  GameScene::setIsGameOverFlag(bool flag)
+void  GameScene::setIsGameOver1PFlag(bool flag)
 {
-    m_isGameOver=flag;
+    m_isGameOver1P=flag;
 }
-
+bool  GameScene::getIsGameOver2PFlag()const
+{
+    return m_isGameOver2P;
+}
+void  GameScene::setIsGameOver2PFlag(bool flag)
+{
+    m_isGameOver2P=flag;
+}
 bool GameScene::isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2) //判断攻击的函数判断item1对item2的攻击判定,并且设定item2的状态
 {
     //孙悟空的远程攻击的攻击判定，不得已这样写

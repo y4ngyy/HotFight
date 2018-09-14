@@ -8,7 +8,7 @@ Net::Net()
 
 QString Net::m_objectIp = "127.0.0.1";
 quint16 Net::m_objectPort = 8888;
-void Net::setNetWorkInfo(QJsonObject json, PlayerItem &item)
+void Net::setNetWorkInfo(QJsonObject json, PlayerItem &item,GameScene& scene)
 {
     item.setPositonInfo(json.take("m_x").toDouble(), json.take("m_y").toDouble());
     item.setState(static_cast<PlayerItem::STATE>(json.take("m_state").toInt()));
@@ -18,9 +18,11 @@ void Net::setNetWorkInfo(QJsonObject json, PlayerItem &item)
     item.setEnergy(json.take("m_energy").toInt());
     item.setTenacity(json.take("m_tenacity").toInt());
     item.setJumpCurrentV(json.take("m_jumpCurrentV").toDouble());
+    scene.setIsGameOver1PFlag(json.take("m_isGameOver1P").toBool());
+    scene.setIsGameOver2PFlag(json.take("m_isGameOver2P").toBool());
 }
 
-void Net::sendJsInfo(QUdpSocket *udp, PlayerItem &item)
+void Net::sendJsInfo(QUdpSocket *udp, PlayerItem &item,GameScene& scene)
 {
     QJsonObject js;
     js.insert("m_x", item.getX());
@@ -33,10 +35,15 @@ void Net::sendJsInfo(QUdpSocket *udp, PlayerItem &item)
     js.insert("m_energy", item.getEnergy());
     js.insert("m_tenacity", item.getTenacity());
 
+
     //增加跳跃的CurrentV (在跳跃属性中 m_x,m_y都可以由远程端发送的信息决定，所以把在NetGameScene中
     //不用调用jump函数（run同理）但是因为jump的动画受到JumpCurrentV的控制，而JumpCurrentV又由Jump函数
     //决定，因此为了比较容易地解决jump动画的问题，直接增加传递jumpcurrentV
     js.insert("m_jumpCurrentV",item.getJumpCurrentV());
+
+    //增加传一个游戏结束的flag
+    js.insert("m_isGameOver1P",scene.getIsGameOver1PFlag());
+    js.insert("m_isGameOver2P",scene.getIsGameOver2PFlag());
 
 
     // 后面增加状态

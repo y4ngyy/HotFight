@@ -20,6 +20,8 @@ NetGameScene::NetGameScene(QString ip, int port)
     // 初始化人物位置
     m_item1.setPositonInfo(200, 350);
     m_item2.setPositonInfo(500, 350);
+    m_item1.updatePos();
+    m_item2.updatePos();
     //设置血条精力条的位置
     m_healthBar_1.setType(P1);
     m_healthBar_2.setType(P2);
@@ -63,7 +65,7 @@ NetGameScene::~NetGameScene()
 
 void NetGameScene::timerEvent(QTimerEvent *event)
 {
-    if(m_isGameOver)
+    if(m_isGameOver1P || m_isGameOver2P)
     {
         return ;
     }
@@ -234,45 +236,47 @@ void NetGameScene::timerEvent(QTimerEvent *event)
         m_item2.run();
         m_item2.attackingMove();
     }
-
-
+    //设置游戏结束的flag
+    if(m_item1.getBlood()<=0 && m_item2.getBlood()>0)
+    {
+        setIsGameOver1PFlag(true);
+        setIsGameOver2PFlag(false);
+    }
+    else if(m_item2.getBlood()<=0 && m_item1.getBlood()>0)
+    {
+        setIsGameOver1PFlag(false);
+        setIsGameOver2PFlag(true);
+    }
+    else if((m_item1.getBlood()<=0 && m_item2.getBlood()<=0))
+    {
+        setIsGameOver1PFlag(true);
+        setIsGameOver2PFlag(true);
+    }
 
     // 传输数据
     if(m_netType == C1)
-        Net::sendJsInfo(m_udpSocket, m_item1);
+        Net::sendJsInfo(m_udpSocket, m_item1,*this);
     else
-        Net::sendJsInfo(m_udpSocket, m_item2);
+        Net::sendJsInfo(m_udpSocket, m_item2,*this);
+
     Rule::restrictBorder(m_item1);
     Rule::restrictBorder(m_item2);
     m_item1.updatePos();
     m_item2.updatePos();
 
     //游戏结束的判定
-    if( m_item1.getBlood()<=0 && m_item2.getBlood()>0)
+    if(getIsGameOver1PFlag() && !getIsGameOver2PFlag())
     {
-        m_isGameOver=true;
-        if(m_netType == C1)
-            Net::sendJsInfo(m_udpSocket, m_item1);
-        else
-            Net::sendJsInfo(m_udpSocket, m_item2);
         emit gameover1PSignal();
     }
-    else if(m_item2.getBlood()<=0 && m_item1.getBlood()>0)
+    else if(! getIsGameOver1PFlag() && getIsGameOver2PFlag())
     {
-        m_isGameOver=true;
-        if(m_netType == C1)
-            Net::sendJsInfo(m_udpSocket, m_item1);
-        else
-            Net::sendJsInfo(m_udpSocket, m_item2);
+
         emit gameover2PSignal();
     }
-    else if(m_item1.getBlood()<=0 && m_item2.getBlood()<=0)
+    else if(getIsGameOver1PFlag() && getIsGameOver2PFlag())
     {
-        m_isGameOver=true;
-        if(m_netType == C1)
-            Net::sendJsInfo(m_udpSocket, m_item1);
-        else
-            Net::sendJsInfo(m_udpSocket, m_item2);
+
         emit gameoverBothSignal();
     }
 
@@ -316,9 +320,9 @@ void NetGameScene::onReceiveUdp()
     m_udpSocket->readDatagram(array.data(),size);
     QJsonDocument doc = QJsonDocument::fromJson(array);
     if(m_netType == C1)
-        Net::setNetWorkInfo(doc.object(), m_item2);
+        Net::setNetWorkInfo(doc.object(), m_item2,*this);
     else
-        Net::setNetWorkInfo(doc.object(), m_item1);
+        Net::setNetWorkInfo(doc.object(), m_item1,*this);
 }
 //关闭套接字的函数
 void NetGameScene::closeUdpSocket()

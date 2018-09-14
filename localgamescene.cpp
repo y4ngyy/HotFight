@@ -9,6 +9,8 @@ LocalGameScene::LocalGameScene()
     // 初始化人物位置
     m_item1.setPositonInfo(200, 350);
     m_item2.setPositonInfo(500, 350);
+    m_item1.updatePos();
+    m_item2.updatePos();
     //设置血条精力条怒气条的位置
     m_healthBar_1.setType(P1);
     m_healthBar_2.setType(P2);
@@ -51,7 +53,7 @@ LocalGameScene::~LocalGameScene()
 void LocalGameScene::timerEvent(QTimerEvent *event)
 {
     //如果游戏结束的话
-    if(m_isGameOver)
+    if( m_isGameOver1P || m_isGameOver2P)
     {
         return;
     }
@@ -189,6 +191,23 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
     m_angerBar_1.setAnger(m_item1.getAnger());
     m_angerBar_2.setAnger(m_item2.getAnger());
 
+    //设置游戏结束的flag
+    if(m_item1.getBlood()<=0 && m_item2.getBlood()>0)
+    {
+        setIsGameOver1PFlag(true);
+        setIsGameOver2PFlag(false);
+    }
+    else if(m_item2.getBlood()<=0 && m_item1.getBlood()>0)
+    {
+        setIsGameOver1PFlag(false);
+        setIsGameOver2PFlag(true);
+    }
+    else if((m_item1.getBlood()<=0 && m_item2.getBlood()<=0))
+    {
+        setIsGameOver1PFlag(true);
+        setIsGameOver2PFlag(true);
+    }
+
     // 游戏线程 刷新视图和人物跑动 碰撞 跳跃
     m_item1.jump();
     m_item2.jump();
@@ -203,19 +222,18 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
     m_item2.updatePos();
 
     //游戏结束的判定
-    if( m_item1.getBlood()<=0 && m_item2.getBlood()>0)
+    if(getIsGameOver1PFlag() && !getIsGameOver2PFlag())
     {
-        m_isGameOver=true;
         emit gameover1PSignal();
     }
-    else if(m_item2.getBlood()<=0 && m_item1.getBlood()>0)
+    else if(! getIsGameOver1PFlag() && getIsGameOver2PFlag())
     {
-        m_isGameOver=true;
+
         emit gameover2PSignal();
     }
-    else if(m_item1.getBlood()<=0 && m_item2.getBlood()<=0)
+    else if(getIsGameOver1PFlag() && getIsGameOver2PFlag())
     {
-        m_isGameOver=true;
+
         emit gameoverBothSignal();
     }
 }

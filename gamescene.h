@@ -25,8 +25,10 @@ public:
     GameScene();
     ~GameScene();
 
-    bool getIsGameOverFlag()const;
-    void setIsGameOverFlag(bool);
+    bool getIsGameOver1PFlag()const;
+    void setIsGameOver1PFlag(bool);
+    bool getIsGameOver2PFlag()const;
+    void setIsGameOver2PFlag(bool);
 protected:
     //与游戏规则有关的函数
     bool isAttacked( PlayerItem& attackingitem, PlayerItem& attackeditem2); //判断攻击的函数
@@ -35,7 +37,8 @@ protected:
     GuiFlyItem* m_guiFlyItem;
 
     QGraphicsPixmapItem m_vs;
-    bool m_isGameOver;
+    bool m_isGameOver1P;
+    bool m_isGameOver2P;
 private: 
     // scene大小
     QRectF size;
