@@ -53,9 +53,9 @@ LocalGameScene::~LocalGameScene()
 void LocalGameScene::timerEvent(QTimerEvent *event)
 {
     //如果游戏结束的话
-    if( m_isGameOver1P || m_isGameOver2P)
+    if(m_stopTimer)
     {
-        return;
+        return ;
     }
 
     //判断硬直状态
@@ -224,16 +224,17 @@ void LocalGameScene::timerEvent(QTimerEvent *event)
     //游戏结束的判定
     if(getIsGameOver1PFlag() && !getIsGameOver2PFlag())
     {
+        m_stopTimer=true;
         emit gameover1PSignal();
     }
     else if(! getIsGameOver1PFlag() && getIsGameOver2PFlag())
     {
-
+        m_stopTimer=true;
         emit gameover2PSignal();
     }
     else if(getIsGameOver1PFlag() && getIsGameOver2PFlag())
     {
-
+        m_stopTimer=true;
         emit gameoverBothSignal();
     }
 }

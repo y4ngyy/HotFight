@@ -20,6 +20,7 @@ GameScene::GameScene()
     //设置游戏结束的flag
     m_isGameOver1P = false;
     m_isGameOver2P = false;
+    m_stopTimer=false;
 }
 
 GameScene::~GameScene()

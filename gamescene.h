@@ -39,6 +39,9 @@ protected:
     QGraphicsPixmapItem m_vs;
     bool m_isGameOver1P;
     bool m_isGameOver2P;
+
+    //停止timer的标志位
+    bool m_stopTimer;
 private: 
     // scene大小
     QRectF size;
